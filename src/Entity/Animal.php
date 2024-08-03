@@ -46,9 +46,16 @@ class Animal
     #[ORM\OneToMany(targetEntity: Suivi::class, mappedBy: 'animalId', orphanRemoval: true)]
     private Collection $suivis;
 
+    /**
+     * @var Collection<int, Friandise>
+     */
+    #[ORM\ManyToMany(targetEntity: Friandise::class, inversedBy: 'animals')]
+    private Collection $friandise;
+
     public function __construct()
     {
         $this->suivis = new ArrayCollection();
+        $this->friandise = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -178,6 +185,30 @@ class Animal
                 $suivi->setAnimalId(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Friandise>
+     */
+    public function getFriandise(): Collection
+    {
+        return $this->friandise;
+    }
+
+    public function addFriandise(Friandise $friandise): static
+    {
+        if (!$this->friandise->contains($friandise)) {
+            $this->friandise->add($friandise);
+        }
+
+        return $this;
+    }
+
+    public function removeFriandise(Friandise $friandise): static
+    {
+        $this->friandise->removeElement($friandise);
 
         return $this;
     }
