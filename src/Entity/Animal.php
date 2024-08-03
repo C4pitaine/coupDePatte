@@ -58,11 +58,18 @@ class Animal
     #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'animal', orphanRemoval: true)]
     private Collection $images;
 
+    /**
+     * @var Collection<int, Indispensable>
+     */
+    #[ORM\ManyToMany(targetEntity: Indispensable::class, inversedBy: 'animals')]
+    private Collection $indispensables;
+
     public function __construct()
     {
         $this->suivis = new ArrayCollection();
         $this->friandise = new ArrayCollection();
         $this->images = new ArrayCollection();
+        $this->indispensables = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -246,6 +253,30 @@ class Animal
                 $image->setAnimal(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Indispensable>
+     */
+    public function getIndispensables(): Collection
+    {
+        return $this->indispensables;
+    }
+
+    public function addIndispensable(Indispensable $indispensable): static
+    {
+        if (!$this->indispensables->contains($indispensable)) {
+            $this->indispensables->add($indispensable);
+        }
+
+        return $this;
+    }
+
+    public function removeIndispensable(Indispensable $indispensable): static
+    {
+        $this->indispensables->removeElement($indispensable);
 
         return $this;
     }
