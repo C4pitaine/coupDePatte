@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AnimalRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -37,6 +39,17 @@ class Animal
 
     #[ORM\Column]
     private ?bool $adopted = null;
+
+    /**
+     * @var Collection<int, Suivi>
+     */
+    #[ORM\OneToMany(targetEntity: Suivi::class, mappedBy: 'animalId', orphanRemoval: true)]
+    private Collection $suivis;
+
+    public function __construct()
+    {
+        $this->suivis = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -135,6 +148,36 @@ class Animal
     public function setAdopted(bool $adopted): static
     {
         $this->adopted = $adopted;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Suivi>
+     */
+    public function getSuivis(): Collection
+    {
+        return $this->suivis;
+    }
+
+    public function addSuivi(Suivi $suivi): static
+    {
+        if (!$this->suivis->contains($suivi)) {
+            $this->suivis->add($suivi);
+            $suivi->setAnimalId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSuivi(Suivi $suivi): static
+    {
+        if ($this->suivis->removeElement($suivi)) {
+            // set the owning side to null (unless already changed)
+            if ($suivi->getAnimalId() === $this) {
+                $suivi->setAnimalId(null);
+            }
+        }
 
         return $this;
     }
