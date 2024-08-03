@@ -185,7 +185,7 @@ class Animal
     {
         if (!$this->suivis->contains($suivi)) {
             $this->suivis->add($suivi);
-            $suivi->setAnimalId($this);
+            $suivi->setAnimal($this);
         }
 
         return $this;
@@ -195,8 +195,8 @@ class Animal
     {
         if ($this->suivis->removeElement($suivi)) {
             // set the owning side to null (unless already changed)
-            if ($suivi->getAnimalId() === $this) {
-                $suivi->setAnimalId(null);
+            if ($suivi->getAnimal() === $this) {
+                $suivi->setAnimal(null);
             }
         }
 
