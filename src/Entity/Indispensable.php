@@ -24,9 +24,16 @@ class Indispensable
     #[ORM\ManyToMany(targetEntity: Animal::class, mappedBy: 'indispensables')]
     private Collection $animals;
 
+    /**
+     * @var Collection<int, Adoption>
+     */
+    #[ORM\ManyToMany(targetEntity: Adoption::class, mappedBy: 'indispensables')]
+    private Collection $adoptions;
+
     public function __construct()
     {
         $this->animals = new ArrayCollection();
+        $this->adoptions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -68,6 +75,33 @@ class Indispensable
     {
         if ($this->animals->removeElement($animal)) {
             $animal->removeIndispensable($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Adoption>
+     */
+    public function getAdoptions(): Collection
+    {
+        return $this->adoptions;
+    }
+
+    public function addAdoption(Adoption $adoption): static
+    {
+        if (!$this->adoptions->contains($adoption)) {
+            $this->adoptions->add($adoption);
+            $adoption->addIndispensable($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdoption(Adoption $adoption): static
+    {
+        if ($this->adoptions->removeElement($adoption)) {
+            $adoption->removeIndispensable($this);
         }
 
         return $this;

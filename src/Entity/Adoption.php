@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AdoptionRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -31,6 +33,17 @@ class Adoption
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
+
+    /**
+     * @var Collection<int, Indispensable>
+     */
+    #[ORM\ManyToMany(targetEntity: Indispensable::class, inversedBy: 'adoptions')]
+    private Collection $indispensables;
+
+    public function __construct()
+    {
+        $this->indispensables = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -105,6 +118,30 @@ class Adoption
     public function setDescription(string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Indispensable>
+     */
+    public function getIndispensables(): Collection
+    {
+        return $this->indispensables;
+    }
+
+    public function addIndispensable(Indispensable $indispensable): static
+    {
+        if (!$this->indispensables->contains($indispensable)) {
+            $this->indispensables->add($indispensable);
+        }
+
+        return $this;
+    }
+
+    public function removeIndispensable(Indispensable $indispensable): static
+    {
+        $this->indispensables->removeElement($indispensable);
 
         return $this;
     }
