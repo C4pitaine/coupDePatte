@@ -26,6 +26,12 @@ class Contact
     #[ORM\Column(type: Types::TEXT)]
     private ?string $message = null;
 
+    #[ORM\Column]
+    private ?bool $seen = null;
+
+    #[ORM\Column]
+    private ?bool $answered = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,6 +81,30 @@ class Contact
     public function setMessage(string $message): static
     {
         $this->message = $message;
+
+        return $this;
+    }
+
+    public function isSeen(): ?bool
+    {
+        return $this->seen;
+    }
+
+    public function setSeen(bool $seen): static
+    {
+        $this->seen = $seen;
+
+        return $this;
+    }
+
+    public function isAnswered(): ?bool
+    {
+        return $this->answered;
+    }
+
+    public function setAnswered(bool $answered): static
+    {
+        $this->answered = $answered;
 
         return $this;
     }
