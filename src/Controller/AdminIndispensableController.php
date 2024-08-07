@@ -43,6 +43,52 @@ class AdminIndispensableController extends AbstractController
         ]);
     }
 
+    /**
+     * Permet de modifier un indispensable
+     *
+     * @param Indispensable $indispensable
+     * @param EntityManagerInterface $manager
+     * @param Request $request
+     * @return Response
+     */
+    #[Route('admin/indispensable/{id}/update',name:'admin_indispensable_update')]
+    public function update(Indispensable $indispensable,EntityManagerInterface $manager,Request $request):Response
+    {
+        $form = $this->createForm(IndispensableType::class,$indispensable);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $manager->persist($indispensable);
+            $manager->flush();
+
+            $this->addFlash('warning',"L'indispensable : ".$indispensable->getTitle()." a bien été modifié");
+            return $this->redirectToRoute('admin_indispensable_index');
+        }
+
+        return $this->render('admin/indispensable/update.html.twig',[
+            "myForm" => $form->createView(),
+        ]);
+    }
+
+    /**
+     * Permet de supprimer un indispensable
+     *
+     * @param EntityManagerInterface $manager
+     * @param Indispensable $indispensable
+     * @return Response
+     */
+    #[Route('admin/indispensable/{id}/delete',name:'admin_indispensable_delete')]
+    public function delete(EntityManagerInterface $manager,Indispensable $indispensable):Response
+    {
+        $this->addFlash('danger',"L'indispensable : ".$indispensable->getTitle()." a bien été supprimé");
+
+        $manager->remove($indispensable);
+        $manager->flush();
+
+        return $this->redirectToRoute('admin_indispensable_index');
+    }
+
     #[Route('/admin/indispensable/{page<\d+>?1}/{recherche}', name: 'admin_indispensable_index')]
     public function index(Request $request,PaginationService $pagination,int $page,string $recherche=""): Response
     {

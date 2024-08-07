@@ -43,3 +43,20 @@ chevronMenu.forEach((chevron,key)=>{
         menuLink[key].classList.toggle('linkOpen')
     })
 })
+
+// Gestion Alerte de suppresion admin
+const deleteButtons = document.querySelectorAll('.deleteButton')
+const alertDelete = document.querySelectorAll('.alertDelete')
+const annulerDelete = document.querySelectorAll('.annulerDelete')
+
+deleteButtons.forEach((deleteButton,key)=>{
+    deleteButton.addEventListener('click',()=>{
+        alertDelete[key].classList.add('active')
+    })
+})
+
+annulerDelete.forEach((annulerDelete,key)=>{
+    annulerDelete.addEventListener('click',()=>{
+        alertDelete[key].classList.remove('active')
+    })
+})
