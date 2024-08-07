@@ -1,0 +1,47 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Animaux{% endblock %}
+
+
+{% block body %}
+    <div class="container-fluid full slideAdmin">
+        <div class="wrapper">
+            <h1 class="mt-5 mb-3">Gestion des animaux</h1>
+            {% include "admin/partials/_search.html.twig" %}
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nom</th>
+                        <th>Genre</th>
+                        <th>Age</th>
+                        <th>Race</th>
+                        <th>Description</th>
+                        <th>Date d'adoption</th>
+                        <th>Adopté</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for animal in pagination.data %}
+                        <tr>
+                            <td>{{article.id}}</td>
+                            <td>{{article.name}}</td>
+                            <td>{{article.genre}}</td>
+                            <td>{{article.age}}</td>
+                            <td>{{article.race}}</td>
+                            <td>{{article.description}}</td>
+                            <td>{{article.adoption_date}}</td>
+                            <td>{{article.adopted}}</td>
+                            <td class="text-center"> 
+                                
+                            </td>
+                        </tr>
+                        
+                    {% endfor %}
+                </tbody>
+            </table>
+            {{pagination.display}}
+        </div>
+    </div>
+{% endblock %}

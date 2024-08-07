@@ -1,0 +1,12 @@
+<div class="my-4">
+    {{form_start(formSearch)}}
+        <div class="d-flex">
+            {% if pagination.search == "" %}
+                {{form_widget(formSearch.search)}}
+            {% else %}
+                {{form_widget(formSearch.search,{ 'attr': {'placeholder': pagination.search} })}}
+            {% endif %}
+            <button type="submit" class="btn btn-primary ms-4">Rechercher</button>
+        </div>
+    {{form_end(formSearch)}}
+</div>
