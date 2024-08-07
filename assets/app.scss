@@ -41,6 +41,7 @@ header{
             width: 100%;
             display: flex;
             justify-content: end;
+            z-index: 198;
             ul{
                 display: flex;
                 list-style: none;
@@ -92,10 +93,6 @@ header{
                         li{
                             display: none;
                             background-color: #315026;
-
-                            a{
-                                
-                            }
                         }
                     }
                 }

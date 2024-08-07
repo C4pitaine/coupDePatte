@@ -6,6 +6,7 @@ use App\Repository\IndispensableRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: IndispensableRepository::class)]
 class Indispensable
@@ -16,6 +17,8 @@ class Indispensable
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(min:5,max:255,minMessage:"L'indispensable doit dépasser 5 caractères",maxMessage:"L'indispensable ne doit pas dépasser 255 caractères")]
+    #[Assert\NotBlank(message:"Ce champ ne peut pas être vide")]
     private ?string $title = null;
 
     /**

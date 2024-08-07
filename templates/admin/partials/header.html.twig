@@ -7,7 +7,15 @@
         <nav>
             <ul>
                 <li><a href="{{path('admin_dashboard_index')}}">Dashboard</a></li>
-                <li><a href="{{path('admin_animal_index')}}">Animaux</a></li>
+                <li>
+                    <a href="{{path('admin_animal_index')}}">Animaux</a>
+                    <ul>
+                        <li>
+                            <a href="{{path('admin_indispensable_index')}}">Indispensables</a>
+                            <a href="#">Friandises</a>
+                        </li>
+                    </ul>
+                </li>
                 <li><a href="#">Articles</a></li>
                 <li><a href="#">Utilisateurs</a></li>
                 <li><a href="#">Adoptions</a></li>
@@ -34,7 +42,14 @@
             <a href="{{path('admin_dashboard_index')}}">Dashboard</a>
         </div>
         <div class="menuLink">
-            <a href="{{path('admin_animal_index')}}">Animaux</a>
+            <div class="menuContainer">
+                <a href="{{path('admin_animal_index')}}">Animaux</a>
+                <i class="fa-solid fa-chevron-right chevronMenu"></i>
+            </div>
+            <div class="link">
+                <a href="{{path('admin_indispensable_index')}}">Indispensables</a>
+                <a href="#">Friandises</a>
+            </div>
         </div>
         <div class="menuLink">
             <a href="#">Articles</a>
@@ -59,3 +74,13 @@
         </div>
     </div>
 </div>
+
+{% for label, messages in app.flashes %}
+    <div class="container mt-3">
+        <div class="alert alert-{{label}}">
+            {% for message in messages %}
+                <p>{{ message | raw }}</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endfor %}

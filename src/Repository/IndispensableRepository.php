@@ -16,6 +16,26 @@ class IndispensableRepository extends ServiceEntityRepository
         parent::__construct($registry, Indispensable::class);
     }
 
+    /**
+     * Permet de faire une recherche sur les titre des indispensables
+     *
+     * @param string $search
+     * @return array|null
+     */
+    public function search(string $search,?int $limit = null,?int $offset = 0): ?array
+    {
+        $search = htmlspecialchars($search);
+
+        return $this->createQueryBuilder('i')
+                    ->select('i as indispensable','i.id,i.title')
+                    ->where('i.title LIKE :search')
+                    ->setParameter('search','%'.$search.'%')
+                    ->setMaxResults($limit)
+                    ->setFirstResult($offset)
+                    ->getQuery()
+                    ->getResult();
+    }
+
     //    /**
     //     * @return Indispensable[] Returns an array of Indispensable objects
     //     */

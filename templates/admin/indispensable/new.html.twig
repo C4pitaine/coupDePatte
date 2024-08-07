@@ -1,0 +1,20 @@
+{% extends "admin/base.html.twig" %}
+
+{% block title %}Ajout d'un indispensable{% endblock %}
+
+{% block body %}
+    <div class="slideAdmin">
+        <div class="wrapper">
+            <div class="form">
+                <div class="titleBack">
+                    <h2>Ajout d'un indispensable</h2>
+                    <a href="{{path('admin_indispensable_index')}}" class="btn btn-secondary">Retour</a>
+                </div>
+                {{form_start(myForm)}}
+                    {{form_widget(myForm)}}
+                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                {{form_end(myForm)}}
+            </div>
+        </div>
+    </div>
+{% endblock %}
