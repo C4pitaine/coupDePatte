@@ -1,10 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
-@mixin roboto-regular{
-    font-family: "Roboto", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-}
+@import "mixins.scss";
 
 .slide{
     width:100%;
@@ -14,6 +10,229 @@
 .wrapper{
     width: 90%;
     margin: 0 auto;
+}
+
+/* Header */
+header{
+    width: 100%;
+    height:100px;
+    background-color: #315026;
+    display: flex;
+    z-index: 199;
+
+    .wrapper{
+        display: flex;
+
+        .logo{
+            display: flex;
+            align-items: center;
+
+            img{
+                width: 75px;
+            }
+            h4{
+                font-size: 22px;
+                color: white;
+                margin-left: 10px;
+            }
+        }
+
+        nav{
+            width: 100%;
+            display: flex;
+            justify-content: end;
+            ul{
+                display: flex;
+                list-style: none;
+                padding: 0;
+                margin: 0;
+
+                li{
+                    width: 150px;
+                    text-align: center;
+
+                    a{
+                        display: block;
+                        width: 100%;
+                        color: white;
+                        line-height: 100px;
+                        @include roboto-regular;
+                        color: white;
+                        text-decoration: none;
+
+                        &:hover{
+                            font-size: 20px;
+                        }
+                    }
+                    i{
+                        line-height: 100px;
+                        color: white;
+                        font-size: 1.4rem;
+                    }
+                    .fa-bag-shopping:hover{
+                        font-size: 1.6rem;
+                    }
+                    h6{
+                        line-height: 100px;
+                        margin-bottom: 0;
+                        color: white;
+                        @include roboto-regular;
+                    }
+
+                    &:hover ul li{
+                        display: block;
+                        flex: 1;
+                    }
+
+                    ul{
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+
+                        li{
+                            display: none;
+                            background-color: #315026;
+
+                            a{
+                                
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+/* Menu Burger */
+
+#burger {
+    width: 50px;
+    margin-right: 15px;
+    cursor: pointer;
+    display: none;
+}
+
+/* Barre du menu burger */
+
+.bar {
+    transition: all 0.5s;
+    width: 100%;
+    height: 3px;
+    background-color: white;
+    margin-bottom: 8px;
+}
+
+/* Menu Burger ouvert */
+
+header.menuOpened .bar {
+    transform: rotate(45deg) translate(5px, 5px);
+
+    &:nth-child(2) {
+        opacity: 0;
+    }
+
+    &:last-child {
+        transform: rotate(-45deg) translate(10px, -12px);
+    }
+}
+
+/* Menu */
+
+#menu{
+    display: none;
+    transform: translateX(100%);
+	z-index: 99;
+	transition: all 0.4s ease-in-out;
+
+    .right{
+        display: none;
+    }
+}
+
+#menu.menuOpened{
+    display: flex;
+    transform: translateX(0);
+
+    .left{
+        width: 70%;
+        min-height: 100vh;
+        background-color: rgba(49, 80, 38,35%);
+    }
+
+    .right{
+        min-height: 100vh;
+        width: 30%;
+        background-color: rgba(49, 80, 38,100%);
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        overflow: auto;
+        bottom: -200px;
+
+        .menuLink{
+            margin: 50px 0 20px 20px;
+
+            i{
+                color: white;
+            }
+
+            .fa-bag-shopping{
+                cursor: pointer;
+            }
+            
+            a{
+                color: white;
+                text-decoration: none;
+                @include roboto-regular;
+
+                &:hover{
+                    font-size: 22px;
+                }
+            }
+
+            .menuContainer{
+                display: flex;
+                align-items: center;
+                transition: all 0.4s ease-in-out;
+
+                i{
+                    color: white;
+                }
+
+                h6{
+                    color: white;
+                    margin-bottom: 0;
+                    @include roboto-regular;
+                }
+
+                .fa-chevron-right{
+                    color: white;
+                    margin-left: 20px;
+                    cursor: pointer;
+                }
+
+                .chevronOpen{
+                    rotate: 90deg;
+                }
+            }
+
+            .link{
+                display: none;
+            }
+
+            .linkOpen{
+                display: flex;
+                flex-direction: column;
+                
+                a{
+                    margin-left: 20px;
+                    @include roboto-regular;
+                }
+            }
+        }
+    }
 }
 
 /* Footer */
@@ -158,6 +377,24 @@ footer{
 
 /* Media queries */ 
 
+@media all and (max-width:1200px){
+    #burger {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+    
+      nav {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    
+        ul {
+          display: none !important;
+        }
+      }
+}
+
 @media all and (max-width:850px){
     /* Footer */
     .green{
@@ -167,6 +404,18 @@ footer{
             margin: 20px 0;
             display: flex;
             align-self: center;
+        }
+    }
+}
+
+@media all and (max-width:730px){
+
+    #menu.menuOpened{
+        .right{
+            width: 50%;
+        }
+        .left{
+            width:50%;
         }
     }
 }
@@ -182,6 +431,18 @@ footer{
                 justify-content: space-evenly;
                 flex-direction: row !important;
             }
+        }
+    }
+}
+
+@media all and (max-width:450px){
+
+    #menu.menuOpened{
+        .right{
+            width: 100%;
+        }
+        .left{
+            width:0%;
         }
     }
 }
