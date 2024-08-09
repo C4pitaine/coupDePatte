@@ -86,6 +86,64 @@ class AdminFriandiseController extends AbstractController
 
         return $this->redirectToRoute('admin_friandise_index');
     }
+
+    /**
+     * Permet de modifier une friandise
+     *
+     * @param EntityManagerInterface $manager
+     * @param Request $request
+     * @param Friandise $friandise
+     * @return Response
+     */
+    #[Route('/admin/friandise/{id}/update',name:'admin_friandise_update')]
+    public function update(EntityManagerInterface $manager,Request $request,Friandise $friandise): Response
+    {
+        $friandiseImage = $friandise->getImage();
+        $friandise->setImage("");
+        $form = $this->createForm(FriandiseType::class,$friandise);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $friandise->setImage($friandiseImage);
+            $file = $form['image']->getData();
+            if(!empty($file))
+            {
+                if(!empty($friandiseImage)){
+                    unlink($this->getParameter('uploads_directory_friandise').'/'.$friandiseImage);
+                }
+                $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+                $newFilename = $safeFilename."-".uniqid().'.'.$file->guessExtension();
+                try{
+                    $file->move(
+                        $this->getParameter('uploads_directory_friandise'), 
+                        $newFilename 
+                    );
+                }catch(FileException $e)
+                {
+                    return $e->getMessage();
+                }
+                $friandise->setImage($newFilename);
+            }else{
+                if(!empty($friandiseImage)){
+                    $friandise->setImage($friandiseImage);
+                }
+            }
+
+            $manager->persist($friandise);
+            $manager->flush();
+
+            $this->addFlash('warning','La friandise'.$friandise->getName().' a bien été modifiée');
+            return $this->redirectToRoute('admin_friandise_index');
+        }
+
+        return $this->render('admin/friandise/update.html.twig',[
+            'myForm' => $form->createView(),
+            'friandise' => $friandise,
+            'friandiseImage' => $friandiseImage,
+        ]);
+    }
     
     /**
      * Permet d'afficher les friandises avec une recherche et une pagination

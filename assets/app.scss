@@ -384,21 +384,25 @@ footer{
         margin: 0 auto;
 
         .form {
-        .titleBack {
-            h2 {
-            margin-top: 50px;
-            margin-bottom: 20px;
+            .titleBack {
+                h2 {
+                margin-top: 50px;
+                margin-bottom: 20px;
+                }
+
+                a {
+                margin-bottom: 30px;
+                }
             }
 
-            a {
-            margin-bottom: 30px;
+            textarea {
+                resize: none;
+                min-height: 300px;
             }
-        }
 
-        textarea {
-            resize: none;
-            min-height: 300px;
-        }
+            .imageUpdate{
+                height:50vh;
+            }
         }
     }
 }
