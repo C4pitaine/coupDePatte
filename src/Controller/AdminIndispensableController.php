@@ -89,6 +89,15 @@ class AdminIndispensableController extends AbstractController
         return $this->redirectToRoute('admin_indispensable_index');
     }
 
+     /**
+     * Permet d'afficher les indispensables avec une recherche et une pagination
+     *
+     * @param Request $request
+     * @param PaginationService $pagination
+     * @param integer $page
+     * @param string $recherche
+     * @return Response
+     */
     #[Route('/admin/indispensable/{page<\d+>?1}/{recherche}', name: 'admin_indispensable_index')]
     public function index(Request $request,PaginationService $pagination,int $page,string $recherche=""): Response
     {

@@ -16,6 +16,26 @@ class FriandiseRepository extends ServiceEntityRepository
         parent::__construct($registry, Friandise::class);
     }
 
+    /**
+     * Permet de faire une recherche sur les noms ou sur l'animal d'une friandise
+     *
+     * @param string $search
+     * @return array|null
+     */
+    public function search(string $search,?int $limit = null,?int $offset = 0): ?array
+    {
+        $search = htmlspecialchars($search);
+
+        return $this->createQueryBuilder('f')
+                    ->select('f as friandise','f.id,f.name,f.price,f.image,f.animal')
+                    ->where('f.name LIKE :search OR f.animal LIKE :search')
+                    ->setParameter('search','%'.$search.'%')
+                    ->setMaxResults($limit)
+                    ->setFirstResult($offset)
+                    ->getQuery()
+                    ->getResult();
+    }
+
     //    /**
     //     * @return Friandise[] Returns an array of Friandise objects
     //     */
