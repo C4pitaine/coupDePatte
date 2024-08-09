@@ -20,16 +20,18 @@ class FriandiseRepository extends ServiceEntityRepository
      * Permet de faire une recherche sur les noms ou sur l'animal d'une friandise
      *
      * @param string $search
+     * @param string $filtre
      * @return array|null
      */
-    public function search(string $search,?int $limit = null,?int $offset = 0): ?array
+    public function search(string $search,string $filtre,?int $limit = null,?int $offset = 0): ?array
     {
         $search = htmlspecialchars($search);
 
         return $this->createQueryBuilder('f')
                     ->select('f as friandise','f.id,f.name,f.price,f.image,f.animal')
-                    ->where('f.name LIKE :search OR f.animal LIKE :search')
+                    ->where('f.name LIKE :search AND f.animal LIKE :filtre')
                     ->setParameter('search','%'.$search.'%')
+                    ->setParameter('filtre','%'.$filtre.'%')
                     ->setMaxResults($limit)
                     ->setFirstResult($offset)
                     ->getQuery()
