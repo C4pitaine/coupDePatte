@@ -27,6 +27,9 @@ class Friandise
     #[ORM\ManyToMany(targetEntity: Animal::class, mappedBy: 'friandise')]
     private Collection $animals;
 
+    #[ORM\Column(length: 255)]
+    private ?string $animal = null;
+
     public function __construct()
     {
         $this->animals = new ArrayCollection();
@@ -84,6 +87,18 @@ class Friandise
         if ($this->animals->removeElement($animal)) {
             $animal->removeFriandise($this);
         }
+
+        return $this;
+    }
+
+    public function getAnimal(): ?string
+    {
+        return $this->animal;
+    }
+
+    public function setAnimal(string $animal): static
+    {
+        $this->animal = $animal;
 
         return $this;
     }
