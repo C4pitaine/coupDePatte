@@ -171,7 +171,7 @@ class AdminFriandiseController extends AbstractController
                     ->setSearch($recherche)
                     ->setFiltre($filtre)
                     ->setPage($page)
-                    ->setLimit(1);
+                    ->setLimit(10);
 
         $form = $this->createForm(SearchFiltreType::class);
         $form->handleRequest($request);
