@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Friandise;
 use App\Form\FriandiseType;
 use App\Form\SearchFiltreType;
+use App\Form\FriandiseModifyType;
 use App\Service\PaginationFiltreService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -100,7 +101,7 @@ class AdminFriandiseController extends AbstractController
     {
         $friandiseImage = $friandise->getImage();
         $friandise->setImage("");
-        $form = $this->createForm(FriandiseType::class,$friandise);
+        $form = $this->createForm(FriandiseModifyType::class,$friandise);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid())
@@ -134,7 +135,7 @@ class AdminFriandiseController extends AbstractController
             $manager->persist($friandise);
             $manager->flush();
 
-            $this->addFlash('warning','La friandise'.$friandise->getName().' a bien été modifiée');
+            $this->addFlash('warning','La friandise '.$friandise->getName().' a bien été modifiée');
             return $this->redirectToRoute('admin_friandise_index');
         }
 
