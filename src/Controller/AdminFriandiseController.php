@@ -2,11 +2,9 @@
 
 namespace App\Controller;
 
-use App\Form\SearchType;
 use App\Entity\Friandise;
 use App\Form\FriandiseType;
 use App\Form\SearchFiltreType;
-use App\Service\PaginationService;
 use App\Service\PaginationFiltreService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;

@@ -27,4 +27,4 @@ services:
             $templatePath: 'admin/partials/_pagination.html.twig'
     App\Service\PaginationFiltreService:
         arguments:
-            $templatePath: 'admin/partials/_pagination.html.twig'
+            $templatePath: 'admin/partials/_paginationFiltre.html.twig'
