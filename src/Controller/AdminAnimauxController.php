@@ -123,6 +123,13 @@ class AdminAnimauxController extends AbstractController
         ]);
     }
 
+    /**
+     * Permet de supprimer un animal
+     *
+     * @param EntityManagerInterface $manager
+     * @param Animal $animal
+     * @return Response
+     */
     #[Route('/admin/animal/{id}/delete',name:"admin_animal_delete")]
     public function delete(EntityManagerInterface $manager,Animal $animal):Response
     {
