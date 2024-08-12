@@ -1,0 +1,45 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Friandises{% endblock %}
+
+
+{% block body %}
+    <div class="container-fluid full slideAdmin">
+        <div class="wrapper">
+            <h1 class="mt-5 mb-3">Gestion des articles</h1>
+            <a href="{{path('admin_article_create')}}" class="btn btn-success mb-2">Ajout d'un article</a>
+            {% include "admin/partials/_searchFiltre.html.twig" %}
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Titre</th>
+                        <th>Slug</th>
+                        <th>Image</th>
+                        <th>Link</th>
+                        <th>Type</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for article in pagination.data %}
+                        <tr>
+                            <td>{{article.id}}</td>
+                            <td>{{article.title}}</td>
+                            <td>{{article.slug}}</td>
+                            <td>{{article.image}}</td>
+                            <td>{{article.link}}</td>
+                            <td>{{article.type}}</td>
+                            <td class="text-center"> 
+                                <a href="#" class="btn btn-warning mb-2"><i class="fas fa-edit"></i></a>
+                                <div class="btn btn-danger deleteButton mb-2"><i class="fas fa-trash"></i></div>
+                            </td>
+                        </tr>
+                        {# {% include "admin/partials/deleteAlert.html.twig" with {'type':'des friandises','title':friandise.name, 'id':friandise.id, 'route':'admin_friandise_delete'} %} #}
+                    {% endfor %}
+                </tbody>
+            </table>
+            {{pagination.display}}
+        </div>
+    </div>
+{% endblock %}

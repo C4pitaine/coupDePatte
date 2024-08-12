@@ -1,0 +1,29 @@
+{% extends "admin/base.html.twig" %}
+
+{% block title %}Ajout d'un Article{% endblock %}
+
+{% block body %}
+    <div class="slideAdmin">
+        <div class="wrapper">
+            <div class="form">
+                <div class="titleBack">
+                    <h2>Ajout d'un article</h2>
+                    <a href="{{path('admin_article_index')}}" class="btn btn-secondary">Retour</a>
+                </div>
+                {{form_start(myForm)}}
+                    {{form_widget(myForm)}}
+                    <button type="submit" class="btn btn-primary my-3">Ajouter</button>
+                {{form_end(myForm)}}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            license_key: 'gpl',
+        });
+    </script>
+{% endblock %}
