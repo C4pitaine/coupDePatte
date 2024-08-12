@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Form\ArticleType;
+use App\Form\ArticleModifyType;
 use App\Form\SearchFiltreArticleType;
 use App\Service\PaginationFiltreService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -58,6 +59,64 @@ class AdminArticleController extends AbstractController
 
         return $this->render('/admin/article/new.html.twig',[
             'myForm' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * Permet de modifier un article
+     *
+     * @param Article $article
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @return Response
+     */
+    #[Route('/admin/article/{id}/update',name: 'admin_article_update')]
+    public function update(Article $article,Request $request,EntityManagerInterface $manager): Response
+    {
+        $articleImage = $article->getImage();
+        $article->setImage("");
+        $form = $this->createForm(ArticleModifyType::class,$article);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $article->setImage($articleImage);
+            $file = $form['image']->getData();
+            if(!empty($file))
+            {
+                if(!empty($articleImage)){
+                    unlink($this->getParameter('uploads_directory_article').'/'.$articleImage);
+                }
+                $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+                $newFilename = $safeFilename."-".uniqid().'.'.$file->guessExtension();
+                try{
+                    $file->move(
+                        $this->getParameter('uploads_directory_article'), 
+                        $newFilename 
+                    );
+                }catch(FileException $e)
+                {
+                    return $e->getMessage();
+                }
+                $article->setImage($newFilename);
+            }else{
+                if(!empty($articleImage)){
+                    $article->setImage($articleImage);
+                }
+            }
+
+            $manager->persist($article);
+            $manager->flush();
+            
+            $this->addFlash('warning','L\'article : '.$article->getTitle().' a bien été modifié');
+            return $this->redirectToRoute('admin_article_index');
+        }
+
+        return $this->render('admin/article/update.html.twig',[
+            'article' => $article,
+            'formArticle' => $form->createView(),
+            'articleImage' => $articleImage,
         ]);
     }
     

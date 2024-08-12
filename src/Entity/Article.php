@@ -93,7 +93,7 @@ class Article
         return $this->image;
     }
 
-    public function setImage(string $image): static
+    public function setImage(?string $image): static
     {
         $this->image = $image;
 
@@ -117,7 +117,7 @@ class Article
         return $this->text;
     }
 
-    public function setText(string $text): static
+    public function setText(?string $text): static
     {
         $this->text = $text;
 
