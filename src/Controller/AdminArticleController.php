@@ -119,6 +119,31 @@ class AdminArticleController extends AbstractController
             'articleImage' => $articleImage,
         ]);
     }
+
+    /**
+     * Permet de supprimer un article
+     *
+     * @param Article $article
+     * @param EntityManagerInterface $manager
+     * @return Response
+     */
+    #[Route('/admin/article/{id}/delete',name: 'admin_article_delete')]
+    public function delete(Article $article,EntityManagerInterface $manager): Response
+    {
+        $this->addFlash('danger','L\'article '.$article->getTitle().' a bien été supprimé');
+
+        if(!empty($article->getImage()))
+        {
+            unlink($this->getParameter('uploads_directory_article').'/'.$article->getImage());
+            $article->setImage('');
+            $manager->persist($article);
+        }
+
+        $manager->remove($article);
+        $manager->flush();
+
+        return $this->redirectToRoute('admin_article_index');
+    }
     
     /**
      * Permet d'afficher un article
