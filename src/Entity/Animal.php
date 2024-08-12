@@ -301,7 +301,7 @@ class Animal
         return $this->coverImage;
     }
 
-    public function setCoverImage(string $coverImage): static
+    public function setCoverImage(?string $coverImage): static
     {
         $this->coverImage = $coverImage;
 

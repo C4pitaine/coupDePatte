@@ -70,7 +70,7 @@
                             {% endif %}
                             
                             <td class="text-center"> 
-                                <a href="#" class="btn btn-warning mb-2"><i class="fas fa-edit"></i></a>
+                                <a href="{{path('admin_animal_update',{'id':animal.id})}}" class="btn btn-warning mb-2"><i class="fas fa-edit"></i></a>
                                 <div class="btn btn-danger deleteButton mb-2"><i class="fas fa-trash"></i></div>
                             </td>
                         </tr>

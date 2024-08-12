@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Animal;
+use App\Form\AnimalModifyType;
 use App\Form\AnimalType;
 use App\Form\SearchType;
 use App\Form\SearchFiltreType;
@@ -60,6 +61,65 @@ class AdminAnimauxController extends AbstractController
 
         return $this->render('admin/animal/new.html.twig',[
             "myForm" => $form->createView(),
+        ]);
+    }
+
+    /**
+     * Permet de modifier les données d'un animal
+     *
+     * @param EntityManagerInterface $manager
+     * @param Request $request
+     * @param Animal $animal
+     * @return Response
+     */
+    #[Route('/admin/animal/{id}/update',name:"admin_animal_update")]
+    public function update(EntityManagerInterface $manager,Request $request,Animal $animal):Response
+    {
+        $animalImage = $animal->getCoverImage();
+        $animal->setCoverImage("");
+        $form = $this->createForm(AnimalModifyType::class,$animal);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $animal->setCoverImage($animalImage);
+
+            $file = $form['coverImage']->getData();
+            if(!empty($file))
+            {
+                if(!empty($animalImage)){
+                    unlink($this->getParameter('uploads_directory_animal').'/'.$animalImage);
+                }
+                $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+                $newFilename = $safeFilename."-".uniqid().'.'.$file->guessExtension();
+                try{
+                    $file->move(
+                        $this->getParameter('uploads_directory_animal'), 
+                        $newFilename 
+                    );
+                }catch(FileException $e)
+                {
+                    return $e->getMessage();
+                }
+                $animal->setCoverImage($newFilename);
+            }else{
+                if(!empty($animalImage)){
+                    $animal->setCoverImage($animalImage);
+                }
+            }
+
+            $manager->persist($animal);
+            $manager->flush();
+
+            $this->addFlash('warning','Le profil de '.$animal->getName().' a bien été modifié');
+            return $this->redirectToRoute('admin_animal_index');
+        }
+
+        return $this->render('admin/animal/update.html.twig',[
+            'myForm' => $form->createView(),
+            'animal' => $animal,
+            'animalImage' => $animalImage,
         ]);
     }
 
