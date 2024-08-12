@@ -61,6 +61,19 @@ class AdminArticleController extends AbstractController
         ]);
     }
     
+    /**
+     * Permet d'afficher un article
+     *
+     * @param Article $article
+     * @return Response
+     */
+    #[Route('/admin/article/{id}/show',name: 'admin_article_show')]
+    public function show(Article $article): Response
+    {
+        return $this->render('admin/article/show.html.twig',[
+            'article' => $article
+        ]);
+    }
     
     /**
      * Permet d'afficher les articles avec une recherche et des filtres avec les résultats paginés

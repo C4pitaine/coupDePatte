@@ -1,0 +1,16 @@
+{% extends "admin/base.html.twig" %}
+
+{% block title %} Article n° {{article.id}}{% endblock %}
+
+{% block body %}
+    <div class="container-fluid full slideAdmin">
+        <div class="wrapper">
+            <h2 class="mt-5 mb-3">{{article.title}}</h2>
+            <a href="{{path('admin_article_index')}}" class="btn btn-primary">Retour</a>
+            <div class="d-flex justify-content-center w-100">
+                <img src="/uploads/article/{{article.image}}" alt="Image de {{article.title}}" class="w-50 my-3">
+            </div>
+            <div class="my-5">{{article.text | raw}}</div>
+        </div>
+    </div>
+{% endblock %}
