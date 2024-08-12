@@ -74,7 +74,7 @@
                                 <div class="btn btn-danger deleteButton mb-2"><i class="fas fa-trash"></i></div>
                             </td>
                         </tr>
-                        
+                         {% include "admin/partials/deleteAlert.html.twig" with {'type':'des animaux','title':animal.name, 'id':animal.id, 'route':'admin_animal_delete'} %}
                     {% endfor %}
                 </tbody>
             </table>

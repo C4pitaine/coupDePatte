@@ -53,7 +53,7 @@ class Animal
     /**
      * @var Collection<int, Suivi>
      */
-    #[ORM\OneToMany(targetEntity: Suivi::class, mappedBy: 'animalId', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Suivi::class, mappedBy: 'animal', orphanRemoval: true)]
     private Collection $suivis;
 
     /**

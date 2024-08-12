@@ -123,6 +123,23 @@ class AdminAnimauxController extends AbstractController
         ]);
     }
 
+    #[Route('/admin/animal/{id}/delete',name:"admin_animal_delete")]
+    public function delete(EntityManagerInterface $manager,Animal $animal):Response
+    {
+        $this->addFlash('danger','Le profil de '.$animal->getName().' a bien été supprimé');
+
+        if(!empty($animal->getCoverImage()))
+        {
+            unlink($this->getParameter('uploads_directory_animal').'/'.$animal->getCoverImage());
+            $animal->setCoverImage('');
+            $manager->persist($animal);
+        }
+
+        $manager->remove($animal);
+        $manager->flush();
+
+        return $this->redirectToRoute('admin_animal_index');
+    }
     
     /**
      * Permet d'afficher les animaux avec une recherche / filtre et une pagination
