@@ -7,16 +7,19 @@
     <div class="container-fluid full slideAdmin">
         <div class="wrapper">
             <h1 class="mt-5 mb-3">Gestion des animaux</h1>
-            {% include "admin/partials/_search.html.twig" %}
+            <a href="{{path('admin_animal_create')}}" class="btn btn-success mb-2">Ajout d'un animal</a>
+            {% include "admin/partials/_searchFiltre.html.twig" %}
             <table class="table table-hover">
                 <thead>
                     <tr>
                         <th>Id</th>
                         <th>Nom</th>
+                        <th>Type</th>
                         <th>Genre</th>
                         <th>Age</th>
                         <th>Race</th>
-                        <th>Description</th>
+                        <th>Friandises</th>
+                        <th>Indispensables</th>
                         <th>Date d'adoption</th>
                         <th>Adopté</th>
                         <th class="text-center">Action</th>
@@ -25,16 +28,50 @@
                 <tbody>
                     {% for animal in pagination.data %}
                         <tr>
-                            <td>{{article.id}}</td>
-                            <td>{{article.name}}</td>
-                            <td>{{article.genre}}</td>
-                            <td>{{article.age}}</td>
-                            <td>{{article.race}}</td>
-                            <td>{{article.description}}</td>
-                            <td>{{article.adoption_date}}</td>
-                            <td>{{article.adopted}}</td>
+                            <td>{{animal.id}}</td>
+                            <td>{{animal.name}}</td>
+                            <td>{{animal.type}}</td>
+                            <td>{{animal.genre}}</td>
+                            <td>{{animal.age}}</td>
+                            <td>{{animal.race}}</td>
+                            <td>
+                            {% if search or filtre %}
+                                {% for friandise in animal.animal.friandise %}
+                                    {{friandise.name}} |
+                                {% endfor %}
+                            {% else %}
+                                {% for friandise in animal.friandise %}
+                                    {{friandise.name}} |
+                                {% endfor %}
+                            {% endif %}
+                            </td>
+                            <td>
+                            {% if search or filtre %}
+                                {% for indispensable in animal.animal.indispensables %}
+                                    {{indispensable.title}} |
+                                {% endfor %}
+                            {% else %}
+                                {% for indispensable in animal.indispensables %}
+                                    {{indispensable.title}} |
+                                {% endfor %}
+                            {% endif %}
+                            
+                            </td>
+                            {% if animal.adoptionDate == null %}
+                                <td>/</td>
+                            {% else %}
+                                {% set date = animal.adoptionDate %}
+                                <td>{{date|date('d/m/Y')}}</td>
+                            {% endif %}
+                            {% if animal.adopted == "1" %}
+                                <td>Adopté</td>
+                            {% else %}
+                                <td>En adoption</td>
+                            {% endif %}
+                            
                             <td class="text-center"> 
-                                
+                                <a href="#" class="btn btn-warning mb-2"><i class="fas fa-edit"></i></a>
+                                <div class="btn btn-danger deleteButton mb-2"><i class="fas fa-trash"></i></div>
                             </td>
                         </tr>
                         

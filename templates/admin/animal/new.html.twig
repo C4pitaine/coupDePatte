@@ -1,0 +1,26 @@
+{% extends "admin/base.html.twig" %}
+
+{% block title %}Ajout d'un Animal{% endblock %}
+
+{% form_theme myForm 'admin/animal/_collection.html.twig' %}
+
+{% block body %}
+    <div class="slideAdmin">
+        <div class="wrapper">
+            <div class="form">
+                <div class="titleBack">
+                    <h2>Ajout d'un animal</h2>
+                    <a href="{{path('admin_animal_index')}}" class="btn btn-secondary">Retour</a>
+                </div>
+                {{form_start(myForm)}}
+                    {{form_widget(myForm)}}
+                    <button type="submit" class="btn btn-primary my-3">Ajouter</button>
+                {{form_end(myForm)}}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {# {{encore_entry_script_tags('animal')}} #}
+{% endblock %}

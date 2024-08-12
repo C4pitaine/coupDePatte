@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: AnimalRepository::class)]
 class Animal
@@ -17,24 +18,33 @@ class Animal
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(min:2,max:255,minMessage:"Le nom de l'animal doit dépasser 2 caractères",maxMessage:"Le nom de l'animal ne doit pas dépasser 255 caractères")]
+    #[Assert\NotBlank(message:"Ce champ ne peut pas être vide")]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"Ce champ ne peut pas être vide")]
     private ?string $type = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"Ce champ ne peut pas être vide")]
     private ?string $genre = null;
 
     #[ORM\Column]
+    #[Assert\Range(min:0,max:40,notInRangeMessage:"L'âge doit être entre 0 et 40ans")]
     private ?int $age = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(min:2,max:255,minMessage:"La race de l'animal doit dépasser 2 caractères",maxMessage:"La race de l'animal ne doit pas dépasser 255 caractères")]
+    #[Assert\NotBlank(message:"Ce champ ne peut pas être vide")]
     private ?string $race = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\Length(min:50,minMessage:"La description de l'animal doit dépasser 50 caractères")]
+    #[Assert\NotBlank(message:"Ce champ ne peut pas être vide")]
     private ?string $description = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $adoptionDate = null;
 
     #[ORM\Column]
@@ -63,6 +73,11 @@ class Animal
      */
     #[ORM\ManyToMany(targetEntity: Indispensable::class, inversedBy: 'animals')]
     private Collection $indispensables;
+
+    #[ORM\Column(length: 255)]
+    #[Assert\Image(mimeTypes:['image/png','image/jpeg', 'image/jpg', 'image/gif','image/webp'], mimeTypesMessage:"Vous devez upload un fichier jpg, jpeg, png, gif, webP")]
+    #[Assert\File(maxSize:"1024k", maxSizeMessage: "La taille du fichier est trop grande")]
+    private ?string $coverImage = null;
 
     public function __construct()
     {
@@ -154,7 +169,7 @@ class Animal
         return $this->adoptionDate;
     }
 
-    public function setAdoptionDate(\DateTimeInterface $adoptionDate): static
+    public function setAdoptionDate(?\DateTimeInterface $adoptionDate): static
     {
         $this->adoptionDate = $adoptionDate;
 
@@ -277,6 +292,18 @@ class Animal
     public function removeIndispensable(Indispensable $indispensable): static
     {
         $this->indispensables->removeElement($indispensable);
+
+        return $this;
+    }
+
+    public function getCoverImage(): ?string
+    {
+        return $this->coverImage;
+    }
+
+    public function setCoverImage(string $coverImage): static
+    {
+        $this->coverImage = $coverImage;
 
         return $this;
     }
