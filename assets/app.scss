@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 @import "mixins.scss";
+@import "variables.scss";
 
 .slide{
     width:100%;
@@ -16,7 +17,7 @@
 header{
     width: 100%;
     height:100px;
-    background-color: #315026;
+    background-color: $greenColor;
     display: flex;
     z-index: 199;
 
@@ -32,7 +33,7 @@ header{
             }
             h4{
                 font-size: 22px;
-                color: white;
+                color: $white;
                 margin-left: 10px;
             }
         }
@@ -55,10 +56,10 @@ header{
                     a{
                         display: block;
                         width: 100%;
-                        color: white;
+                        color: $white;
                         line-height: 100px;
                         @include roboto-regular;
-                        color: white;
+                        color: $white;
                         text-decoration: none;
 
                         &:hover{
@@ -67,7 +68,7 @@ header{
                     }
                     i{
                         line-height: 100px;
-                        color: white;
+                        color: $white;
                         font-size: 1.4rem;
                     }
                     .fa-bag-shopping:hover{
@@ -76,7 +77,7 @@ header{
                     h6{
                         line-height: 100px;
                         margin-bottom: 0;
-                        color: white;
+                        color: $white;
                         @include roboto-regular;
                     }
 
@@ -92,7 +93,7 @@ header{
 
                         li{
                             display: none;
-                            background-color: #315026;
+                            background-color: $greenColor;
                         }
                     }
                 }
@@ -117,7 +118,7 @@ header{
     transition: all 0.5s;
     width: 100%;
     height: 3px;
-    background-color: white;
+    background-color: $white;
     margin-bottom: 8px;
 }
 
@@ -172,7 +173,7 @@ header.menuOpened .bar {
             margin: 50px 0 20px 20px;
 
             i{
-                color: white;
+                color: $white;
             }
 
             .fa-bag-shopping{
@@ -180,7 +181,7 @@ header.menuOpened .bar {
             }
             
             a{
-                color: white;
+                color: $white;
                 text-decoration: none;
                 @include roboto-regular;
 
@@ -195,17 +196,17 @@ header.menuOpened .bar {
                 transition: all 0.4s ease-in-out;
 
                 i{
-                    color: white;
+                    color: $white;
                 }
 
                 h6{
-                    color: white;
+                    color: $white;
                     margin-bottom: 0;
                     @include roboto-regular;
                 }
 
                 .fa-chevron-right{
-                    color: white;
+                    color: $white;
                     margin-left: 20px;
                     cursor: pointer;
                 }
@@ -235,13 +236,13 @@ header.menuOpened .bar {
 /* Footer */
 footer{
     width: 100%;
-    background-color: #315026;
+    background-color: $greenColor;
     overflow: hidden;
 
     /* Informations */
     .green{
         width: 100%;
-        background-color: #315026;
+        background-color: $greenColor;
         display: flex;
         margin-top: 20px;
 
@@ -260,7 +261,7 @@ footer{
             .informations{
                 display: flex;
                 flex-direction: column;
-                color: white;
+                color: $white;
                 margin-right: 20px;
 
                 h5{
@@ -286,7 +287,7 @@ footer{
             .horaires{
                 display: flex;
                 flex-direction: column;
-                color: white;
+                color: $white;
                 margin-right: 20px;
     
                 h5{
@@ -308,7 +309,7 @@ footer{
             .liens{
                 display: flex;
                 flex-direction: column;
-                color: white;
+                color: $white;
                 margin-right: 20px;
     
                 h5{
@@ -321,7 +322,7 @@ footer{
                     @include roboto-regular;
                     text-decoration: none;
                     margin-bottom: 10px;
-                    color: white;
+                    color: $white;
     
                     &:hover{
                         text-decoration: underline;
@@ -333,7 +334,7 @@ footer{
                 display: flex;
                 flex-direction: column;
                 margin-right: 20px;
-                color: white;
+                color: $white;
 
                 h5{
                     margin-bottom: 20px;
@@ -348,7 +349,7 @@ footer{
                     i{
                         font-size: 2rem;
                         margin-bottom: 20px;
-                        color: white;
+                        color: $white;
                     }
                 }
             }
@@ -362,7 +363,7 @@ footer{
         display: flex;
         justify-content: center;
         align-items: center;
-        color: white;
+        color: $white;
         margin-bottom: 0;
 
         h6{
@@ -377,7 +378,7 @@ footer{
 .slideAdmin {
     min-height: 100vh;
     width: 100%;
-    background-color: white;
+    background-color: $white;
 
     .wrapper {
         width: 80%;
@@ -424,7 +425,7 @@ footer{
     .containerDelete {
         width: 50%;
         padding: 40px 5px;
-        background-color: white;
+        background-color: $white;
         border: black solid 1px;
         display: flex;
         flex-direction: column;
