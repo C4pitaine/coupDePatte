@@ -35,11 +35,8 @@ class Contact
     #[Assert\NotBlank(message:"Ce champ ne peut pas être vide")]
     private ?string $message = null;
 
-    #[ORM\Column]
-    private ?bool $seen = null;
-
-    #[ORM\Column]
-    private ?bool $answered = null;
+    #[ORM\Column(length: 255)]
+    private ?string $status = null;
 
     public function getId(): ?int
     {
@@ -94,26 +91,14 @@ class Contact
         return $this;
     }
 
-    public function isSeen(): ?bool
+    public function getStatus(): ?string
     {
-        return $this->seen;
+        return $this->status;
     }
 
-    public function setSeen(bool $seen): static
+    public function setStatus(string $status): static
     {
-        $this->seen = $seen;
-
-        return $this;
-    }
-
-    public function isAnswered(): ?bool
-    {
-        return $this->answered;
-    }
-
-    public function setAnswered(bool $answered): static
-    {
-        $this->answered = $answered;
+        $this->status = $status;
 
         return $this;
     }

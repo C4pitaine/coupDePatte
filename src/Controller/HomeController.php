@@ -20,8 +20,7 @@ class HomeController extends AbstractController
         $form = $this->createForm(ContactType::class,$contact);
         $form->handleRequest($request);
 
-        $contact->setSeen(false);
-        $contact->setAnswered(false);
+        $contact->setStatus("en attente");
 
         if($form->isSubmitted() && $form->isValid())
         {
