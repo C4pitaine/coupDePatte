@@ -1,0 +1,61 @@
+@import "mixins.scss";
+@import "variables.scss";
+
+/* Contact */
+
+#slideContact{
+    display: flex;
+    .left{
+        width:40%;
+        background-image: url("/public/images/contactFond.png");
+        background-position: center center;
+        background-size: cover;
+
+        .title{
+            display: flex;
+            margin-top: 50px;
+            align-items: center;
+            justify-content: center;
+            color: $white;
+
+            img{
+                margin-left: 20px;
+                width: 100px;
+                height:100px;
+            }
+        }
+    }
+    .right{
+        width: 60%;
+
+        .wrapper{
+
+            h4{
+                @include roboto-regular;
+                margin: 50px 0;
+            }
+
+            .formulaireContact{
+
+                form{
+
+                    #contact{
+                        @include roboto-regular;
+
+                        input{
+                            border: solid 1px $greenColor
+                        }
+                        textarea{
+                            border: solid 1px $greenColor;
+                            height:300px;
+                            resize: none;
+                        }
+                    }
+                }
+                .boutonContact{
+                    @include buttonFront;
+                }
+            }
+        }
+    }
+}
