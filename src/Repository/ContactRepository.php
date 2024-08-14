@@ -34,6 +34,7 @@ class ContactRepository extends ServiceEntityRepository
                     ->setParameter('filtre','%'.$filtre.'%')
                     ->setMaxResults($limit)
                     ->setFirstResult($offset)
+                    ->orderBy('c.id','DESC')
                     ->getQuery()
                     ->getResult();
     }

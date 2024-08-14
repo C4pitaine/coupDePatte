@@ -65,6 +65,7 @@ class AdminContactController extends AbstractController
                     ->setSearch($recherche)
                     ->setFiltre($filtre)
                     ->setPage($page)
+                    ->setOrder(['id'=>'DESC'])
                     ->setLimit(10);
 
         $form = $this->createForm(SearchFiltreContactType::class);
