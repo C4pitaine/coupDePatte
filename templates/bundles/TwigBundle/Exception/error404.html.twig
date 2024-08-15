@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Erreur 404{% endblock %}
+
+{% block body %}
+    <div class="erreur">
+        <div class="wrapper">
+            <img src="/images/error404.webp" alt="Image Erreur 404">
+            <div class="textErreur">
+                <h4>Erreur 404</h4>
+                <h5>La page que vous cherchez n'existe pas ou plus</h5>
+                <a href="{{path('home')}}">Retour à l'accueil</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
