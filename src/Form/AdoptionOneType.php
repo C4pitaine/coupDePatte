@@ -37,7 +37,7 @@ class AdoptionOneType extends ApplicationType
                     'Femelle' => 'femelle'
                 ]
             ]))
-            ->add('age',NumberType::class,$this->getConfiguration('Âge','L\'âge de votre aninal'))
+            ->add('age',NumberType::class,$this->getConfiguration('Âge','L\'âge de votre animal'))
         ;
     }
 

@@ -14,6 +14,27 @@
                     </div>
                 </div>
             {% endfor %}
+            <a href="{{path('home')}}" class="backButton">Aller à l'accueil</a>
+            <div class="showAdoption">
+                <img src="/uploads/adoption/{{adoption.image}}" alt="Image de {{adoption.name}}">
+                <div class="informationsAdoption">
+                    <p>Nom : {{adoption.name}}</p>
+                    <p>Animal : {{adoption.type}}</p>
+                    <p>Genre: {{adoption.genre}}</p>
+                    <p>Âge : {{adoption.age}}</p>
+                    <p>Race : {{adoption.race}}</p>
+                    <div class="indispensables">
+                        <p>Indispensables :</p>
+                        {% for indispensable in adoption.indispensables %}
+                            <p>- {{indispensable.title}}</p>
+                        {% endfor %}
+                    </div>
+                    <div class="description">
+                        <p>Description : </p>
+                        <p>{{adoption.description | raw | nl2br}}</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

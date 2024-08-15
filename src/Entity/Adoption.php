@@ -49,6 +49,10 @@ class Adoption
     #[ORM\ManyToMany(targetEntity: Indispensable::class, inversedBy: 'adoptions')]
     private Collection $indispensables;
 
+    #[ORM\Column(length: 255)]
+    #[Assert\Length(min:2,max:255,minMessage:"La race de l'animal doit dépasser 2 caractères",maxMessage:"La race de l'animal ne doit pas dépasser 255 caractères",groups:["formTwo"])]
+    private ?string $race = null;
+
     public function __construct()
     {
         $this->indispensables = new ArrayCollection();
@@ -151,6 +155,18 @@ class Adoption
     public function removeIndispensable(Indispensable $indispensable): static
     {
         $this->indispensables->removeElement($indispensable);
+
+        return $this;
+    }
+
+    public function getRace(): ?string
+    {
+        return $this->race;
+    }
+
+    public function setRace(string $race): static
+    {
+        $this->race = $race;
 
         return $this;
     }

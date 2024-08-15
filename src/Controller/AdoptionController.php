@@ -31,6 +31,7 @@ class AdoptionController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid())
         {
+            $adoption->setRace("");
             $adoption->setImage("");
             $adoption->setDescription("");
 
@@ -83,7 +84,7 @@ class AdoptionController extends AbstractController
             $manager->persist($adoption);
             $manager->flush();
 
-            $this->addFlash('success',"Le formulaire d'adoption a bien été envoyé" );
+            $this->addFlash('success',"Le formulaire d'adoption pour ".$adoption->getName()." a bien été envoyé" );
             return $this->redirectToRoute('adoption_show',['id'=>$adoption->getId()]);
         }
 

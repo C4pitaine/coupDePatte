@@ -502,6 +502,12 @@ footer{
     }
 }
 
+/* BackButton */
+
+.backButton{
+    @include aFront;
+}
+
 /* Mentions légales */ 
 
 .legals{
