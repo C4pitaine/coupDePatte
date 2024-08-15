@@ -35,4 +35,15 @@ class HomeController extends AbstractController
             'formContact' => $form->createView(),
         ]);
     }
+
+    /**
+     * Permet d'afficher la page des mentions légales
+     *
+     * @return Response
+     */
+    #[Route('/legals',name:"legals")]
+    public function legals(): Response
+    {
+        return $this->render('legals/index.html.twig');
+    }
 }

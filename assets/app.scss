@@ -496,12 +496,24 @@ footer{
                 margin-bottom: 20px;
             }
             a{
-                display: inline-block;
-                line-height: 40px;
-                text-decoration: none;
-                @include buttonFront;
+                @include aFront;
             }
         }
+    }
+}
+
+/* Mentions légales */ 
+
+.legals{
+    
+    #mentions_title{
+        margin-top: 25px;
+        a{
+            @include aFront;
+        }
+    }
+    #mentions_text{
+        margin-bottom: 25px;
     }
 }
   
