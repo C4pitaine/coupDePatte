@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class AdoptionController extends AbstractController
 {
@@ -55,11 +56,30 @@ class AdoptionController extends AbstractController
     #[Route('/adoption/{id}/formTwo',name:"adoption_two")]
     public function formTwo(EntityManagerInterface $manager,Request $request,Adoption $adoption): Response
     {
-        $form = $this->createForm(AdoptionTwoType::class,$adoption);
+        $form = $this->createForm(AdoptionTwoType::class,$adoption,[
+            'validation_groups' => ['formTwo']
+        ]);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid())
         {
+            $file = $form['image']->getData();
+            if(!empty($file))
+            {
+                $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+                $newFilename = $safeFilename."-".uniqid().'.'.$file->guessExtension();
+                try{
+                    $file->move(
+                        $this->getParameter('uploads_directory_adoption'), 
+                        $newFilename 
+                    );
+                }catch(FileException $e)
+                {
+                    return $e->getMessage();
+                }
+                $adoption->setImage($newFilename);
+            }
             $manager->persist($adoption);
             $manager->flush();
 
@@ -69,6 +89,7 @@ class AdoptionController extends AbstractController
 
         return $this->render('adoption/formTwo.html.twig',[
             'formTwo' => $form->createView(),
+            'adoption' => $adoption,
         ]);
     }
 
@@ -85,6 +106,8 @@ class AdoptionController extends AbstractController
     {
         $form = $this->createForm(AdoptionOneType::class,$adoption);
         $form->handleRequest($request);
+        $adoption->setImage("");
+        $adoption->setDescription("");
 
         if($form->isSubmitted() && $form->isValid())
         {
@@ -94,8 +117,9 @@ class AdoptionController extends AbstractController
             return $this->redirectToRoute('adoption_two',['id'=>$adoption->getId()]);
         }
 
-        return $this->render('adoption/formTwo.html.twig',[
+        return $this->render('adoption/formUpdate.html.twig',[
             'formOne' => $form->createView(),
+            'adoption' => $adoption,
         ]);
     }
 
@@ -105,7 +129,7 @@ class AdoptionController extends AbstractController
      * @param Adoption $adoption
      * @return Response
      */
-    #[Route('/adoption/{id}/show')]
+    #[Route('/adoption/{id}/show',name:'adoption_show')]
     public function show(Adoption $adoption): Response
     {
         return $this->render('adoption/show.html.twig',[

@@ -1,0 +1,76 @@
+@import "mixins.scss";
+@import "variables.scss";
+
+.slideFormulaire{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    img{
+        height:25vh;
+        object-fit: contain;
+        margin: 50px 0;
+    }
+
+    .backButton{
+        @include aFront;
+    }
+
+    .formulaire{
+        width: 60%;
+        margin: 0 auto;
+
+        h6{
+            @include roboto-regular;
+            font-size: 26px;
+            margin: 10px 0 30px;
+        }
+
+        form{
+            
+            label{
+                @include roboto-regular;
+            }
+            input,select,.ts-wrapper,textarea{
+                border: solid 1px $greenColor;
+            }
+            input,textarea{
+                &::placeholder{
+                    color: $black;
+                }
+            }
+            textarea{
+                height:300px;
+                resize: none;
+            }
+            .ts-wrapper{
+                &.form-select{
+                    background-image: none;
+                }
+                .ts-control{
+                    .item{
+                        background-color: $greenColor;
+                        background-image: none;
+                        font-size: 14px;
+                        padding: 5px;
+                        border: solid 1px black;
+                        @include roboto-regular;
+
+                        a{
+                            border-left: solid 1px white;
+                        }
+                    }
+                }
+            }
+
+            .buttonFormulaire{
+                display: flex;
+                justify-content: center;
+                margin-bottom: 50px;
+                button{
+                    @include buttonFront;
+                }
+            }
+        }
+    }
+}

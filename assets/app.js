@@ -8,6 +8,7 @@ import './bootstrap.js';
 import './styles/app.css';
 import './app.scss';
 import './home.scss';
+import './adoption.scss'
 import './styles/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle';
 

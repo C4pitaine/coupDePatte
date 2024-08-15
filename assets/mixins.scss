@@ -25,6 +25,7 @@
 }
 
 @mixin aFront{
+    width: fit-content;
     display: inline-block;
     line-height: 40px;
     text-decoration: none;

@@ -25,19 +25,19 @@ class AdoptionOneType extends ApplicationType
                     'Lapin' => 'lapin'
                 ]
             ]))
-            ->add('age',NumberType::class,$this->getConfiguration('Âge','L\'âge de votre aninal'))
+            ->add('indispensables', EntityType::class, [
+                'class' => Indispensable::class,
+                'choice_label' => 'title',
+                'multiple' => true,
+                'autocomplete' => true,
+            ])
             ->add('genre',ChoiceType::class,$this->getConfiguration('Genre','Le genre de votre animal',[
                 'choices' => [
                     'Mâle' => 'male',
                     'Femelle' => 'femelle'
                 ]
             ]))
-            ->add('indispensables', EntityType::class, [
-                'class' => Indispensable::class,
-                'choice_label' => 'id',
-                'multiple' => true,
-                'autocomplete' => true,
-            ])
+            ->add('age',NumberType::class,$this->getConfiguration('Âge','L\'âge de votre aninal'))
         ;
     }
 

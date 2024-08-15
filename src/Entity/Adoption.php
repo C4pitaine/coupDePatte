@@ -40,7 +40,7 @@ class Adoption
     private ?string $image = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Assert\Length(min:50,minMessage:'La description doit dépasser 50 caractères')]
+    #[Assert\Length(min:50,minMessage:'La description doit dépasser 50 caractères',groups:["formTwo"])]
     private ?string $description = null;
 
     /**

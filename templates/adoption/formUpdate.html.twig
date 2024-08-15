@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Faire adopter{% endblock %}
+
+{% block body %}
+    <div class="slide">
+        <div class="wrapper">
+            <div class="slideFormulaire">
+                <img src="/logo/Union.png" alt="Logo de coup de patte">
+                <div class="formulaire">
+                    <a href="{{path('home')}}" class='backButton'>Retour à l'accueil</a>
+                    <h6>Faire adopter votre animal</h6>
+                    {{form_start(formOne)}}
+                        {{form_widget(formOne)}}
+                        <div class="buttonFormulaire">
+                            <button type="submit">Suivant</button>
+                        </div>
+                    {{form_end(formOne)}}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
