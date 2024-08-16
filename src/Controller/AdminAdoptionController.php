@@ -56,10 +56,17 @@ class AdminAdoptionController extends AbstractController
         return $this->redirectToRoute('admin_adoption_index');
     }
 
+    /**
+     * Permet de transférer un animal à faire adopter dans les animaux à adopter
+     *
+     * @param Adoption $adoption
+     * @param EntityManagerInterface $manager
+     * @return Response
+     */
     #[Route('/asmin/adoption/{id}/transfer',name:'admin_adoption_transfer')]
     public function transfer(Adoption $adoption,EntityManagerInterface $manager): Response
     {
-        $this->addFlash('success','Le profil de '.$adoption->getName().' a bien été transféré, veuillez choisir une ou plusieurs friandises pour lui');
+        $this->addFlash('success','Le profil de '.$adoption->getName().' a bien été transféré, veuillez choisir une ou plusieurs friandises pour lui/elle');
 
         $animal = new Animal();
 
