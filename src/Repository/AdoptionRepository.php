@@ -16,6 +16,28 @@ class AdoptionRepository extends ServiceEntityRepository
         parent::__construct($registry, Adoption::class);
     }
 
+    /**
+     * Permet de faire une recherche sur les noms d'un animal avec un filtre sur son type
+     *
+     * @param string $search
+     * @param string $filtre
+     * @return array|null
+     */
+    public function search(string $search,string $filtre,?int $limit = null,?int $offset = 0): ?array
+    {
+        $search = htmlspecialchars($search);
+
+        return $this->createQueryBuilder('a')
+                    ->select('a as adoption','a.id,a.name,a.type,a.genre,a.age,a.race,a.image')
+                    ->where('a.name LIKE :search AND a.type LIKE :filtre')
+                    ->setParameter('search','%'.$search.'%')
+                    ->setParameter('filtre','%'.$filtre.'%')
+                    ->setMaxResults($limit)
+                    ->setFirstResult($offset)
+                    ->getQuery()
+                    ->getResult();
+    }
+
     //    /**
     //     * @return Adoption[] Returns an array of Adoption objects
     //     */
