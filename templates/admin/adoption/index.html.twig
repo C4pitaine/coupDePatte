@@ -32,12 +32,12 @@
                             <td>{{adoption.race}}</td>
                             <td>{{adoption.image}}</td>
                             <td class="text-center"> 
-                                {# <a href="{{path('admin_article_update',{'id':article.id})}}" class="btn btn-warning mb-2"><i class="fas fa-edit"></i></a>
-                                <a href="{{path('admin_article_show',{'id':article.id})}}" class="btn btn-primary mb-2"><i class="fas fa-eye"></i></a> #}
+                                {# <a href="{{path('admin_article_update',{'id':article.id})}}" class="btn btn-warning mb-2"><i class="fas fa-edit"></i></a> #}
+                                <a href="{{path('admin_adoption_show',{'id':adoption.id})}}" class="btn btn-primary mb-2"><i class="fas fa-eye"></i></a>
                                 <div class="btn btn-danger deleteButton mb-2"><i class="fas fa-trash"></i></div>
                             </td>
                         </tr>
-                        {# {% include "admin/partials/deleteAlert.html.twig" with {'type':'des articles','title':article.title, 'id':article.id, 'route':'admin_article_delete'} %}  #}
+                        {% include "admin/partials/deleteAlert.html.twig" with {'type':'des demandes d\'adoption','title':adoption.name, 'id':adoption.id, 'route':'admin_adoption_delete'} %}
                     {% endfor %}
                 </tbody>
             </table>

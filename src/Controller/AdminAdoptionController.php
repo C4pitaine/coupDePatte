@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Adoption;
 use App\Form\SearchFiltreType;
 use App\Service\PaginationFiltreService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -12,6 +13,45 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdminAdoptionController extends AbstractController
 {
+    /**
+     * Permet d'afficher un animal à faire adopter
+     *
+     * @param Adoption $adoption
+     * @return Response
+     */
+    #[Route('/admin/adoption/{id}/show',name:'admin_adoption_show')]
+    public function show(Adoption $adoption):Response
+    {
+        return $this->render('admin/adoption/show.html.twig',[
+            'adoption' => $adoption,
+        ]);
+    }
+
+    /**
+     * Permet de supprimer une demande d'adoption
+     *
+     * @param EntityManagerInterface $manager
+     * @param Adoption $adoption
+     * @return Response
+     */
+    #[Route('/admin/adoption/{id}/delete',name:'admin_adoption_delete')]
+    public function delete(EntityManagerInterface $manager,Adoption $adoption): Response
+    {
+        $this->addFlash('danger',"La demande d'adoption pour ".$adoption->getName()." a bien été supprimée");
+        
+        if(!empty($adoption->getImage()))
+        {
+            unlink($this->getParameter('uploads_directory_adoption').'/'.$adoption->getImage());
+            $adoption->setImage('');
+            $manager->persist($adoption);
+        }
+        
+        $manager->remove($adoption);
+        $manager->flush();
+
+        return $this->redirectToRoute('admin_adoption_index');
+    }
+
     /**
      * Permet d'afficher les demandes d'adoptions avec une recherche et des filtres avec les résultats paginés
      *

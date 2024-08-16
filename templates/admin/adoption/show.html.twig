@@ -1,0 +1,40 @@
+{% extends "admin/base.html.twig" %}
+
+{% block title %}Admin adoption de : {{adoption.name}}{% endblock %}
+
+{% block body %}
+    <div class="slide">
+        <div class="wrapper">
+            {% for label, messages in app.flashes %}
+                <div class="container mt-3">
+                    <div class="alert alert-{{label}}">
+                        {% for message in messages %}
+                            <p>{{ message | raw }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+            <a href="{{path('admin_adoption_index')}}" class="backButton">Retour</a>
+            <div class="showAdoption">
+                <img src="/uploads/adoption/{{adoption.image}}" alt="Image de {{adoption.name}}">
+                <div class="informationsAdoption">
+                    <p>Nom : {{adoption.name}}</p>
+                    <p>Animal : {{adoption.type}}</p>
+                    <p>Genre: {{adoption.genre}}</p>
+                    <p>Âge : {{adoption.age}}</p>
+                    <p>Race : {{adoption.race}}</p>
+                    <div class="indispensables">
+                        <p>Indispensables :</p>
+                        {% for indispensable in adoption.indispensables %}
+                            <p>- {{indispensable.title}}</p>
+                        {% endfor %}
+                    </div>
+                    <div class="description">
+                        <p>Description : </p>
+                        <p>{{adoption.description | raw | nl2br}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
