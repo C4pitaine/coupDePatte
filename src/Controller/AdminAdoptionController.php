@@ -59,7 +59,7 @@ class AdminAdoptionController extends AbstractController
     #[Route('/asmin/adoption/{id}/transfer',name:'admin_adoption_transfer')]
     public function transfer(Adoption $adoption,EntityManagerInterface $manager): Response
     {
-        $this->addFlash('success','Le profil de '.$adoption->getName().' a bien été transféré');
+        $this->addFlash('success','Le profil de '.$adoption->getName().' a bien été transféré, veuillez choisir une ou plusieurs friandises pour lui');
 
         $animal = new Animal();
 
@@ -81,7 +81,7 @@ class AdminAdoptionController extends AbstractController
         $manager->remove($adoption);
         $manager->flush();
 
-        return $this->redirectToRoute('admin_adoption_index');
+        return $this->redirectToRoute('admin_animal_update',['id'=>$animal->getId()]);
     }
 
     /**
