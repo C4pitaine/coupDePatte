@@ -15,8 +15,9 @@
                 </div>
             {% endfor %}
             <a href="{{path('admin_adoption_index')}}" class="backButton">Retour</a>
+            <div class="backButton ms-3 transfer">Transférer</div>
             <div class="showAdoption">
-                <img src="/uploads/adoption/{{adoption.image}}" alt="Image de {{adoption.name}}">
+                <img src="/uploads/animal/{{adoption.image}}" alt="Image de {{adoption.name}}">
                 <div class="informationsAdoption">
                     <p>Nom : {{adoption.name}}</p>
                     <p>Animal : {{adoption.type}}</p>
@@ -37,4 +38,28 @@
             </div>
         </div>
     </div>
+    <div class="alertTransferContainer">
+        <div class="alertTransfer">
+            <h4 class="my-3 mx-2">Êtes-vous sûr de vouloir transférer le profil de {{adoption.name}} dans les animaux à adopter ?</h4>
+            <div class="buttonTransfer">
+                <a href="{{path('admin_adoption_transfer',{'id':adoption.id})}}" class="btn btn-primary mb-3">Confirmer</a>
+                <div class="annulerTransfer btn btn-secondary mb-3">Annuler</div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        const alertTransferContainer = document.querySelector('.alertTransferContainer');
+        const transfer = document.querySelector('.transfer');
+        const annulerTransfer = document.querySelector('.annulerTransfer');
+
+        transfer.addEventListener('click',()=>{
+            alertTransferContainer.style.display = "flex"
+        })
+        annulerTransfer.addEventListener('click',()=>{
+            alertTransferContainer.style.display = "none"
+        })
+    </script>
 {% endblock %}

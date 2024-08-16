@@ -2,8 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Animal;
 use App\Entity\Adoption;
+use App\Entity\Indispensable;
 use App\Form\SearchFiltreType;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Mapping\Entity;
 use App\Service\PaginationFiltreService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,11 +45,39 @@ class AdminAdoptionController extends AbstractController
         
         if(!empty($adoption->getImage()))
         {
-            unlink($this->getParameter('uploads_directory_adoption').'/'.$adoption->getImage());
+            unlink($this->getParameter('uploads_directory_animal').'/'.$adoption->getImage());
             $adoption->setImage('');
             $manager->persist($adoption);
         }
-        
+
+        $manager->remove($adoption);
+        $manager->flush();
+
+        return $this->redirectToRoute('admin_adoption_index');
+    }
+
+    #[Route('/asmin/adoption/{id}/transfer',name:'admin_adoption_transfer')]
+    public function transfer(Adoption $adoption,EntityManagerInterface $manager): Response
+    {
+        $this->addFlash('success','Le profil de '.$adoption->getName().' a bien été transféré');
+
+        $animal = new Animal();
+
+        $animal->setName($adoption->getName())
+                ->setType($adoption->getType())
+                ->setGenre($adoption->getGenre())
+                ->setAge($adoption->getAge())
+                ->setRace($adoption->getRace())
+                ->setDescription($adoption->getDescription())
+                ->setAdoptionDate(null)
+                ->setAdopted(false)
+                ->setCoverImage($adoption->getImage());
+                foreach($adoption->getIndispensables() as $indispensable)
+                {
+                    $animal->addIndispensable($indispensable);
+                }
+
+        $manager->persist($animal);
         $manager->remove($adoption);
         $manager->flush();
 

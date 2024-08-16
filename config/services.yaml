@@ -8,7 +8,6 @@ parameters:
     uploads_directory_images: '%kernel.project_dir%/public/uploads/images'
     uploads_directory_animal: '%kernel.project_dir%/public/uploads/animal'
     uploads_directory_article: '%kernel.project_dir%/public/uploads/article'
-    uploads_directory_adoption: '%kernel.project_dir%/public/uploads/adoption'
 services:
     # default configuration for services in *this* file
     _defaults:

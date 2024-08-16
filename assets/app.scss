@@ -505,7 +505,33 @@ footer{
 /* BackButton */
 
 .backButton{
+    cursor: pointer;
     @include aFront;
+}
+
+/* Alerte Transfer */
+
+.alertTransferContainer{
+    display: none;
+    width:100%;
+    height:100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255,80%);
+    justify-content: center;
+    align-items: center;
+
+    .alertTransfer{
+        border: solid 2px black;
+        width: 80%;
+        min-height: 20vh;
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
 }
 
 /* Mentions légales */ 

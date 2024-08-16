@@ -72,7 +72,7 @@ class AdoptionController extends AbstractController
                 $newFilename = $safeFilename."-".uniqid().'.'.$file->guessExtension();
                 try{
                     $file->move(
-                        $this->getParameter('uploads_directory_adoption'), 
+                        $this->getParameter('uploads_directory_animal'), 
                         $newFilename 
                     );
                 }catch(FileException $e)
