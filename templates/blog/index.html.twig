@@ -9,7 +9,7 @@
             {% include "partials/_searchFiltre.html.twig" %}
             <div class="articles">
                 {% for article in pagination.data %}
-                    <a href="#" class="article">
+                    <a href="{{path('article_show',{'id':article.id})}}" class="article">
                         <img src="/uploads/article/{{article.image}}" alt="Image de {{article.title}}">
                         <h6>"{{article.title}}"</h6>
                     </a>

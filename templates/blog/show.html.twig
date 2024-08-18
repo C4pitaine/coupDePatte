@@ -1,0 +1,19 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Article : {{article.title}}{% endblock %}
+
+{% block body %}
+    <div class="slide articleShow">
+        <div class="wrapper">
+            <a href="{{path('blog')}}" class="backButton">Retour</a>
+            <h4>{{article.title}}</h4>
+            <img src="/uploads/article/{{article.image}}" alt="Image de {{article.title}}">
+            <div class="description">
+                {{article.text | raw }}
+            </div>
+            <div class="link">
+                <a href="{{article.link}}" class="backButton">Voir la source</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

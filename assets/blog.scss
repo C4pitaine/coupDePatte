@@ -59,6 +59,26 @@
     }
 }
 
+/* Article Show */
+
+.articleShow{
+    h4{
+        @include roboto-bold;
+        font-size: 26px;
+        margin-bottom: 30px;
+    }
+    img{
+        width: 100%;
+        height:50vh;
+        object-fit: contain;
+        margin-bottom: 50px;
+    }
+    .link{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
 
 
 /* Media queries */

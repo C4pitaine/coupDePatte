@@ -12,6 +12,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class BlogController extends AbstractController
 {
+    /**
+     * Permet d'afficher un article
+     *
+     * @param Article $article
+     * @return Response
+     */
+    #[Route('/blog/{id}/show',name:'article_show')]
+    public function show(Article $article): Response
+    {
+        return $this->render('blog/show.html.twig',[
+            'article' => $article,
+        ]);
+    }
 
      /**
      * Permet d'afficher tout les articles avec une recherche et des filtres ainsi qu'une pagination
