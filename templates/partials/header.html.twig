@@ -7,9 +7,9 @@
         <nav>
             <ul>
                 <li>
-                    <a href="#">Menu</a>
+                    <a href="{{path("home")}}">Menu</a>
                     <ul>
-                        <li><a href="#">Accueil</a></li>
+                        <li><a href="{{path("home")}}">Accueil</a></li>
                         <li><a href="#">Présentation</a></li>
                         <li><a href="#">Animaux</a></li>
                         <li><a href="#contact">Contact</a></li>
@@ -23,7 +23,7 @@
                         <li><a href="#">Lapin</a></li>
                     </ul>
                 </li>
-                <li><a href="#">Blog</a></li>
+                <li><a href="{{path('blog')}}">Blog</a></li>
                 <li><a href="{{path('adoption_one')}}">Faire adopter</a></li>
                 <li><a href="#"><i class="fa-solid fa-bag-shopping"></i></a></li>
                 <li>
@@ -50,11 +50,11 @@
     <div class="right">
         <div class="menuLink">
             <div class="menuContainer">
-                <a href="#">Menu</a>
+                <a href="{{path("home")}}">Menu</a>
                 <i class="fa-solid fa-chevron-right chevronMenu"></i>
             </div>
             <div class="link">
-                <a href="#">Accueil</a>
+                <a href="{{path("home")}}">Accueil</a>
                 <a href="#">Présentation</a>
                 <a href="#">Animaux</a>
                 <a href="#contact">Contact</a>
@@ -72,7 +72,7 @@
             </div>
         </div>
         <div class="menuLink">
-            <a href="#">Blog</a>
+            <a href="{{path('blog')}}">Blog</a>
         </div>
         <div class="menuLink">
             <a href="{{path('adoption_one')}}">Faire adopter</a>

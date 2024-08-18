@@ -1,0 +1,22 @@
+<div class="my-4 formSearch">
+    {{form_start(formSearch)}}
+        <div class="d-flex searchContainer">
+            {% if pagination.search == "" %}
+                <div class="w-75 me-2 inputContainer">
+                    {{form_widget(formSearch.search)}}
+                </div>
+                <div class="w-25 ms-2 inputContainer">
+                    {{form_widget(formSearch.filtre)}}
+                </div>
+            {% else %}
+                <div class="w-75 me-2 inputContainer">
+                    {{form_widget(formSearch.search,{ 'attr': {'placeholder': pagination.search} })}}
+                </div>
+                <div class="w-25 ms-2 inputContainer">
+                    {{form_widget(formSearch.filtre)}}
+                </div>
+            {% endif %}
+            <button type="submit" class="backButton">Rechercher</button>
+        </div>
+    {{form_end(formSearch)}}
+</div>

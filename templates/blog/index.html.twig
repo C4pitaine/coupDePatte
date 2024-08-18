@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Blog{% endblock %}
+
+{% block body %}
+    <div class="slide blog">
+        <div class="wrapper">
+            <h4>Articles</h4>
+            {% include "partials/_searchFiltre.html.twig" %}
+            <div class="articles">
+                {% for article in pagination.data %}
+                    <a href="#" class="article">
+                        <img src="/uploads/article/{{article.image}}" alt="Image de {{article.title}}">
+                        <h6>"{{article.title}}"</h6>
+                    </a>
+                {% endfor %}
+            </div>
+            {{pagination.display}}
+        </div>
+    </div>
+{% endblock %}

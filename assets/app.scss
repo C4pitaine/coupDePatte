@@ -548,7 +548,42 @@ footer{
         margin-bottom: 25px;
     }
 }
+
+/* focus des input */
+.form-control:focus {
+    box-shadow: none !important;
+}
   
+/* Pagination */
+
+.selfPagination{
+    .arrow{
+        background-color: none;
+        margin: 0 10px;
+        a{
+            border: none;
+            color: black;
+            font-size: 25px;
+        }
+        &.disabled{
+            display: none;
+        }
+    }
+    .number{ 
+       a{
+            border: solid 1px black;
+            border-radius: 10px;
+            color: black;
+            font-size: 22px;
+            padding: 0 10px;
+            margin: 8px 5px;
+       }
+       &.active a{
+        color: $white;
+        background-color: $greenColor;
+       }
+    }
+}
 
 /* Media queries */ 
 
