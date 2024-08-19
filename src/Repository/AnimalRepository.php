@@ -38,6 +38,24 @@ class AnimalRepository extends ServiceEntityRepository
                     ->getResult();
     }
 
+    /**
+     * Permet d'envoyer toutes les races repris pour un type d'animal dans le formulaire de filtre
+     *
+     * @param string $type
+     * @return array|null
+     */
+    public function findRaces(string $type): ?array
+    {
+        $type = htmlspecialchars($type);
+
+        return $this->createQueryBuilder('a')
+                    ->select('a.race')
+                    ->where('a.type = :type')
+                    ->setParameter('type', $type)
+                    ->getQuery()
+                    ->getScalarResult();
+    }
+
     //    /**
     //     * @return Animal[] Returns an array of Animal objects
     //     */

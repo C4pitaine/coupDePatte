@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Animal - {{type}}{% endblock %}
+
+{% block body %}
+    <div class="slide animaux">
+        <div class="wrapper">
+            <h4>Nos {{type}}s</h4>
+            {% include "partials/_searchFiltre.html.twig" %}
+        </div>
+    </div>
+{% endblock %}
