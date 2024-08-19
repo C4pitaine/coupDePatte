@@ -53,6 +53,14 @@ class Adoption
     #[Assert\Length(min:2,max:255,minMessage:"La race de l'animal doit dépasser 2 caractères",maxMessage:"La race de l'animal ne doit pas dépasser 255 caractères",groups:["formTwo"])]
     private ?string $race = null;
 
+    #[ORM\Column(length: 255)]
+    #[Assert\Email(message:"Vous devez renseigner une adresse email valide",groups:["formTwo"])]
+    private ?string $email = null;
+
+    #[ORM\Column(length: 255)]
+    #[Assert\Length(min:10,max:10,exactMessage:'Votre numéro de téléphone doit faire 10 chiffres',groups:["formTwo"])]
+    private ?string $tel = null;
+
     public function __construct()
     {
         $this->indispensables = new ArrayCollection();
@@ -167,6 +175,30 @@ class Adoption
     public function setRace(string $race): static
     {
         $this->race = $race;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): static
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getTel(): ?string
+    {
+        return $this->tel;
+    }
+
+    public function setTel(string $tel): static
+    {
+        $this->tel = $tel;
 
         return $this;
     }

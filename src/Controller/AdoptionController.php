@@ -34,6 +34,8 @@ class AdoptionController extends AbstractController
             $adoption->setRace("");
             $adoption->setImage("");
             $adoption->setDescription("");
+            $adoption->setEmail("");
+            $adoption->setTel("");
 
             $manager->persist($adoption);
             $manager->flush();
