@@ -3,10 +3,50 @@
 {% block title %}Animal - {{type}}{% endblock %}
 
 {% block body %}
-    <div class="slide animaux">
+    <div class="slide animalSlide">
         <div class="wrapper">
             <h4>Nos {{type}}s</h4>
             {% include "partials/_searchFiltre.html.twig" %}
+            <div class="animaux">
+                {% for animal in pagination.data %}
+                    <div class="animal">
+                        <img src="/uploads/animal/{{animal.coverImage}}" alt="Image de {{animal.name}}">
+                        <div class="infos">
+                            <h5>{{animal.name}}</h4>
+                            <h6>{{animal.race}}</h6>
+                            <h6>{{animal.type}} 
+                            {% if animal.genre == "male" %}
+                                mâle
+                            {% else %}
+                                femelle
+                            {% endif %}
+                            </h4>
+                            <h6>{{animal.age}} ans</h4>
+                            <a href="">Voir plus</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            {{pagination.display}}
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        var animaux = document.querySelectorAll('.animal');
+        var infos = document.querySelectorAll('.infos');
+
+        animaux.forEach((animal,key)=>{
+            animal.addEventListener('mousemove',()=>{
+                infos[key].classList.add('active')
+            })
+            animal.addEventListener('mouseout',()=>{
+                infos[key].classList.remove('active')
+            })
+            animal.addEventListener('click',()=>{
+                infos[key].classList.add('active')
+            })
+        })
+    </script>
 {% endblock %}

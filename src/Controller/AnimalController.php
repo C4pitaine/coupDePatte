@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Animal;
 use App\Form\SearchFiltreAnimalType;
+use App\Service\PaginationTypeService;
 use App\Service\PaginationFiltreService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AnimalController extends AbstractController
 {
     #[Route('/animal/{type}/page/{page<\d+>?1}/recherche/{recherche}/filtre/{filtre}', name: 'animal_index')]
-    public function index(Request $request,PaginationFiltreService $pagination,int $page,string $type,string $recherche="vide",string $filtre="vide"): Response
+    public function index(Request $request,PaginationTypeService $pagination,int $page,string $type,string $recherche="vide",string $filtre="vide"): Response
     {
         if($recherche == "vide"){
             $recherche = "";
@@ -27,7 +28,8 @@ class AnimalController extends AbstractController
                     ->setFiltre($filtre)
                     ->setPage($page)
                     ->setLimit(10)
-                    ->setTemplatePath('/partials/_paginationFront.html.twig');
+                    ->setType($type)
+                    ->setTemplatePath('/partials/_paginationTypeFront.html.twig');
 
         $form = $this->createForm(SearchFiltreAnimalType::class,null,[
             'type' => $type,

@@ -39,6 +39,29 @@ class AnimalRepository extends ServiceEntityRepository
     }
 
     /**
+     * Permet de faire une recherche sur les noms d'un animal avec un filtre sur son type
+     *
+     * @param string $search
+     * @param string $filtre
+     * @return array|null
+     */
+    public function type(string $search,string $filtre,string $type,?int $limit = null,?int $offset = 0): ?array
+    {
+        $search = htmlspecialchars($search);
+
+        return $this->createQueryBuilder('a')
+                    ->select('a as animal','a.id,a.name,a.type,a.genre,a.age,a.race,a.adoptionDate,a.adopted,a.coverImage')
+                    ->where('a.name LIKE :search AND a.race LIKE :filtre AND a.type = :type')
+                    ->setParameter('search','%'.$search.'%')
+                    ->setParameter('filtre','%'.$filtre.'%')
+                    ->setParameter('type',$type)
+                    ->setMaxResults($limit)
+                    ->setFirstResult($offset)
+                    ->getQuery()
+                    ->getResult();
+    }
+
+    /**
      * Permet d'envoyer toutes les races repris pour un type d'animal dans le formulaire de filtre
      *
      * @param string $type
