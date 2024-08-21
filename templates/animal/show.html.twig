@@ -1,0 +1,47 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Profil de {{animal.name}}{% endblock %}
+
+{% block body %}
+    <div class="slide showAnimal">
+        <div class="wrapper">
+            <a href="{{path('animal_index',{'type':animal.type})}}" class="backButton">Retour</a>
+            <div class="showAnimalInfo">
+                <img src="/uploads/animal/{{animal.CoverImage}}" alt="Image de {{animal.name}}">
+                <div class="informationsAdoption">
+                    <p>Nom : {{animal.name}}</p>
+                    <p>Animal : {{animal.type}}</p>
+                    <p>Genre : {{animal.genre}}</p>
+                    <p>Âge : {{animal.age}}</p>
+                    <p>Race : {{animal.race}}</p>
+                    <div class="indispensables">
+                        <p>Indispensables :</p>
+                        {% for indispensable in animal.indispensables %}
+                            <p>- {{indispensable.title}}</p>
+                        {% endfor %}
+                    </div>
+                    <div class="description">
+                        <p>Description : </p>
+                        <p>{{animal.description | raw | nl2br}}</p>
+                    </div>
+                </div>
+            </div>
+            <h5>Offrez lui une friandise parmi ses préférées :</h5>
+            <div class="achatFriandise">
+                <div class="friandises">
+                    {% for friandise in animal.friandise %}
+                        <div class="friandise">
+                            <h6>{{friandise.name}} - {{friandise.price}}€</h6>
+                            <img src="/uploads/friandises/{{friandise.image}}" alt="Image de la friandise {{friandise.name}}">
+                            <div class="addToCart backButton">Ajouter</div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{encore_entry_script_tags('achat')}}
+{% endblock %}

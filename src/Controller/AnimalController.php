@@ -12,6 +12,31 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AnimalController extends AbstractController
 {
+    /**
+     * Permet d'afficher un animal
+     *
+     * @param Animal $animal
+     * @return Response
+     */
+    #[Route('/animal/{id}/show',name:'animal_show')]
+    public function show(Animal $animal): Response
+    {
+        return $this->render('animal/show.html.twig',[
+            'animal' => $animal
+        ]);
+    }
+
+    /**
+     * Permet d'afficher la page des animaux avec une recherche, des filtres et la paginations en fonction dy type de l'animal
+     *
+     * @param Request $request
+     * @param PaginationTypeService $pagination
+     * @param integer $page
+     * @param string $type
+     * @param string $recherche
+     * @param string $filtre
+     * @return Response
+     */
     #[Route('/animal/{type}/page/{page<\d+>?1}/recherche/{recherche}/filtre/{filtre}', name: 'animal_index')]
     public function index(Request $request,PaginationTypeService $pagination,int $page,string $type,string $recherche="vide",string $filtre="vide"): Response
     {

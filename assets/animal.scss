@@ -67,6 +67,81 @@
     }
 }
 
+/* Affichage d'un animal */
+
+.showAnimal{
+    .wrapper{
+        .showAnimalInfo{
+            margin-bottom: 50px;
+            display: flex;
+            img{
+                height:80vh;
+                max-width: 40%;
+                object-fit: cover;
+            }
+        
+            .informationsAdoption{
+                margin-left: 20px;
+        
+                p{
+                    @include roboto-regular;
+                }
+            }
+        }
+        h5{
+            @include roboto-regular;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .achatFriandise{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            .friandises{
+                width: 100%;
+                display: flex;
+                justify-content: space-evenly;
+                flex-wrap: wrap;
+
+                .friandise{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    width: 20%;
+                    margin-bottom: 20px;
+
+                    img{
+                        width: 100%;
+                    }
+                    h6{
+                        @include roboto-regular;
+                        text-align: center;
+                        margin-bottom: 10px;
+                    }
+                    .numberFriandise{
+                        display: flex;
+                        margin: 20px 0;
+                        p{
+                            @include roboto-regular;
+                            font-size: 1rem;
+                        }
+                        .number{
+                            margin: 0 20px;
+                        }
+                        .add,.remove{
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
 /* media queries */
 
 @media all and (max-width:1400px)
@@ -86,6 +161,26 @@
         .wrapper{
             .animaux{
                 grid-template-columns: repeat(2,1fr);
+            }
+        }
+    }
+    .showAnimal{
+        .wrapper{
+            .showAnimalInfo{
+                flex-direction: column;
+                img{
+                    max-width: 100%;
+                    height: 60vh;
+                    object-fit: contain;
+                    margin-bottom: 20px;
+                }
+            }
+            .achatFriandise{
+                .friandises{
+                    .friandise{
+                        width: 40%;
+                    }
+                }
             }
         }
     }
@@ -110,6 +205,17 @@
         .wrapper{
             .animaux{
                 width: 100%;
+            }
+        }
+    }
+    .showAnimal{
+        .wrapper{
+            .achatFriandise{
+                .friandises{
+                    .friandise{
+                        width: 80%;
+                    }
+                }
             }
         }
     }
