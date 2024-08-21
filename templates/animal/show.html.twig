@@ -31,7 +31,7 @@
                 <div class="friandises">
                     {% for friandise in animal.friandise %}
                         <div class="friandise">
-                            <h6>{{friandise.name}} - {{friandise.price}}€</h6>
+                            <h6><span class="friandiseName">{{friandise.name}}</span> - <span class="friandisePrice">{{friandise.price}}</span>€</h6>
                             <img src="/uploads/friandises/{{friandise.image}}" alt="Image de la friandise {{friandise.name}}">
                             <div class="addToCart backButton">Ajouter</div>
                         </div>
