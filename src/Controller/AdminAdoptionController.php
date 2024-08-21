@@ -4,10 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Animal;
 use App\Entity\Adoption;
-use App\Entity\Indispensable;
 use App\Form\SearchFiltreType;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\Mapping\Entity;
 use App\Service\PaginationFiltreService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;

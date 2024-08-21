@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Animal;
 use App\Form\SearchFiltreAnimalType;
 use App\Service\PaginationTypeService;
-use App\Service\PaginationFiltreService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
