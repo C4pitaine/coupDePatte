@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Animal;
-use App\Form\ImageType;
 use App\Entity\Friandise;
 use App\Entity\Indispensable;
 use App\Form\ApplicationType;
@@ -16,7 +15,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class AnimalType extends ApplicationType
 {
