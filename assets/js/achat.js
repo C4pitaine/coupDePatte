@@ -1,11 +1,13 @@
 /* Affichage du nombre de friandises dans le panier */
 
-var numberAchatHeader = document.querySelector('.numberAchatHeader')
+var numberAchatHeader = document.querySelectorAll('.numberAchatHeader')
 
 function numberCart() {
     if(localStorage.getItem('numberAchat'))
     {
-        numberAchatHeader.innerText = localStorage.getItem('numberAchat')
+       numberAchatHeader.forEach((item,key)=>{
+        item.innerText = localStorage.getItem('numberAchat')
+       })
     }
 }
 numberCart()

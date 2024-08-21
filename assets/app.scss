@@ -189,7 +189,10 @@ header.menuOpened .bar {
                     font-size: 22px;
                 }
             }
-
+            span{
+                color:$white;
+                @include roboto-regular;
+            }
             .menuContainer{
                 display: flex;
                 align-items: center;
@@ -214,6 +217,7 @@ header.menuOpened .bar {
                 .chevronOpen{
                     rotate: 90deg;
                 }
+                
             }
 
             .link{
