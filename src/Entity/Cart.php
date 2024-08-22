@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\CartRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CartRepository::class)]
 class Cart
@@ -15,18 +16,25 @@ class Cart
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(min:2,max:255,minMessage:"Votre nom doit dépasser 2 caractères",maxMessage:"Votre nom ne doit pas dépasser 255 caractères")]
+    #[Assert\NotBlank(message:"Ce champ ne peut pas être vide")]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(min:2,max:255,minMessage:"Votre prénom doit dépasser 2 caractères",maxMessage:"Votre prénoml ne doit pas dépasser 255 caractères")]
+    #[Assert\NotBlank(message:"Ce champ ne peut pas être vide")]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Email]
+    #[Assert\NotBlank(message:"Ce champ ne peut pas être vide")]
     private ?string $email = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $cart = null;
 
     #[ORM\Column]
+    #[Assert\Range(min:0.1,max:100000,notInRangeMessage:"Le montant doit être plus grand que 0.1€")]
     private ?float $total = null;
 
     public function getId(): ?int

@@ -615,6 +615,20 @@ footer{
                         }
                     }
                 }
+                .total{
+                    @include roboto-bold;
+                    font-size: 22px;
+                }
+                form{
+                    #cart{
+                        div{
+                            /* on supprime l'affichage du ticket et du montant total du formulaire */
+                            &:nth-child(4),&:nth-child(5){
+                                display: none;
+                            }
+                        }
+                    }
+                }
             }
         }
     }

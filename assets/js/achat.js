@@ -13,9 +13,12 @@ function numberCart() {
 /* Affichage des éléments présents dans le panier */
 function panierRefresh() {
     if(localStorage.getItem('listCart')){
+
         var panier = JSON.parse(localStorage.getItem('listCart'))
         var total = 0
-        console.log(panier)
+        var ticket =  document.querySelector('#cart_cart')
+        ticket.value = ""
+
         panier.forEach(element => {
             var divAnimal = document.createElement("p")
             var divName = document.createElement("p")
@@ -37,11 +40,13 @@ function panierRefresh() {
             divDelete.classList.add('delButton')
             document.querySelector('.cart').appendChild(divAchat)
     
+            ticket.value += element.animal+" - "+element.name+" - "+element.price+"\n"
+            
             total+= parseFloat(element.price)
         });
         document.querySelector('.total').innerHTML = "Montant total : "+total.toFixed(2)+"€"
-        document.querySelector('#cart_total').value = total.toFixed(2)+"€"
-        document.querySelector('#cart_total').disabled = true
+        document.querySelector('#cart_total').value = total.toFixed(2)
+        
     }else{
         var panier = "Votre panier est vide"
     }
@@ -62,7 +67,7 @@ function deleteItem(){
 
             /* - 1 du nombre d'achats pour l'affichage du nombre */
             localStorage.setItem('numberAchat',parseInt(localStorage.getItem('numberAchat') - 1))
-            
+
             console.log(JSON.parse(localStorage.getItem('listCart')))
             document.querySelector('.cart').innerHTML = ""
             panierRefresh()
