@@ -16,6 +16,27 @@ class CartRepository extends ServiceEntityRepository
         parent::__construct($registry, Cart::class);
     }
 
+    /**
+     * Permet de faire une recherche sur les noms / prénoms d"une personne ayant commandé des friandises
+     *
+     * @param string $search
+     * @param string $filtre
+     * @return array|null
+     */
+    public function search(string $search,?int $limit = null,?int $offset = 0): ?array
+    {
+        $search = htmlspecialchars($search);
+
+        return $this->createQueryBuilder('c')
+                    ->select('c as cart','c.id,c.name,c.firstName,c.email,c.cart,c.total')
+                    ->where('c.name LIKE :search OR c.firstName LIKE :search')
+                    ->setParameter('search','%'.$search.'%')
+                    ->setMaxResults($limit)
+                    ->setFirstResult($offset)
+                    ->getQuery()
+                    ->getResult();
+    }
+
     //    /**
     //     * @return Cart[] Returns an array of Cart objects
     //     */
