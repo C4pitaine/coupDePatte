@@ -26,6 +26,9 @@ class Cart
     #[ORM\Column(type: Types::TEXT)]
     private ?string $cart = null;
 
+    #[ORM\Column]
+    private ?float $total = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,6 +78,18 @@ class Cart
     public function setCart(string $cart): static
     {
         $this->cart = $cart;
+
+        return $this;
+    }
+
+    public function getTotal(): ?float
+    {
+        return $this->total;
+    }
+
+    public function setTotal(float $total): static
+    {
+        $this->total = $total;
 
         return $this;
     }

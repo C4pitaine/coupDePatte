@@ -66,12 +66,12 @@ annulerDelete.forEach((annulerDelete,key)=>{
     })
 })
 
+
+/* Affichage du nombre de friandises dans le panier */
 var numberAchatHeader = document.querySelectorAll('.numberAchatHeader')
 var friandises = document.querySelectorAll('.friandise')
 var achat = localStorage.getItem('listCart') ? JSON.parse(localStorage.getItem('listCart')) : []
 
-
-/* Affichage du nombre de friandises dans le panier */
 function numberCart() {
     if(localStorage.getItem('numberAchat'))
     {

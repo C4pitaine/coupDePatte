@@ -589,6 +589,37 @@ footer{
     }
 }
 
+/* Panier */
+.panier{
+    .wrapper{
+        .slideFormulaire{
+            .formulaire{
+                .cart{
+                    .divAchat{
+                        display: flex;
+                        align-items: center;
+                        margin-bottom: 20px;
+
+                        p{
+                            margin-right: 20px;
+                            margin-bottom: 0;
+                            @include roboto-regular;
+                        }
+                        .delButton{
+                            background-color: red;
+                            padding: 2px 10px;
+                            border-radius: 10px;
+                            color: $white;
+                            cursor: pointer;
+                            user-select: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 /* Media queries */ 
 
 @media all and (max-width:1200px){
