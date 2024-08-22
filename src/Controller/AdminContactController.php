@@ -42,6 +42,23 @@ class AdminContactController extends AbstractController
     }
 
     /**
+     * Permet de supprimer un message
+     *
+     * @param Contact $contact
+     * @param EntityManagerInterface $manager
+     * @return Response
+     */
+    #[Route('/admin/contact/{id}/delete',name:'admin_contact_delete')]
+    public function delete(Contact $contact,EntityManagerInterface $manager): Response
+    {
+        $this->addFlash('danger','Le message de '.$contact->getLastName().' '.$contact->getFirstName().' a bien été supprimé');
+
+        $manager->remove($contact);
+        $manager->flush();
+        return $this->redirectToRoute('admin_contact_index');
+    }
+
+    /**
      * Permet d'afficher les messages avec une recherche, des filtres et une pagination
      *
      * @param Request $request
