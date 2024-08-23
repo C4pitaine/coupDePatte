@@ -48,7 +48,9 @@ function panierRefresh() {
         document.querySelector('#cart_total').value = total.toFixed(2)
         
     }else{
-        var panier = "Votre panier est vide"
+        divEmpty = document.createElement("p")
+        divEmpty.innerText = "Votre panier est vide"
+        document.querySelector('.cart').appendChild(divEmpty)
     }
     deleteItem()
 }

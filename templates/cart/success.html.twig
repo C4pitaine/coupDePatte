@@ -19,3 +19,14 @@
         </div>
     </div>
 {% endblock %}
+
+{% block javascripts %}
+    <script>
+        if(localStorage.getItem('listCart')){
+            localStorage.setItem('listCart',[])
+        }
+        if(localStorage.getItem('numberAchat')){
+            localStorage.setItem('numberAchat',0)
+        }
+    </script>
+{% endblock %}
