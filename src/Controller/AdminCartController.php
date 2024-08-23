@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Cart;
 use App\Form\SearchType;
 use App\Service\PaginationService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -12,6 +13,23 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdminCartController extends AbstractController
 {
+
+    /**
+     * Permet de supprimer une commande
+     *
+     * @param EntityManagerInterface $manager
+     * @param Cart $cart
+     * @return Response
+     */
+    #[Route('/admin/cart/{id}/delete',name:'admin_cart_delete')]
+    public function delete(EntityManagerInterface $manager,Cart $cart): Response
+    {
+        $this->addFlash('danger','La commande de friandises de '.$cart->getName().' '.$cart->getFirstName().' a bien été supprimé');
+        $manager->remove($cart);
+        $manager->flush();
+        return $this->redirectToRoute('admin_cart_index');
+    }
+
     /**
      * Permet d'afficher les commandes de friandises avec une recherche sur les noms / prénoms
      *

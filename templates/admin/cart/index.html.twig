@@ -40,8 +40,8 @@
                                 <div class="btn btn-danger deleteButton mb-2"><i class="fas fa-trash"></i></div>
                             </td>
                         </tr>
-                        {# {% include "admin/partials/deleteAlert.html.twig" with {'type':'des articles','title':article.title, 'id':article.id, 'route':'admin_article_delete'} %}  #}
-                    {% endfor %}
+                        {% include "admin/partials/deleteAlert.html.twig" with {'type':'des commandes','title':"La commande de " ~ cart.name ~ ' ' ~ cart.firstname, 'id':cart.id, 'route':'admin_cart_delete'} %}
+                    {% endfor %} 
                 </tbody>
             </table>
             {{pagination.display}}
