@@ -17,7 +17,8 @@
                         <th>Email</th>
                         <th>Commande</th>
                         <th>Total</th>
-                        {# <th class="text-center">Action</th> #}
+                        <th>Statut</th>
+                        <th class="text-center">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -29,9 +30,15 @@
                             <td>{{cart.email}}</td>
                             <td>{{cart.cart | raw | nl2br}}</td>
                             <td>{{cart.total}}€</td>
-                            {# <td class="text-center"> 
+                            {% if cart.status %}
+                                <td>Payé</td>
+                            {% else %}
+                                <td>Non Payé</td>
+                            {% endif %}
+                            
+                            <td class="text-center"> 
                                 <div class="btn btn-danger deleteButton mb-2"><i class="fas fa-trash"></i></div>
-                            </td> #}
+                            </td>
                         </tr>
                         {# {% include "admin/partials/deleteAlert.html.twig" with {'type':'des articles','title':article.title, 'id':article.id, 'route':'admin_article_delete'} %}  #}
                     {% endfor %}

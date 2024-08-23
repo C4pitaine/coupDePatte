@@ -14,7 +14,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class CartController extends AbstractController
 {   
 
-
+    /**
+     * Affichage et traitement du panier
+     *
+     * @param EntityManagerInterface $manager
+     * @param Request $request
+     * @return Response
+     */
     #[Route('/cart', name: 'cart')]
     public function index(EntityManagerInterface $manager,Request $request): Response
     {
@@ -24,6 +30,7 @@ class CartController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid())
         {
+            $cart->setStatus(false);
             $manager->persist($cart);
             $manager->flush();
 
@@ -35,6 +42,13 @@ class CartController extends AbstractController
         ]);
     }
 
+     /**
+     * Transaction Stripe
+     *
+     * @param string $total
+     * @param integer $id
+     * @return Response
+     */
     #[Route('/cart/checkout/{total}/id/{id}',name:'cart_checkout')]
     public function checkout(string $total,int $id): Response
     {
@@ -65,19 +79,33 @@ class CartController extends AbstractController
         ]);
     }
 
+    /**
+     * Page de réussite de transaction
+     *
+     * @param Request $request
+     * @param Cart $cart
+     * @return Response
+     */
     #[Route('/cart/success/{id}',name:'cart_checkout_success')]
-    public function checkoutSuccess(Request $request,Cart $cart):Response
+    public function checkoutSuccess(EntityManagerInterface $manager,Cart $cart):Response
     {
+        $cart->setStatus(true);
+        $manager->persist($cart);
+        $manager->flush();
+
         return $this->render('cart/success.html.twig',[
             'cart' => $cart,
         ]);
     }   
 
+    /**
+     * Renvoit à la page d'annulation de la transaction
+     *
+     * @return Response
+     */
     #[Route('/cart/cancel',name:'cart_checkout_cancel')]
-    public function checkoutCancel(Request $request):Response
+    public function checkoutCancel():Response
     {
-        return $this->render('cart/cancel.html.twig',[
-
-        ]);
+        return $this->render('cart/cancel.html.twig');
     }   
 }
