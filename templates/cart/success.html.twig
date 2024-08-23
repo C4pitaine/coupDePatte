@@ -5,7 +5,17 @@
 {% block body %}
     <div class="slide checkout">
         <div class="wrapper">
-            <h6>Réussi</h6>
+            <div class="slideFormulaire">
+                <img src="/logo/Union.png" alt="Logo de coup de patte">
+                <div class="formulaire afterStripe">
+                    <h4>Coup de patte vous remercie pour votre achat !</h4>
+                    <h5>Voici le résumé de votre achat :</h5>
+                    <p>{{cart.cart | nl2br}}</p>
+                    <h6>Montant total : {{cart.total}} €</h6>
+                    <p>Nous nous occupons de distribuer la/les friandises le plus rapidement possible.</p>
+                    <a href="/" class="backButton">Retour à l'accueil</a>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

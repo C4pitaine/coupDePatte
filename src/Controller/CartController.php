@@ -69,7 +69,7 @@ class CartController extends AbstractController
     public function checkoutSuccess(Request $request,Cart $cart):Response
     {
         return $this->render('cart/success.html.twig',[
-
+            'cart' => $cart,
         ]);
     }   
 

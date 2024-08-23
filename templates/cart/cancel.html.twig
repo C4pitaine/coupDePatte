@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Checkout Success{% endblock %}
+
+{% block body %}
+    <div class="slide checkout">
+        <div class="wrapper">
+            <div class="slideFormulaire">
+                <img src="/logo/Union.png" alt="Logo de coup de patte">
+                <div class="formulaire afterStripe">
+                    <h4>Un problème est survenu pendant la transaction.</h4>
+                    <div class="buttonsCancelStripe">
+                        <a href="/" class="backButton">Retour à l'accueil</a>
+                        <a href="{{path('cart')}}" class="backButton">Retour au panier</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
