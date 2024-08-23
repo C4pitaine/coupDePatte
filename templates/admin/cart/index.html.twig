@@ -7,7 +7,7 @@
     <div class="container-fluid full slideAdmin">
         <div class="wrapper">
             <h1 class="mt-5 mb-3">Gestion des commandes</h1>
-            {% include "admin/partials/_search.html.twig" %}
+            {% include "admin/partials/_searchFiltre.html.twig" %}
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -30,17 +30,12 @@
                             <td>{{cart.email}}</td>
                             <td>{{cart.cart | raw | nl2br}}</td>
                             <td>{{cart.total}}€</td>
-                            {% if cart.status %}
-                                <td>Payé</td>
-                            {% else %}
-                                <td>Non Payé</td>
-                            {% endif %}
-                            
+                            <td>{{cart.status}}</td>
                             <td class="text-center"> 
                                 <div class="btn btn-danger deleteButton mb-2"><i class="fas fa-trash"></i></div>
                             </td>
                         </tr>
-                        {% include "admin/partials/deleteAlert.html.twig" with {'type':'des commandes','title':"La commande de " ~ cart.name ~ ' ' ~ cart.firstname, 'id':cart.id, 'route':'admin_cart_delete'} %}
+                        {% include "admin/partials/deleteAlert.html.twig" with {'type':'des commandes','title':"La commande de " ~ cart.name ~ ' ' ~ cart.firstName, 'id':cart.id, 'route':'admin_cart_delete'} %}
                     {% endfor %} 
                 </tbody>
             </table>

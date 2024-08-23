@@ -38,7 +38,7 @@ class Cart
     private ?float $total = null;
 
     #[ORM\Column]
-    private ?bool $status = null;
+    private ?string $status = null;
 
     public function getId(): ?int
     {
@@ -105,12 +105,12 @@ class Cart
         return $this;
     }
 
-    public function isStatus(): ?bool
+    public function getStatus(): ?string
     {
         return $this->status;
     }
 
-    public function setStatus(bool $status): static
+    public function setStatus(string $status): static
     {
         $this->status = $status;
 

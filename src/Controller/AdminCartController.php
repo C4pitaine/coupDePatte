@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Cart;
 use App\Form\SearchType;
+use App\Form\SearchFiltreCartType;
 use App\Service\PaginationService;
+use App\Service\PaginationFiltreService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,29 +36,48 @@ class AdminCartController extends AbstractController
      * Permet d'afficher les commandes de friandises avec une recherche sur les noms / prénoms
      *
      * @param Request $request
-     * @param PaginationService $pagination
+     * @param PaginationFiltreService $pagination
      * @param integer $page
      * @param string $recherche
      * @return Response
      */
-    #[Route('/admin/cart/{page<\d+>?1}/{recherche}', name: 'admin_cart_index')]
-    public function index(Request $request,PaginationService $pagination,int $page,string $recherche=""): Response
+    #[Route('/admin/cart/{page<\d+>?1}/recherche/{recherche}/filtre/{filtre}', name: 'admin_cart_index')]
+    public function index(Request $request,PaginationFiltreService $pagination,int $page,string $recherche="vide",string $filtre="vide"): Response
     {
+        if($recherche == "vide"){
+            $recherche = "";
+        }
+        if($filtre == "vide"){
+            $filtre = "";
+        }
+
         $pagination->setEntityClass(Cart::class)
                     ->setSearch($recherche)
+                    ->setFiltre($filtre)
                     ->setPage($page)
                     ->setLimit(10);
 
-        $form = $this->createForm(SearchType::class);
+        $form = $this->createForm(SearchFiltreCartType::class);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
             $recherche = $form->get('search')->getData();
-            if($recherche !== null){
+            $filtre = $form->get('filtre')->getData();
+            if($recherche !== null && $filtre !== null){
                 $pagination->setSearch($recherche)
+                    ->setFiltre($filtre)
+                    ->setPage(1);
+            }else if($recherche !== null){
+                $pagination->setSearch($recherche)
+                        ->setFiltre("")
+                        ->setPage(1);
+            }else if($filtre !== null){
+                $pagination->setSearch("")
+                        ->setFiltre($filtre)
                         ->setPage(1);
             }else{
                 $pagination->setSearch("")
+                        ->setFiltre("")
                         ->setPage(1);
             }
         }

@@ -23,14 +23,15 @@ class CartRepository extends ServiceEntityRepository
      * @param string $filtre
      * @return array|null
      */
-    public function search(string $search,?int $limit = null,?int $offset = 0): ?array
+    public function search(string $search,string $filtre,?int $limit = null,?int $offset = 0): ?array
     {
         $search = htmlspecialchars($search);
 
         return $this->createQueryBuilder('c')
-                    ->select('c as cart','c.id,c.name,c.firstName,c.email,c.cart,c.total')
-                    ->where('c.name LIKE :search OR c.firstName LIKE :search')
+                    ->select('c as cart','c.id,c.name,c.firstName,c.email,c.cart,c.total,c.status')
+                    ->where('(c.name LIKE :search OR c.firstName LIKE :search) AND c.status LIKE :filtre')
                     ->setParameter('search','%'.$search.'%')
+                    ->setParameter('filtre','%'.$filtre.'%')
                     ->setMaxResults($limit)
                     ->setFirstResult($offset)
                     ->getQuery()

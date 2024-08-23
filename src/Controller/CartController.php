@@ -30,7 +30,7 @@ class CartController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid())
         {
-            $cart->setStatus(false);
+            $cart->setStatus('en attente');
             $manager->persist($cart);
             $manager->flush();
 
@@ -69,7 +69,7 @@ class CartController extends AbstractController
                 ]],
                 'mode'=>'payment',
                 'success_url' => "http://127.0.0.1:8000/cart/success/".$id,
-                'cancel_url'=>"http://127.0.0.1:8000/cart/cancel"
+                'cancel_url'=>"http://127.0.0.1:8000/cart/cancel/".$id
             ]);
 
             return $this->redirect($checkout->url);
@@ -89,7 +89,7 @@ class CartController extends AbstractController
     #[Route('/cart/success/{id}',name:'cart_checkout_success')]
     public function checkoutSuccess(EntityManagerInterface $manager,Cart $cart):Response
     {
-        $cart->setStatus(true);
+        $cart->setStatus('payé');
         $manager->persist($cart);
         $manager->flush();
 
@@ -103,9 +103,13 @@ class CartController extends AbstractController
      *
      * @return Response
      */
-    #[Route('/cart/cancel',name:'cart_checkout_cancel')]
-    public function checkoutCancel():Response
+    #[Route('/cart/cancel/{id}',name:'cart_checkout_cancel')]
+    public function checkoutCancel(EntityManagerInterface $manager,Cart $cart):Response
     {
+        $cart->setStatus('annulé');
+        $manager->persist($cart);
+        $manager->flush();
+
         return $this->render('cart/cancel.html.twig');
     }   
 }
