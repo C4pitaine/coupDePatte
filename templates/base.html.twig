@@ -14,8 +14,23 @@
     </head>
     <body>
         {% include "partials/header.html.twig" %}
+        {% include "partials/_cookies.html.twig" %}
         {% block body %}{% endblock %}
         {% include "partials/footer.html.twig" %}
         {% block javascripts %}{% endblock %}
+        {% block javascriptsCookie %}
+            <script>
+                const cookie = document.querySelector('.cookie')
+                const cookieAccept = document.querySelector('.cookieAccept')
+
+                if(localStorage.getItem('cookie')){
+                    cookie.classList.add('cookieAccepted')
+                }
+                cookieAccept.addEventListener('click',()=>{
+                    localStorage.setItem('cookie','QTCookieAccepté')
+                    cookie.classList.add('cookieAccepted')
+                })
+            </script>
+        {% endblock %}
     </body>
 </html>

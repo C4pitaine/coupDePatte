@@ -26,16 +26,7 @@ class AdminContactController extends AbstractController
         $contact->setStatus("vu");
         $manager->persist($contact);
         $manager->flush();
-
-        if($request->isMethod("POST"))
-        {
-            $contact->setStatus("repondu");
-            $manager->persist($contact);
-            $manager->flush();
-
-            return $this->redirectToRoute('admin_contact_show',['id' => $contact->getId()]);
-        }
-
+        
         return $this->render('admin/contact/show.html.twig',[
             'contact' => $contact,
         ]);
