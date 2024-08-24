@@ -14,6 +14,8 @@ import './blog.scss';
 import './animal.scss';
 import './styles/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle';
+import Toastify from 'toastify-js';
+import "toastify-js/src/toastify.css";
 
 // Gestion Menu Burger
 const menuBurger = document.querySelector('#burger')
@@ -102,3 +104,4 @@ addToCart.forEach((cart,key)=>{
         localStorage.setItem('listCart',JSON.stringify(achat))
     })
 })
+

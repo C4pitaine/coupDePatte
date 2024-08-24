@@ -70,7 +70,6 @@ function deleteItem(){
             /* - 1 du nombre d'achats pour l'affichage du nombre */
             localStorage.setItem('numberAchat',parseInt(localStorage.getItem('numberAchat') - 1))
 
-            console.log(JSON.parse(localStorage.getItem('listCart')))
             document.querySelector('.cart').innerHTML = ""
             panierRefresh()
             numberCart()
