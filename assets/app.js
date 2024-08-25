@@ -14,8 +14,6 @@ import './blog.scss';
 import './animal.scss';
 import './styles/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle';
-import Toastify from 'toastify-js';
-import "toastify-js/src/toastify.css";
 
 // Gestion Menu Burger
 const menuBurger = document.querySelector('#burger')
@@ -77,7 +75,7 @@ var achat = localStorage.getItem('listCart') ? JSON.parse(localStorage.getItem('
 function numberCart() {
     if(localStorage.getItem('numberAchat'))
     {
-       numberAchatHeader.forEach((item,key)=>{
+       numberAchatHeader.forEach((item)=>{
         item.innerText = localStorage.getItem('numberAchat')
        })
     }
