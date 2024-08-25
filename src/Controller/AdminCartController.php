@@ -3,9 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Cart;
-use App\Form\SearchType;
-use App\Form\SearchFiltreCartType;
-use App\Service\PaginationService;
+use App\Form\SearchFiltrePaiementType;
 use App\Service\PaginationFiltreService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -57,7 +55,7 @@ class AdminCartController extends AbstractController
                     ->setPage($page)
                     ->setLimit(10);
 
-        $form = $this->createForm(SearchFiltreCartType::class);
+        $form = $this->createForm(SearchFiltrePaiementType::class);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
