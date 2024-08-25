@@ -17,8 +17,8 @@ class DonationOneType extends ApplicationType
         $builder
             ->add('montant',NumberType::class,$this->getConfiguration('Montant','Montant de votre donation'))
             ->add('email',EmailType::class,$this->getConfiguration('Adresse e-mail','Votre adresse e-mail'))
-            ->add('firstName',TextType::class,$this->getConfiguration('Nom','Votre nom'))
-            ->add('lastName',TextType::class,$this->getConfiguration('Prénom','Votre prénom'))
+            ->add('lastName',TextType::class,$this->getConfiguration('Nom','Votre nom'))
+            ->add('firstName',TextType::class,$this->getConfiguration('Prénom','Votre prénom'))
         ;
     }
 

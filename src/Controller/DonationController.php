@@ -30,7 +30,8 @@ class DonationController extends AbstractController
             $donation->setAdresse("")
                     ->setCodePostal(0000)
                     ->setVille("")
-                    ->setPays("");
+                    ->setPays("")
+                    ->setStatus("en attente");
             
             $manager->persist($donation);
             $manager->flush();
@@ -54,7 +55,9 @@ class DonationController extends AbstractController
     #[Route('/donation/{id}/formTwo',name:"donation_two")]
     public function formTwo(EntityManagerInterface $manager,Request $request,Donation $donation): Response
     {
-        $form = $this->createForm(DonationTwoType::class,$donation);
+        $form = $this->createForm(DonationTwoType::class,$donation,[
+            'validation_groups' => ['formTwo']
+        ]);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid())

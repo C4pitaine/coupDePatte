@@ -12,6 +12,7 @@ import './adoption.scss';
 import './formulaire.scss';
 import './blog.scss';
 import './animal.scss';
+import './donation.scss';
 import './styles/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle';
 

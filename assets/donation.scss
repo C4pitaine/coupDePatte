@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+@import "mixins.scss";
+@import "variables.scss";
+
+/* Première partie du formulaire pour faire un don */
+.donationOne{
+    display: flex;
+    .left{
+        width: 50%;
+        background-image: url("/public/images/donationOne.png");
+        background-position: center center;
+        background-size: cover;
+    }
+    .right{
+        width: 50%;
+        .slideFormulaire{
+            .formulaire{
+                width: 100%;
+
+                .montant{
+                    .montantSelections{
+                        display: flex;
+                        flex-wrap: wrap;
+                        .montantSelection{
+                            background-color: $greenColor;
+                            border-radius: 10px;
+                            padding: 5px 25px;
+                            color: white;
+                            border: solid 1px $greenColor;
+                            @include roboto-regular;
+                            cursor: pointer;
+                            margin: 0 0 20px 20px;
+                            &:hover{
+                                background-color: #C2D3FF;
+                                color: black;
+                            }
+                        }
+                    }
+                    .montantTotal{
+                        display: flex;
+                        flex-wrap: wrap;
+                        margin-bottom: 20px;
+                        @include roboto-bold;
+                        font-size: 22px;
+                    }
+                    .montantTotal{
+                        .total{
+                            margin-left: 20px;
+                        }
+                    }
+                }
+
+                form{
+                    #donation_one{
+                        div{
+                            &:nth-child(1) label,&:nth-child(1) input{
+                                display: none;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* Deuxième partie du formulaire de donation */
+.donationTwo{
+    display: flex;
+    .left{
+        width: 50%;
+        .slideFormulaire{
+            .formulaire{
+                width: 100%;
+                h4{
+                    @include roboto-regular;
+                    font-size: 20px;
+                    margin-bottom: 20px;
+                }
+            }
+        }
+    }
+    .right{
+        width: 50%;
+        background-image: url("/public/images/donationTwo.png");
+        background-position: center center;
+        background-size: cover;
+    }
+}
+
+/* media queries */
+@media all and (max-width:1000px)
+{
+    .donationOne{
+        .left{
+            display: none;
+        }
+        .right{
+            width: 100%;
+        }
+    }
+    .donationTwo{
+        .right{
+            display: none;
+        }
+        .left{
+            width: 100%;
+        }
+    }
+}
+
+@media all and (max-width:381px)
+{
+    .donationOne{
+        .right{
+            .slideFormulaire{
+                .formulaire{
+                    .montant{
+                        .montantLibre{
+                            .montantSelected{
+                                input{
+                                    margin-left: 0;
+                                    margin-top: 20px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
