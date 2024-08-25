@@ -19,7 +19,15 @@
                 <li><a href="{{path('admin_article_index')}}">Articles</a></li>
                 <li><a href="#">Utilisateurs</a></li>
                 <li><a href="{{path('admin_adoption_index')}}">Adoptions</a></li>
-                <li><a href="{{path('admin_cart_index')}}">Commandes</a></li>
+                <li>
+                    <a href="{{path('admin_animal_index')}}">Paiements</a>
+                    <ul>
+                        <li>
+                            <a href="{{path('admin_cart_index')}}">Commandes</a>
+                            <a href="{{path('admin_donation_index')}}">Donations</a>
+                        </li>
+                    </ul>
+                </li>
                 <li><a href="{{path('admin_contact_index')}}">Contact</a></li>
                 <li>
                     <i class="fa-solid fa-user"></i>
