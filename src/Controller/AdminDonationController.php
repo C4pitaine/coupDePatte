@@ -52,6 +52,7 @@ class AdminDonationController extends AbstractController
                     ->setSearch($recherche)
                     ->setFiltre($filtre)
                     ->setPage($page)
+                    ->setOrder(['id'=>'DESC'])
                     ->setLimit(10);
 
         $form = $this->createForm(SearchFiltrePaiementType::class);

@@ -34,6 +34,7 @@ class DonationRepository extends ServiceEntityRepository
                     ->setParameter('filtre','%'.$filtre.'%')
                     ->setMaxResults($limit)
                     ->setFirstResult($offset)
+                    ->orderBy('d.id','DESC')
                     ->getQuery()
                     ->getResult();
     }

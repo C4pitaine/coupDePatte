@@ -40,6 +40,9 @@ class Cart
     #[ORM\Column]
     private ?string $status = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $token = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -113,6 +116,18 @@ class Cart
     public function setStatus(string $status): static
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function setToken(string $token): static
+    {
+        $this->token = $token;
 
         return $this;
     }

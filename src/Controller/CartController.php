@@ -4,12 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Cart;
 use App\Form\CartType;
-use Doctrine\ORM\EntityManagerInterface;
 use Stripe\StripeClient;
+use App\Repository\CartRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 
 class CartController extends AbstractController
 {   
@@ -31,10 +33,13 @@ class CartController extends AbstractController
         if($form->isSubmitted() && $form->isValid())
         {
             $cart->setStatus('en attente');
+            $salt = rand(100,100000);
+            $token = md5($cart->getEmail().$salt);
+            $cart->setToken($token);
             $manager->persist($cart);
             $manager->flush();
 
-            return $this->redirectToRoute('cart_checkout',['total'=>$cart->getTotal(),'id'=>$cart->getId()]);
+            return $this->redirectToRoute('cart_checkout',['total'=>$cart->getTotal(),'id'=>$cart->getId(),'token'=>$cart->getToken()]);
         }
         
         return $this->render('cart/index.html.twig', [
@@ -49,8 +54,8 @@ class CartController extends AbstractController
      * @param integer $id
      * @return Response
      */
-    #[Route('/cart/checkout/{total}/id/{id}',name:'cart_checkout')]
-    public function checkout(string $total,int $id): Response
+    #[Route('/cart/checkout/{total}/id/{id}/token/{token}',name:'cart_checkout')]
+    public function checkout(string $total,int $id,string $token): Response
     {
         $gateway = new StripeClient($_ENV['STRIPE_SECRETKEY']);
         $amount = intval($total)*100;
@@ -68,7 +73,7 @@ class CartController extends AbstractController
                     'quantity'=>'1'
                 ]],
                 'mode'=>'payment',
-                'success_url' => "http://127.0.0.1:8000/cart/success/".$id,
+                'success_url' => "http://127.0.0.1:8000/cart/success/".$id."/token/".$token,
                 'cancel_url'=>"http://127.0.0.1:8000/cart/cancel/".$id
             ]);
 
@@ -86,12 +91,21 @@ class CartController extends AbstractController
      * @param Cart $cart
      * @return Response
      */
-    #[Route('/cart/success/{id}',name:'cart_checkout_success')]
-    public function checkoutSuccess(EntityManagerInterface $manager,Cart $cart):Response
+    #[Route('/cart/success/{id}/token/{token}',name:'cart_checkout_success')]
+    public function checkoutSuccess(EntityManagerInterface $manager,Cart $cart,CartRepository $repo,string $token,int $id):Response
     {
-        $cart->setStatus('payé');
-        $manager->persist($cart);
-        $manager->flush();
+        $cart = $repo->findOneBy(['id'=>$id]);
+        if($cart){
+            if($token == $cart->getToken()){
+                $cart->setStatus('payé');
+                $manager->persist($cart);
+                $manager->flush();
+            }else{
+                throw new BadRequestException('Token invalide');
+            }
+        }else{
+            throw new BadRequestException('Id invalide');
+        }
 
         return $this->render('cart/success.html.twig',[
             'cart' => $cart,

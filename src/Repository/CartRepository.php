@@ -32,6 +32,7 @@ class CartRepository extends ServiceEntityRepository
                     ->where('(c.name LIKE :search OR c.firstName LIKE :search) AND c.status LIKE :filtre')
                     ->setParameter('search','%'.$search.'%')
                     ->setParameter('filtre','%'.$filtre.'%')
+                    ->orderBy('c.id','DESC')
                     ->setMaxResults($limit)
                     ->setFirstResult($offset)
                     ->getQuery()
