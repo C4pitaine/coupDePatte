@@ -92,9 +92,8 @@ class CartController extends AbstractController
      * @return Response
      */
     #[Route('/cart/success/{id}/token/{token}',name:'cart_checkout_success')]
-    public function checkoutSuccess(EntityManagerInterface $manager,Cart $cart,CartRepository $repo,string $token,int $id):Response
+    public function checkoutSuccess(EntityManagerInterface $manager,Cart $cart,string $token,int $id):Response
     {
-        $cart = $repo->findOneBy(['id'=>$id]);
         if($cart){
             if($token == $cart->getToken()){
                 $cart->setStatus('payé');

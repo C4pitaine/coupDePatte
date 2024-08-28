@@ -9,7 +9,7 @@
                 <div class="slideFormulaire">
                     <img src="/logo/Union.png" alt="Logo de coup de patte">
                     <div class="formulaire">
-                        <a href="{{path('donation_one_update',{'id':donation.id})}}" class='backButton'>Retour</a>
+                        <a href="{{path('donation_one_update',{'id':donation.id,'token':donation.token})}}" class='backButton'>Retour</a>
                         <h4>Montant : {{donation.montant}}€</h4>
                         <h4>Adresse e-mail : {{donation.email}}</h4>
                         <h4>Nom / Prénom : {{donation.lastName}} {{donation.firstName}}</h4>

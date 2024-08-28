@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 
 class DonationController extends AbstractController
 {
@@ -28,16 +29,20 @@ class DonationController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid())
         {
+            $salt = rand(100,100000);
+            $token = md5($donation->getEmail().$salt);
+
             $donation->setAdresse("")
                     ->setCodePostal(0000)
                     ->setVille("")
                     ->setPays("")
-                    ->setStatus("en attente");
+                    ->setStatus("en attente")
+                    ->setToken($token);
             
             $manager->persist($donation);
             $manager->flush();
 
-            return $this->redirectToRoute('donation_two',['id'=>$donation->getId()]);
+            return $this->redirectToRoute('donation_two',['id'=>$donation->getId(),'token'=>$token]);
         }
 
         return $this->render('donation/formOne.html.twig', [
@@ -53,21 +58,29 @@ class DonationController extends AbstractController
      * @param Donation $donation
      * @return Response
      */
-    #[Route('/donation/{id}/formTwo',name:"donation_two")]
-    public function formTwo(EntityManagerInterface $manager,Request $request,Donation $donation): Response
+    #[Route('/donation/{id}/formTwo/token/{token}',name:"donation_two")]
+    public function formTwo(EntityManagerInterface $manager,Request $request,Donation $donation,string $token): Response
     {
-        $form = $this->createForm(DonationTwoType::class,$donation,[
-            'validation_groups' => ['formTwo']
-        ]);
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid())
-        {
-            $donation->setStatus("en attente");
-            $manager->persist($donation);
-            $manager->flush();
-
-            return $this->redirectToRoute('donation_checkout',['montant'=>$donation->getMontant(),'id'=>$donation->getId()]);
+        if($donation){
+            if($token == $donation->getToken()){
+                $form = $this->createForm(DonationTwoType::class,$donation,[
+                    'validation_groups' => ['formTwo']
+                ]);
+                $form->handleRequest($request);
+        
+                if($form->isSubmitted() && $form->isValid())
+                {
+                    $donation->setStatus("en attente");
+                    $manager->persist($donation);
+                    $manager->flush();
+        
+                    return $this->redirectToRoute('donation_checkout',['montant'=>$donation->getMontant(),'id'=>$donation->getId(),'token'=>$token]);
+                }
+            }else{
+                throw new BadRequestException('Token invalide');
+            }
+        }else{
+            throw new BadRequestException('Id invalide');
         }
 
         return $this->render('donation/formTwo.html.twig',[
@@ -84,17 +97,25 @@ class DonationController extends AbstractController
      * @param Donation $donation
      * @return Response
      */
-    #[Route('/donation/{id}/formOne',name:"donation_one_update")]
-    public function update(EntityManagerInterface $manager,Request $request,Donation $donation): Response
+    #[Route('/donation/{id}/formOne/token/{token}',name:"donation_one_update")]
+    public function update(EntityManagerInterface $manager,Request $request,Donation $donation,string $token): Response
     {
-        $form = $this->createForm(DonationOneType::class,$donation);
-        $form->handleRequest($request);
+        if($donation){
+            if($token == $donation->getToken()){
+                $form = $this->createForm(DonationOneType::class,$donation);
+                $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid())
-        {
-            $manager->persist($donation);
-            $manager->flush();
-            return $this->redirectToRoute("donation_two",['id'=>$donation->getId()]);
+                if($form->isSubmitted() && $form->isValid())
+                {
+                    $manager->persist($donation);
+                    $manager->flush();
+                    return $this->redirectToRoute("donation_two",['id'=>$donation->getId(),'token'=>$token]);
+                }
+            }else{
+                throw new BadRequestException('Token invalide');
+            }
+        }else{
+            throw new BadRequestException('Id invalide');
         }
 
         return $this->render('donation/formUpdate.html.twig',[
@@ -110,8 +131,8 @@ class DonationController extends AbstractController
      * @param integer $id
      * @return Response
      */
-    #[Route('/donation/checkout/{montant}/id/{id}',name:'donation_checkout')]
-    public function checkout(string $montant,int $id): Response
+    #[Route('/donation/checkout/{montant}/id/{id}/token/{token}',name:'donation_checkout')]
+    public function checkout(string $montant,int $id,string $token): Response
     {
         $gateway = new StripeClient($_ENV['STRIPE_SECRETKEY']);
         $amount = intval($montant)*100;
@@ -129,7 +150,7 @@ class DonationController extends AbstractController
                     'quantity'=>'1'
                 ]],
                 'mode'=>'payment',
-                'success_url' => "http://127.0.0.1:8000/donation/success/".$id,
+                'success_url' => "http://127.0.0.1:8000/donation/success/".$id."/token/".$token,
                 'cancel_url'=>"http://127.0.0.1:8000/donation/cancel/".$id
             ]);
 
@@ -145,12 +166,20 @@ class DonationController extends AbstractController
      * @param Cart $cart
      * @return Response
      */
-    #[Route('/donation/success/{id}',name:'donation_checkout_success')]
-    public function checkoutSuccess(EntityManagerInterface $manager,Donation $donation):Response
+    #[Route('/donation/success/{id}/token/{token}',name:'donation_checkout_success')]
+    public function checkoutSuccess(EntityManagerInterface $manager,Donation $donation,string $token):Response
     {
-        $donation->setStatus('payé');
-        $manager->persist($donation);
-        $manager->flush();
+        if($donation){
+            if($token == $donation->getToken()){
+                $donation->setStatus('payé');
+                $manager->persist($donation);
+                $manager->flush();
+            }else{
+                throw new BadRequestException('Token invalide');
+            }
+        }else{
+            throw new BadRequestException('Id invalide');
+        }
 
         return $this->render('donation/success.html.twig',[
             'donation' => $donation,
