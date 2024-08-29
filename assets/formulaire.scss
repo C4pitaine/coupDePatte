@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
 @import "mixins.scss";
 @import "variables.scss";
 
@@ -74,6 +76,57 @@
         }
     }
 }
+
+
+/* Connexion */
+.formulaireConnexion{
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    h6{
+        font-size: 1.8rem;
+        @include roboto-bold;
+
+    }
+    i{
+        font-size: 1.5rem;
+        margin-left: 20px;
+    }
+}
+.formField{
+    input{
+        margin-bottom: 20px;
+        border: solid 1px $greenColor;
+    }
+    .connexionPassword,.toggle-password-container{
+        position: relative;
+        top:0;
+        left: 0;
+        .toggle-password-button{
+            width: fit-content;
+            color: black;
+            position: absolute !important;
+            right:1% !important;
+            left: auto !important;
+        }
+    }
+}
+#registration{
+    .toggle-password-container{
+        position: relative;
+        top:0;
+        left: 0;
+        .toggle-password-button{
+            width: fit-content;
+            color: black;
+            position: absolute !important;
+            right:1% !important;
+            left: auto !important;
+        }
+    }
+}
+
+
 
 /* Media queries */
 

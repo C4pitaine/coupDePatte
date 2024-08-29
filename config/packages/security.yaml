@@ -30,6 +30,16 @@ security:
         main:
             lazy: true
             provider: app_user_provider
+            form_login:
+                login_path: account_login
+                check_path: account_login
+            logout:
+                path: account_logout
+                target: account_login
+            login_throttling:
+                max_attempts: 5
+                interval: '15 minutes'
+            user_checker: App\Security\CheckedUser
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall

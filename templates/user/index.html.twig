@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+    <div class="slide connexion">
+        <div class="wrapper">
+            <div class="slideFormulaire">
+                <img src="/logo/Union.png" alt="Logo Coup de patte">
+                <div class="formulaire">
+                    <div class="formulaireConnexion">
+                        <h2>Connexion</h2>
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    {% if error %}
+                        {% if emailError %}
+                            <div class="alert alert-danger w-100 mb-3">
+                                {{emailError}}
+                            </div>
+                        {% else %}
+                            <div class="alert alert-danger w-100 my-2">
+                                Adresse email ou mot de passe invalide
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                    {% if loginError %}
+                        <div class="alert alert-danger w-100 mb-3">
+                            {{loginError}}
+                        </div>
+                    {% endif %}
+                    {% for label, messages in app.flashes %}
+                        <div class="container mt-3 p-0">
+                            <div class="alert alert-{{label}}">
+                                {% for message in messages %}
+                                    <p>{{ message | raw }}</p>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <form action="{{path('account_login')}}" method="POST">
+                        <div class="formField">
+                            <input class="form-control" type="text" name="_username" placeholder="Adresse E-mail" require value="{{username}}">
+                            <div class="connexionPassword">
+                                <input 
+                                    class="form-control" 
+                                    type="password" 
+                                    name="_password" 
+                                    placeholder="Mot de passe"
+                                    {{ stimulus_controller('symfony/ux-toggle-password/toggle-password', {
+                                        buttonClasses: ['toggle-password-button'],
+                                    }) }}
+                                >
+                            </div>
+                        </div>
+                        <div class="buttonFormulaire">
+                            <button type="submit" class="boutonSubmit">Connexion</button>
+                        </div>
+                    </form>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -29,11 +29,15 @@
                 <li>
                     <i class="fa-solid fa-user"></i>
                     <ul>
-                        <li><a href="#">Inscription</a></li>
-                        <li><a href="#">Connexion</a></li>
-                        <li><a href="#">Profil</a></li>
-                        <li><a href="{{path('donation_one')}}">Faire un don</a></li>
-                        <li><a href="#">Déconnexion</a></li>
+                        {% if app.user %}
+                            <li><a href="#">Profil</a></li>
+                            <li><a href="{{path('donation_one')}}">Faire un don</a></li>
+                            <li><a href="{{path('account_logout')}}">Déconnexion</a></li>
+                        {% else %}
+                            <li><a href="{{path('account_register')}}">Inscription</a></li>
+                            <li><a href="{{path('account_login')}}">Connexion</a></li>
+                            <li><a href="{{path('donation_one')}}">Faire un don</a></li>
+                        {% endif %}
                     </ul>
                 </li>
             </ul>
@@ -87,11 +91,15 @@
                 <i class="fa-solid fa-chevron-right chevronMenu"></i>
             </div>
             <div class="link">
-                <a href="#">Inscription</a>
-                <a href="#">Connexion</a>
-                <a href="#">Profil</a>
-                <a href="{{path('donation_one')}}">Faire un don</a>
-                <a href="#">Déconnexion</a>
+                {% if app.user %}
+                    <a href="{{path('donation_one')}}">Faire un don</a>
+                    <a href="#">Profil</a>
+                    <a href="{{path('account_logout')}}">Déconnexion</a>
+                {% else %}
+                    <a href="{{path('account_register')}}">Inscription</a>
+                    <a href="{{path('account_login')}}">Connexion</a>
+                    <a href="{{path('donation_one')}}">Faire un don</a>
+                {% endif %}
             </div>
         </div>
     </div>

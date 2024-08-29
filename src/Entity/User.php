@@ -2,13 +2,18 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
+use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use App\Repository\UserRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
+#[UniqueEntity(fields:['email'],message: "Un autre utilisateur possède déjà cette adresse e-mail, merci de la modifier")]
+#[ORM\HasLifecycleCallbacks]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -17,6 +22,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180)]
+    #[Assert\Email(message:"Veuillez renseigner une adresse email valide")]
+    #[Assert\NotBlank(message:"Ce champ ne peut pas être vide")]
     private ?string $email = null;
 
     /**
@@ -29,12 +36,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
+    #[Assert\Length(min:6,max:255,minMessage:"Votre mot de passe doit faire plus de 6 caractères",maxMessage:"Votre mot de passe ne doit pas faire plus de 255 caractères")]
+    #[Assert\NotBlank(message:"Ce champ ne peut pas être vide")]
     private ?string $password = null;
 
+    #[Assert\EqualTo(propertyPath:"password", message:"Vous n'avez pas correctement confirmé votre mot de passe")]
+    public ?string $passwordConfirm = null;
+
     #[ORM\Column(length: 255)]
+    #[Assert\Length(min:2,max:255,minMessage:"Le nom doit dépasser 2 caractères",maxMessage:"Le nom ne doit pas dépasser 255 caractères")]
+    #[Assert\NotBlank(message:"Ce champ ne peut pas être vide")]
     private ?string $lastName = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(min:2,max:255,minMessage:"Votre prénom doit dépasser 2 caractères",maxMessage:"Votre prénoml ne doit pas dépasser 255 caractères")]
+    #[Assert\NotBlank(message:"Ce champ ne peut pas être vide")]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 255)]
@@ -48,6 +64,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     private ?bool $familleAccueil = null;
+
+    /**
+     * Permet d'initialiser le slug automatiquement
+     *
+     * @return void
+     */
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function initializeSlug(): void
+    {
+        if(empty($this->slug))
+        {
+            $slugify = new Slugify();
+            $this->slug = $slugify->slugify($this->lastName."-".$this->firstName);
+        }
+    }
 
     public function getId(): ?int
     {
