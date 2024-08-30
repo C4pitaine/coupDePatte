@@ -6,7 +6,6 @@ use App\Entity\Article;
 use App\Form\ArticleType;
 use App\Form\SearchFiltreType;
 use App\Form\ArticleModifyType;
-use App\Form\SearchFiltreArticleType;
 use App\Service\PaginationFiltreService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;

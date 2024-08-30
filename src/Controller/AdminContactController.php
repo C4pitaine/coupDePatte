@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Contact;
 use App\Form\SearchFiltreType;
-use App\Form\SearchFiltreContactType;
 use App\Service\PaginationFiltreService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
