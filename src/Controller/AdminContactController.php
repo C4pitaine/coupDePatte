@@ -23,12 +23,38 @@ class AdminContactController extends AbstractController
     #[Route('/admin/contact/{id}/show',name:'admin_contact_show')]
     public function show(Contact $contact,EntityManagerInterface $manager,Request $request): Response
     {
-        $contact->setStatus("vu");
-        $manager->persist($contact);
-        $manager->flush();
+        if($contact->getStatus() == "en attente")
+        {
+            $contact->setStatus("vu");
+            $manager->persist($contact);
+            $manager->flush();
+        }
+        $error = null;
+
+        if($request->isMethod('POST'))
+        {
+            if($request->request->get('send')){
+                $contact->setStatus("repondu");
+                $manager->persist($contact);
+                $manager->flush();
+
+                // $email = (new Email())
+                //             ->from("")
+                //             ->to($user->getEmail())
+                //             ->subject("Confirmation de votre addresse email")
+                //             ->text("")
+                //             ->html('');
+                // $mailer->send($email);
+
+                return $this->redirectToRoute('admin_contact_index');
+            }else{
+                $error = 'Votre réponse est vide';
+            }
+        }
         
         return $this->render('admin/contact/show.html.twig',[
             'contact' => $contact,
+            'error' => $error,
         ]);
     }
 
