@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Cart;
-use App\Form\SearchFiltrePaiementType;
+use App\Form\SearchFiltreType;
 use App\Service\PaginationFiltreService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -56,7 +56,14 @@ class AdminCartController extends AbstractController
                     ->setOrder(['id'=>'DESC'])
                     ->setLimit(10);
 
-        $form = $this->createForm(SearchFiltrePaiementType::class);
+        $form = $this->createForm(SearchFiltreType::class,null,[
+            'choices' => [
+                "" => "",
+                "Payé" => 'payé',
+                "En attente " => 'en attente',
+                "Annulé " => 'annulé',
+            ]
+        ]);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){

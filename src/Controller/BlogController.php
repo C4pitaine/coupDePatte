@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Article;
-use App\Form\SearchFiltreArticleType;
+use App\Form\SearchFiltreType;
 use App\Service\PaginationFiltreService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -53,7 +53,15 @@ class BlogController extends AbstractController
                     ->setLimit(10)
                     ->setTemplatePath('/partials/_paginationFront.html.twig');
 
-        $form = $this->createForm(SearchFiltreArticleType::class);
+        $form = $this->createForm(SearchFiltreType::class,null,[
+            'choices' => [
+                "" => "",
+                "Nutrition" => "nutrition",
+                "Actualité" => "actualite",
+                "Bien-être" => "bien_etre",
+                "Santé" => "sante",
+            ]
+        ]);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){

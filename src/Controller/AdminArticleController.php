@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Form\ArticleType;
+use App\Form\SearchFiltreType;
 use App\Form\ArticleModifyType;
 use App\Form\SearchFiltreArticleType;
 use App\Service\PaginationFiltreService;
@@ -185,7 +186,15 @@ class AdminArticleController extends AbstractController
                     ->setPage($page)
                     ->setLimit(10);
 
-        $form = $this->createForm(SearchFiltreArticleType::class);
+        $form = $this->createForm(SearchFiltreType::class,null,[
+            'choices' => [
+                "" => "",
+                "Nutrition" => "nutrition",
+                "Actualité" => "actualite",
+                "Bien-être" => "bien_etre",
+                "Santé" => "sante",
+            ]
+        ]);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){

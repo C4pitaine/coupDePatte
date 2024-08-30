@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Contact;
+use App\Form\SearchFiltreType;
 use App\Form\SearchFiltreContactType;
 use App\Service\PaginationFiltreService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -102,7 +103,14 @@ class AdminContactController extends AbstractController
                     ->setOrder(['id'=>'DESC'])
                     ->setLimit(10);
 
-        $form = $this->createForm(SearchFiltreContactType::class);
+        $form = $this->createForm(SearchFiltreType::class,null,[
+            'choices' => [
+                "" => "",
+                "Message en attente" => 'en attente',
+                "Message vu" => 'vu',
+                "Message Répondu" => 'repondu'
+            ]
+        ]);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){

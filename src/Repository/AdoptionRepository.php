@@ -28,7 +28,7 @@ class AdoptionRepository extends ServiceEntityRepository
         $search = htmlspecialchars($search);
 
         return $this->createQueryBuilder('a')
-                    ->select('a as adoption','a.id,a.name,a.type,a.genre,a.age,a.race,a.image')
+                    ->select('a as adoption','a.id,a.name,a.type,a.genre,a.age,a.race,a.image,a.email,a.tel')
                     ->where('a.name LIKE :search AND a.type LIKE :filtre')
                     ->setParameter('search','%'.$search.'%')
                     ->setParameter('filtre','%'.$filtre.'%')

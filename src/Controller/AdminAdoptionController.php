@@ -114,7 +114,14 @@ class AdminAdoptionController extends AbstractController
                     ->setPage($page)
                     ->setLimit(10);
 
-        $form = $this->createForm(SearchFiltreType::class);
+        $form = $this->createForm(SearchFiltreType::class,null,[
+            'choices' => [
+                "" => "",
+                "Chat" => "chat",
+                "Chien" => "chien",
+                "Lapin" => "lapin"
+            ]
+        ]);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){

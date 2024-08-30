@@ -12,15 +12,12 @@ class SearchFiltreType extends ApplicationType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $choices = $options['choices'];
+
         $builder
             ->add('search',TextType::class,$this->getConfiguration('','Rechercher',['required'=>false]))
             ->add('filtre',ChoiceType::class,$this->getConfiguration('','Filtre',[
-                'choices' => [
-                    "" => "",
-                    "Chat" => "chat",
-                    "Chien" => "chien",
-                    "Lapin" => "lapin"
-                ],
+                'choices' => $choices,
                 'required' => false,
             ]));
         ;
@@ -31,5 +28,6 @@ class SearchFiltreType extends ApplicationType
         $resolver->setDefaults([
             // Configure your form options here
         ]);
+        $resolver->setDefined('choices');
     }
 }
