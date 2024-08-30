@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Confirmation d'Email{% endblock %}
+
+{% block body %}
+    <div class="slide">
+        <div class="wrapper">
+            <div class="slideFormulaire">
+                <img src="/logo/Union.png" alt="Logo de coup de patte">
+                <div class="d-flex justify-content-center flex-column align-items-center">
+                    <h4>{{message}}</h4>
+                    <div class="d-flex justify-content-center">
+                        <a href="{{path('account_login')}}" class="backButton me-3 ">Se connecter</a>
+                        <a href="{{path('home')}}" class="backButton">Accueil</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

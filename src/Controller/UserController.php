@@ -5,12 +5,14 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\RegistrationType;
 use Symfony\Component\Mime\Email;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
@@ -99,6 +101,43 @@ class UserController extends AbstractController
 
         return $this->render('user/registration.html.twig',[
             'registrationForm' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * Permet à l'utilisateur de confirmer son Email 
+     *
+     * @param UserRepository $repo
+     * @param EntityManagerInterface $manager
+     * @param integer $id
+     * @param string $token
+     * @return Response
+     */
+    #[Route('/register/{id}/t/{token}',name:'account_checkEmail')]
+    public function confirmEmail(UserRepository $repo,EntityManagerInterface $manager,int $id,string $token): Response
+    {
+        $user = $repo->findOneBy(['id'=>$id]);
+        if($user){
+            if($user->isChecked()){
+                $message = "Votre adresse E-mail a déjà été confirmée ✅";
+            }else{
+                $checkToken = $user->getToken() == $token;
+                if($checkToken){
+                    $user->setChecked(true);
+                    $manager->persist($user);
+                    $manager->flush();
+
+                    $message = "Votre adresse E-mail a été confirmée ✅";
+                }else{
+                    throw new BadRequestException('Token invalide');
+                }
+            }
+        }else{
+            throw new BadRequestException('Id invalide');
+        }
+
+        return $this->render('user/checkEmail.html.twig',[
+            'message'=>$message
         ]);
     }
 
