@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mot de passe Oublié{% endblock %}
+
+{% block body %}
+    <div class="slide">
+        <div class="wrapper">
+            <div class="slideFormulaire">
+                <img src="/logo/Union.png" alt="Logo de coup de patte">
+                <div class="formulaire">
+                    <a href="{{path('account_login')}}" class='backButton'>Retour à la connexion</a>
+                    <h6>Mot de passe oublié</h6>
+                    <form action="" method="POST">
+                        {% if error %}
+                            <p class="text-danger">{{error}}</p>
+                        {% endif %}
+                        <div class="form-group">
+                            <label for="email" class="form-label">Adresse E-mail</label>
+                            <input type="email" id="email" name="email" placeholder="Votre adresse E-mail" class="form-control">
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button type="submit" class="backButton">Envoyer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

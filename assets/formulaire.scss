@@ -111,18 +111,17 @@
         }
     }
 }
-#registration{
-    .toggle-password-container{
-        position: relative;
-        top:0;
-        left: 0;
-        .toggle-password-button{
-            width: fit-content;
-            color: black;
-            position: absolute !important;
-            right:1% !important;
-            left: auto !important;
-        }
+
+.toggle-password-container{
+    position: relative;
+    top:0;
+    left: 0;
+    .toggle-password-button{
+        width: fit-content;
+        color: black;
+        position: absolute !important;
+        right:1% !important;
+        left: auto !important;
     }
 }
 

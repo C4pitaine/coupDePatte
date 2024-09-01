@@ -3,14 +3,19 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\PasswordUpdate;
 use App\Form\RegistrationType;
+use App\Form\PasswordUpdateType;
+use Doctrine\ORM\Mapping\Entity;
 use Symfony\Component\Mime\Email;
 use App\Repository\UserRepository;
+use Symfony\Component\Form\FormError;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasher;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -138,6 +143,90 @@ class UserController extends AbstractController
 
         return $this->render('user/checkEmail.html.twig',[
             'message'=>$message
+        ]);
+    }
+
+    #[Route('/user/reset/request',name:"user_reset_request")]
+    public function resetRequest(UserRepository $repo,Request $request,EntityManagerInterface $manager,UserPasswordHasherInterface $hasher): Response
+    {
+        $error = null;
+
+        if($request->isMethod('POST'))
+        {
+            if($request->request->get('email')){
+                $user = $repo->findOneBy(['email'=>$request->request->get('email')]);
+                if($user){
+                    $chaine = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                    $chaine = str_shuffle($chaine);
+                    $chaine = substr($chaine,0,24);
+
+                    $hash = $hasher->hashPassword($user,$chaine);
+                    $user->setPassword($hash);
+
+                    $manager->persist($user);
+                    $manager->flush();
+                    
+                    // $email = (new Email())
+                    //             ->from("")
+                    //             ->to($user->getEmail())
+                    //             ->subject("Confirmation de votre addresse email")
+                    //             ->text("")
+                    //             ->html('');
+                    // $mailer->send($email);
+
+                    $this->addFlash('success',"Votre nouveau mot de passe a été envoyé par e-mail. N'oubliez pas de vérifier vos courriers indésirables.");
+                    return $this->redirectToRoute('account_login');
+                }else{
+                    $error = "Cette adresse email n'est pas associée à un compte inscrit.";
+                }
+            }else{
+                $error = "Le champ de l'adresse e-mail ne peut pas être vide";
+            }
+        }
+
+        return $this->render('user/resetRequest.html.twig',[
+            'error' => $error,
+        ]);
+    }
+
+    #[Route('/user/reset/{email}/password/token/{token}',name:'reset_password')]
+    public function resetPassword(EntityManagerInterface $manager,Request $request,UserPasswordHasherInterface $hasher,UserRepository $repo,string $email,string $token):Response
+    {   
+        $user = $repo->findOneBy(['email'=>$email]);
+
+        if($user){
+            if($token == $user->getToken()){
+                $passwordUpdate = new PasswordUpdate();
+
+                $form = $this->createForm(PasswordUpdateType::class,$passwordUpdate);
+                $form->handleRequest($request);
+
+                if($form->isSubmitted() && $form->isValid()){
+                    
+                    if(!password_verify($passwordUpdate->getOldPassword(),$user->getPassword()))
+                    {
+                        $form->get('oldPassword')->addError(new FormError('Erreur dans le mot de passe envoyé par mail'));
+                    }else{
+                        $newPassword = $passwordUpdate->getNewPassword();
+                        $hash = $hasher->hashPassword($user,$newPassword);
+
+                        $user->setPassword($hash);
+                        $manager->persist($user);
+                        $manager->flush();
+
+                        $this->addFlash('success','Votre mot de passe a bien été modifié');
+                        return $this->redirectToRoute('account_login');
+                    }
+                }
+            }else{
+                throw new BadRequestException('Token invalide');
+            }
+        }else{
+            throw new BadRequestException('Email non inscrit');
+        }
+
+        return $this->render('user/passwordUpdate.html.twig',[
+            'myForm' => $form->createView(),
         ]);
     }
 
