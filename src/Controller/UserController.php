@@ -189,7 +189,7 @@ class UserController extends AbstractController
                             <h1>Coup de patte - Refuge animalier</h1>
                             <p>Réinitialisation de votre mot de passe</p>
                             <p>Voici votre nouveau mot de passe : '.$chaine.'</p>
-                            <p>N\'oubliez pas de le modifier après vous être connecté</p>
+                            <p>N\'oubliez pas de le modifier</p>
                             <a href="https://coupdepatte.alexandresacre.com/user/reset/'.$user->getEmail()."/password/t/".$user->getToken().'">Réinitialiser votre mot de passe</a>
                         ');
             $mailer->send($email);
