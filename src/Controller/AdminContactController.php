@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Contact;
 use App\Form\SearchFiltreType;
+use Symfony\Component\Mime\Email;
 use App\Service\PaginationFiltreService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,7 +23,7 @@ class AdminContactController extends AbstractController
      * @return Response
      */
     #[Route('/admin/contact/{id}/show',name:'admin_contact_show')]
-    public function show(Contact $contact,EntityManagerInterface $manager,Request $request): Response
+    public function show(Contact $contact,EntityManagerInterface $manager,Request $request,MailerInterface $mailer): Response
     {
         if($contact->getStatus() == "en attente")
         {
@@ -38,13 +40,25 @@ class AdminContactController extends AbstractController
                 $manager->persist($contact);
                 $manager->flush();
 
-                // $email = (new Email())
-                //             ->from("")
-                //             ->to($user->getEmail())
-                //             ->subject("Confirmation de votre addresse email")
-                //             ->text("")
-                //             ->html('');
-                // $mailer->send($email);
+                $email = (new Email())
+                            ->from("noreply@coupdepatte.alexandresacre.com")
+                            ->to($contact->getEmail())
+                            ->subject("Réponse à votre message de contact")
+                            ->text("
+                                Bonjour ".$contact->getLastName()." ".$contact->getFirstName()."
+                                Voici notre réponse à votre message :
+                                ".$request->request->get('send')."
+                                Bien à vous,
+                                L\'équipe Coup de patte.
+                            ")
+                            ->html('
+                                <h2>Bonjour '.$contact->getLastName().' '.$contact->getFirstName().'</h2>
+                                <p>Voici notre réponse à votre message :</p>
+                                <p>'.$request->request->get('send').'</p>
+                                <p>Bien à vous,</p>
+                                <p>L\'équipe Coup de patte.</p>
+                            ');
+                $mailer->send($email);
 
                 return $this->redirectToRoute('admin_contact_index');
             }else{

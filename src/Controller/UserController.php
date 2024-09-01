@@ -92,13 +92,21 @@ class UserController extends AbstractController
             $manager->persist($user);
             $manager->flush();
 
-            // $email = (new Email())
-            //             ->from("")
-            //             ->to($user->getEmail())
-            //             ->subject("Confirmation de votre addresse email")
-            //             ->text("")
-            //             ->html('');
-            // $mailer->send($email);
+            $email = (new Email())
+                        ->from("noreply@coupdepatte.alexandresacre.com")
+                        ->to($user->getEmail())
+                        ->subject("Confirmation de votre addresse email")
+                        ->text("
+                            Coup de patte - Refuge animalier
+                            Confirmez votre adresse email pour pouvoir vous connecter
+                            Confirmer votre email:https://coupdepatte.alexandresacre.com/register/".$user->getId()."/t/".$token."
+                        ")
+                        ->html('
+                            <h1>Coup de patte - Refuge animalier</h1>
+                            <p>Confirmez votre adresse email pour pouvoir vous connecter</p>
+                            <a href="https://coupdepatte.alexandresacre.com/register/'.$user->getId()."/t/".$token.'">Confirmer votre email</a>
+                        ');
+            $mailer->send($email);
 
             $this->addFlash('success','Inscription réussie,Veuillez confirmer votre email avant de pouvoir vous connecter,Vérifiez vos courriers indésirables');
             return $this->redirectToRoute('account_login');
@@ -147,7 +155,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/user/reset/request',name:"user_reset_request")]
-    public function resetRequest(UserRepository $repo,Request $request,EntityManagerInterface $manager,UserPasswordHasherInterface $hasher): Response
+    public function resetRequest(UserRepository $repo,Request $request,EntityManagerInterface $manager,UserPasswordHasherInterface $hasher,MailerInterface $mailer): Response
     {
         $error = null;
 
@@ -166,13 +174,25 @@ class UserController extends AbstractController
                     $manager->persist($user);
                     $manager->flush();
                     
-                    // $email = (new Email())
-                    //             ->from("")
-                    //             ->to($user->getEmail())
-                    //             ->subject("Confirmation de votre addresse email")
-                    //             ->text("")
-                    //             ->html('');
-                    // $mailer->send($email);
+                    $email = (new Email())
+                        ->from("noreply@coupdepatte.alexandresacre.com")
+                        ->to($user->getEmail())
+                        ->subject("Réinitialisation de votre mot de passe")
+                        ->text('
+                            Coup de patte - Refuge animalier</h1>
+                            Réinitialisation de votre mot de passe
+                            Voici votre nouveau mot de passe : '.$chaine.'
+                            N\'oubliez pas de le modifier après vous être connecté
+                            Réiniatialiser votre mot de passe : https://coupdepatte.alexandresacre.com/user/reset/'.$user->getEmail()."/password/t/".$user->getToken().'
+                        ')
+                        ->html('
+                            <h1>Coup de patte - Refuge animalier</h1>
+                            <p>Réinitialisation de votre mot de passe</p>
+                            <p>Voici votre nouveau mot de passe : '.$chaine.'</p>
+                            <p>N\'oubliez pas de le modifier après vous être connecté</p>
+                            <a href="https://coupdepatte.alexandresacre.com/user/reset/'.$user->getEmail()."/password/t/".$user->getToken().'">Réinitialiser votre mot de passe</a>
+                        ');
+            $mailer->send($email);
 
                     $this->addFlash('success',"Votre nouveau mot de passe a été envoyé par e-mail. N'oubliez pas de vérifier vos courriers indésirables.");
                     return $this->redirectToRoute('account_login');
@@ -189,7 +209,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/user/reset/{email}/password/token/{token}',name:'reset_password')]
+    #[Route('/user/reset/{email}/password/t/{token}',name:'reset_password')]
     public function resetPassword(EntityManagerInterface $manager,Request $request,UserPasswordHasherInterface $hasher,UserRepository $repo,string $email,string $token):Response
     {   
         $user = $repo->findOneBy(['email'=>$email]);
