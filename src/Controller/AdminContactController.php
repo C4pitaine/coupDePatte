@@ -59,7 +59,8 @@ class AdminContactController extends AbstractController
                                 <p>L\'équipe Coup de patte.</p>
                             ');
                 $mailer->send($email);
-
+                
+                $this->addFlash('success','Votre réponse a bien été envoyée');
                 return $this->redirectToRoute('admin_contact_index');
             }else{
                 $error = 'Votre réponse est vide';
