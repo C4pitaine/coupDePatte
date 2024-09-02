@@ -14,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AnimalController extends AbstractController
 {
     /**
-     * Permet d'afficher un animal
+     * Permet d'afficher un animal et de vérifier si l'animal est dans les favoris du user
      *
      * @param Animal $animal
      * @return Response
@@ -24,6 +24,8 @@ class AnimalController extends AbstractController
     {
         $user = $this->getUser();
         $isFavori = false;
+        $favoriId = null;
+        
         if($user){
             $favoris = $repo->getUser($user->getId());
             foreach($favoris as $favori)
@@ -33,6 +35,7 @@ class AnimalController extends AbstractController
                 foreach($animaux as $item){
                     if($item->getName() == $animal->getName()){
                         $isFavori = true;
+                        $favoriId = $favori->getId();
                     }
                 }
             }
@@ -41,6 +44,7 @@ class AnimalController extends AbstractController
         return $this->render('animal/show.html.twig', [
             'animal' => $animal,
             'isFavori' => $isFavori,
+            'favoriId' => $favoriId,
         ]);
     }
 

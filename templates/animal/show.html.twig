@@ -9,7 +9,7 @@
                 <a href="{{path('animal_index',{'type':animal.type})}}" class="backButton">Retour</a>
                 {% if app.user %}
                     {% if isFavori %}
-                        <a href="" class="buttonIsFavoris"><i class="fa-solid fa-heart"></i></a>
+                        <a href="{{path('favori_delete',{'id':favoriId})}}" class="buttonIsFavoris"><i class="fa-solid fa-heart"></i></a>
                     {% else %}
                         <a href="{{path('favori_create',{'id':animal.id})}}" class="buttonNotFavoris"><i class="fa-solid fa-heart"></i></a>
                     {% endif %}
