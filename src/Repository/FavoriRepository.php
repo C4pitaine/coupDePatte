@@ -2,22 +2,33 @@
 
 namespace App\Repository;
 
-use App\Entity\Favoris;
+use App\Entity\Favori;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Favoris>
+ * @extends ServiceEntityRepository<Favori>
  */
-class FavorisRepository extends ServiceEntityRepository
+class FavoriRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Favoris::class);
+        parent::__construct($registry, Favori::class);
+    }
+
+    public function getUser(int $userId): ?array
+    {
+        return $this->createQueryBuilder('f')
+                    ->innerJoin('f.user', 'u')
+                    ->innerJoin('f.animal', 'a') // Effectuer une jointure avec les utilisateurs
+                    ->where('u.id = :userId') // Filtrer par l'ID de l'utilisateur
+                    ->setParameter('userId', $userId)
+                    ->getQuery()
+                    ->getResult();
     }
 
     //    /**
-    //     * @return Favoris[] Returns an array of Favoris objects
+    //     * @return Favori[] Returns an array of Favori objects
     //     */
     //    public function findByExampleField($value): array
     //    {
@@ -31,7 +42,7 @@ class FavorisRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Favoris
+    //    public function findOneBySomeField($value): ?Favori
     //    {
     //        return $this->createQueryBuilder('f')
     //            ->andWhere('f.exampleField = :val')

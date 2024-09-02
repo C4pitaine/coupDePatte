@@ -5,7 +5,27 @@
 {% block body %}
     <div class="slide showAnimal">
         <div class="wrapper">
-            <a href="{{path('animal_index',{'type':animal.type})}}" class="backButton">Retour</a>
+            <div class="buttons">
+                <a href="{{path('animal_index',{'type':animal.type})}}" class="backButton">Retour</a>
+                {% if app.user %}
+                    {% if isFavori %}
+                        <a href="" class="buttonIsFavoris"><i class="fa-solid fa-heart"></i></a>
+                    {% else %}
+                        <a href="{{path('favori_create',{'id':animal.id})}}" class="buttonNotFavoris"><i class="fa-solid fa-heart"></i></a>
+                    {% endif %}
+                    
+                {% endif %}
+                
+            </div>
+            {% for label, messages in app.flashes %}
+                <div class="container mt-3">
+                    <div class="alert alert-{{label}}">
+                        {% for message in messages %}
+                            <p>{{ message | raw }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
             <div class="showAnimalInfo">
                 <img src="/uploads/animal/{{animal.CoverImage}}" alt="Image de {{animal.name}}">
                 <div class="informationsAdoption">

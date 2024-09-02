@@ -71,6 +71,36 @@
 
 .showAnimal{
     .wrapper{
+        .buttons{
+            display: flex;
+            align-items: center;
+
+            .buttonNotFavoris,.buttonIsFavoris{
+                background-color: $greenColor;
+                height:40px;
+                padding: 0 35px;
+                border-radius: 10px;
+                border: none;
+                font-size: 22px;
+                margin: 20px 0 20px 10px;
+                width: fit-content;
+                display: inline-block;
+                line-height: 40px;
+                text-decoration: none;
+                @include roboto-regular;
+    
+                &:hover{
+                    background-color: $white;
+                    border: solid 1px $greenColor;
+                }
+            }
+            .buttonIsFavoris{
+                color: red;
+            }
+            .buttonNotFavoris{
+                color: black;
+            }
+        }
         .showAnimalInfo{
             margin-bottom: 50px;
             display: flex;

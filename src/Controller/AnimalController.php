@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Animal;
 use App\Form\SearchFiltreAnimalType;
+use App\Repository\FavoriRepository;
 use App\Service\PaginationTypeService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,10 +20,27 @@ class AnimalController extends AbstractController
      * @return Response
      */
     #[Route('/animal/{id}/show',name:'animal_show')]
-    public function show(Animal $animal): Response
+    public function show(Animal $animal,FavoriRepository $repo): Response
     {
-        return $this->render('animal/show.html.twig',[
-            'animal' => $animal
+        $user = $this->getUser();
+        $isFavori = false;
+        if($user){
+            $favoris = $repo->getUser($user->getId());
+            foreach($favoris as $favori)
+            {
+                $animaux = $favori->getAnimal();
+
+                foreach($animaux as $item){
+                    if($item->getName() == $animal->getName()){
+                        $isFavori = true;
+                    }
+                }
+            }
+        }
+
+        return $this->render('animal/show.html.twig', [
+            'animal' => $animal,
+            'isFavori' => $isFavori,
         ]);
     }
 

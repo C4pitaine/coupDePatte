@@ -79,12 +79,19 @@ class Animal
     #[Assert\File(maxSize:"1024k", maxSizeMessage: "La taille du fichier est trop grande")]
     private ?string $coverImage = null;
 
+    /**
+     * @var Collection<int, Favori>
+     */
+    #[ORM\ManyToMany(targetEntity: Favori::class, mappedBy: 'animal')]
+    private Collection $favoris;
+
     public function __construct()
     {
         $this->suivis = new ArrayCollection();
         $this->friandise = new ArrayCollection();
         $this->images = new ArrayCollection();
         $this->indispensables = new ArrayCollection();
+        $this->favoris = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -304,6 +311,33 @@ class Animal
     public function setCoverImage(?string $coverImage): static
     {
         $this->coverImage = $coverImage;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Favori>
+     */
+    public function getFavoris(): Collection
+    {
+        return $this->favoris;
+    }
+
+    public function addFavori(Favori $favori): static
+    {
+        if (!$this->favoris->contains($favori)) {
+            $this->favoris->add($favori);
+            $favori->addAnimal($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavori(Favori $favori): static
+    {
+        if ($this->favoris->removeElement($favori)) {
+            $favori->removeAnimal($this);
+        }
 
         return $this;
     }
