@@ -154,6 +154,16 @@ class UserController extends AbstractController
         ]);
     }
 
+    /**
+     * Permet de générer un nouveau mot de passe et de l'envoyer par mail
+     *
+     * @param UserRepository $repo
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @param UserPasswordHasherInterface $hasher
+     * @param MailerInterface $mailer
+     * @return Response
+     */
     #[Route('/user/reset/request',name:"user_reset_request")]
     public function resetRequest(UserRepository $repo,Request $request,EntityManagerInterface $manager,UserPasswordHasherInterface $hasher,MailerInterface $mailer): Response
     {
@@ -209,6 +219,17 @@ class UserController extends AbstractController
         ]);
     }
 
+    /**
+     * Permet de modifier son mot de passe quand l'utilisateur l'a oublié
+     *
+     * @param EntityManagerInterface $manager
+     * @param Request $request
+     * @param UserPasswordHasherInterface $hasher
+     * @param UserRepository $repo
+     * @param string $email
+     * @param string $token
+     * @return Response
+     */
     #[Route('/user/reset/{email}/password/t/{token}',name:'reset_password')]
     public function resetPassword(EntityManagerInterface $manager,Request $request,UserPasswordHasherInterface $hasher,UserRepository $repo,string $email,string $token):Response
     {   
