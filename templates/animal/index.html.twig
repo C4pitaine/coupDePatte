@@ -9,22 +9,24 @@
             {% include "partials/_searchFiltre.html.twig" %}
             <div class="animaux">
                 {% for animal in pagination.data %}
-                    <div class="animal">
-                        <img src="/uploads/animal/{{animal.coverImage}}" alt="Image de {{animal.name}}">
-                        <div class="infos">
-                            <h5>{{animal.name}}</h4>
-                            <h6>{{animal.race}}</h6>
-                            <h6>{{animal.type}} 
-                            {% if animal.genre == "male" %}
-                                mâle
-                            {% else %}
-                                femelle
-                            {% endif %}
-                            </h4>
-                            <h6>{{animal.age}} ans</h4>
-                            <a href="{{path('animal_show',{'id':animal.id})}}">Voir plus</a>
+                    {% if animal.adopted == false %}
+                        <div class="animal">
+                            <img src="/uploads/animal/{{animal.coverImage}}" alt="Image de {{animal.name}}">
+                            <div class="infos">
+                                <h5>{{animal.name}}</h4>
+                                <h6>{{animal.race}}</h6>
+                                <h6>{{animal.type}} 
+                                {% if animal.genre == "male" %}
+                                    mâle
+                                {% else %}
+                                    femelle
+                                {% endif %}
+                                </h4>
+                                <h6>{{animal.age}} ans</h4>
+                                <a href="{{path('animal_show',{'id':animal.id})}}">Voir plus</a>
+                            </div>
                         </div>
-                    </div>
+                    {% endif %}
                 {% endfor %}
             </div>
             {{pagination.display}}
