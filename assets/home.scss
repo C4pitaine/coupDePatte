@@ -79,6 +79,99 @@
     }
 }
 
+/* Pensionnaires */
+
+#pensionnaires{
+    background-image: url("/public/images/Vector.png");
+    background-position: center center;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    .wrapper{
+        h2{
+            margin-top: 50px;
+            @include roboto-bold;
+            font-size: 40px;
+        }
+        .descriptionPensionnaire{
+            margin-top: 30px;
+            width: 50%;
+            @include roboto-regular;
+            font-size: 18px;
+        }
+        .pensionnaires{
+            margin-top: 75px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            .pensionnaire{
+                margin: 30px 0;
+                width: 22%;
+                height:50vh;
+                background-color: $greenColor;
+
+                .container{
+                    display: none;
+                }
+                .container.active{
+                    display: flex;
+                    transition: all 0.3s ease-in-out;
+                    width: 100%;
+                    height: 100%;
+                    background-image: url("/public/images/fondPensionnaire.png");
+                    background-position: center center;
+                    background-size: cover;
+                    flex-direction: column;
+                    justify-content: end;
+                    h6{
+                        color: white;
+                        @include roboto-bold;
+                        font-size: 22px;
+                    }
+                    p{
+                        color: white;
+                        @include roboto-regular;
+                        font-size: 16px; 
+                    }
+                    a{
+                        border: solid 1px white;
+                        align-self: flex-end;
+                    }
+                }
+            }
+            #paw{
+                margin: 30px 0;
+                background-image: url("/public/images/Maskgroup.png");
+                background-position: center center;
+                background-size: cover;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 22%;
+                height:50vh;
+                background-color: $greenColor;
+            }
+            #cat{
+                background-image: url("/public/images/cat.png");
+                background-position: center center;
+                background-size: cover;
+            }
+            #dog{
+                background-image: url("/public/images/dog.png");
+                background-position: center center;
+                background-size: cover;
+            }
+            #rabbit{
+                background-image: url("/public/images/rabbit.png");
+                background-position: center center;
+                background-size: cover;
+            }
+        }
+    }
+}
+
 
 /* Contact */
 
@@ -135,6 +228,18 @@
     }
 }
 
+@media all and (max-width:1400px){
+    #pensionnaires{
+        .wrapper{
+            .pensionnaires{
+                .pensionnaire,#paw{
+                    width: 45%;
+                }
+            }
+        }
+    }
+}
+
 @media all and (max-width:1000px){
     #home{
         flex-direction: column;
@@ -144,6 +249,9 @@
             background-image: url("/public/images/home.png");
             background-position: center center;
             background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             .wrapper{
                 h3{
                     margin-top: 20px;
@@ -163,11 +271,20 @@
 
     #pres{
         flex-direction: column;
+        justify-content: center;
+        align-items: center;
         .left{
             display: none;
         }
         .right{
             width: 100%;
+        }
+    }
+    #pensionnaires{
+        .wrapper{
+            .descriptionPensionnaire{
+                width: 100%;
+            }
         }
     }
     #slideContact{
@@ -178,6 +295,19 @@
         }
         .right{
             width: 100%;
+        }
+    }
+}
+
+@media all and (max-width:600px)
+{
+    #pensionnaires{
+        .wrapper{
+            .pensionnaires{
+                .pensionnaire,#paw{
+                    width: 100%;
+                }
+            }
         }
     }
 }

@@ -16,9 +16,7 @@
         <div class="right"></div>
     </div>
     <div class="slide" id="pres">
-        <div class="left">
-
-        </div>
+        <div class="left"></div>
         <div class="right">
             <div class="wrapper">
                 <div class="title">
@@ -37,7 +35,36 @@
         </div>
     </div>
     <div class="slide" id="pensionnaires">
-
+       <div class="wrapper">
+            <h2>À propos de nos pensionnaires</h2>
+            <p class="descriptionPensionnaire">Venez rencontrer <strong>nos adorables pensionnaires</strong> ! Chats, chiens et lapins <strong>attendent</strong> avec impatience un <strong>foyer aimant</strong>. Chacun a sa propre histoire, son caractère unique, et une <strong>tonne d'affection à offrir</strong>. Offrez-leur une chance et repartez peut-être avec un <strong>compagnon pour la vie</strong> !</p>
+            <div class="pensionnaires">
+                <div id="paw">
+                    <img src="/images/paw.png" alt="Image de patte">
+                </div>
+                <div class="pensionnaire" id="cat">
+                    <div class="container">
+                        <h6>Nos chats</h6>
+                        <p>Nos chats n'attendent qu'un doux foyer pour partager leurs ronronnements et câlins infinis !</p>
+                        <a href="{{path('animal_index',{'type':'chat'})}}" class="backButton">Voir plus</a>
+                    </div>
+                </div>
+                <div class="pensionnaire" id="dog">
+                    <div class="container">
+                        <h6>Nos chiens</h6>
+                        <p>Nos chiens rêvent d'un foyer aimant pour offrir leur loyauté et des moments de bonheur sans fin !</p>
+                        <a href="{{path('animal_index',{'type':'chien'})}}" class="backButton">Voir plus</a>
+                    </div>
+                </div>
+                <div class="pensionnaire" id="rabbit">
+                    <div class="container">
+                        <h6>Nos lapins</h6>
+                        <p>Nos lapins n'attendent qu'un foyer douillet pour partager tendresse et petits bonds de joie !</p>
+                        <a href="{{path('animal_index',{'type':'lapin'})}}" class="backButton">Voir plus</a>
+                    </div>
+                </div>
+            </div>
+       </div>
     </div>
     <div class="slide" id="slideContact">
         <div class="left">
@@ -69,4 +96,23 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        let pensionnaires = document.querySelectorAll('.pensionnaire')
+        let container = document.querySelectorAll('.container')
+
+        pensionnaires.forEach((pensionnaire,index)=>{
+            pensionnaire.addEventListener('click',()=>{
+                container[index].classList.toggle('active');
+            })
+            pensionnaire.addEventListener('mouseover',()=>{
+                container[index].classList.add('active')
+            })
+            pensionnaire.addEventListener('mouseout',()=>{
+                container[index].classList.remove('active')
+            })
+        })
+    </script>
 {% endblock %}

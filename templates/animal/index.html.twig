@@ -40,7 +40,7 @@
         var infos = document.querySelectorAll('.infos');
 
         animaux.forEach((animal,key)=>{
-            animal.addEventListener('mousemove',()=>{
+            animal.addEventListener('mouseover',()=>{
                 infos[key].classList.add('active')
             })
             animal.addEventListener('mouseout',()=>{
