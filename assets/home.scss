@@ -37,6 +37,48 @@
     }
 }
 
+/* Présentation */
+
+#pres{
+    display: flex;
+    .left{
+        width:50%;
+        background-image: url("/public/images/pres.png");
+        background-position: center center;
+        background-size: cover;
+    }
+    .right{
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .title{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            img{
+                width: 150px;
+            }
+            h4{
+                margin-left: 20px;
+                @include roboto-bold;
+                font-size: 40px;
+            }
+        }
+        p{
+            @include roboto-regular;
+            font-size: 20px;
+            margin-top: 30px;
+        }
+        .buttons{
+            display: flex;
+            justify-content: space-evenly;
+        }
+    }
+}
+
 
 /* Contact */
 
@@ -64,16 +106,12 @@
     }
     .right{
         width: 60%;
-
         .wrapper{
-
             h4{
                 @include roboto-regular;
                 margin: 50px 0;
             }
-
             .formulaireContact{
-
                 form{
 
                     #contact{
@@ -102,9 +140,19 @@
         flex-direction: column;
         .left{
             width: 100%;
+            min-height: 100vh;
+            background-image: url("/public/images/home.png");
+            background-position: center center;
+            background-size: cover;
             .wrapper{
                 h3{
                     margin-top: 20px;
+                    color: white;
+                    text-shadow: 1px 1px 2px black;
+                }
+                p{
+                    color: white;
+                    text-shadow: 1px 1px 2px black;
                 }
             }
         }
@@ -113,6 +161,15 @@
         }
     }
 
+    #pres{
+        flex-direction: column;
+        .left{
+            display: none;
+        }
+        .right{
+            width: 100%;
+        }
+    }
     #slideContact{
         flex-direction: column;
         .left{
