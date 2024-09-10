@@ -8,11 +8,13 @@ use App\Service\PaginationForOneUser;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AccountController extends AbstractController
 {
     #[Route('/account/{page<\d+>?1}/recherche/{recherche}/filtre/{filtre}', name: 'account_index')]
+    #[IsGranted('ROLE_USER')]
     public function index(Request $request,PaginationForOneUser $pagination,int $page,string $recherche="vide",string $filtre="vide"): Response
     {
         $user = $this->getUser();
