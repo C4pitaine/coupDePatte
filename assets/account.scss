@@ -75,6 +75,7 @@
                         @include roboto-regular;
                         text-decoration: none;
                         border-radius: 10px;
+                        cursor: pointer;
 
                         &:hover{
                             color: red;
@@ -93,7 +94,6 @@
                     }
                 }
                 .show.active{
-                    
                     opacity: 1;
                     transform: translateY(0);
                 }
