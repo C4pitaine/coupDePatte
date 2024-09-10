@@ -34,3 +34,6 @@ services:
     App\Service\PaginationTypeService:
         arguments:
             $templatePath: 'admin/partials/_paginationFiltre.html.twig'
+    App\Service\PaginationForOneUser:
+        arguments:
+            $templatePath: 'partials/_paginationFiltre.html.twig'

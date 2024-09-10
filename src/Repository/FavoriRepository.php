@@ -34,16 +34,17 @@ class FavoriRepository extends ServiceEntityRepository
      * @param string $filtre
      * @return array|null
      */
-    public function search(string $search,string $filtre,?int $limit = null,?int $offset = 0): ?array
+    public function search(string $search,string $filtre,string $user,?int $limit = null,?int $offset = 0): ?array
     {
         $search = htmlspecialchars($search);
 
         return $this->createQueryBuilder('f')
                     ->innerJoin('f.user', 'u')
                     ->innerJoin('f.animal', 'a')
-                    ->where('a.name LIKE :search AND a.type LIKE :filtre')
+                    ->where('a.name LIKE :search AND a.type LIKE :filtre AND u.id = :user')
                     ->setParameter('search','%'.$search.'%')
                     ->setParameter('filtre','%'.$filtre.'%')
+                    ->setParameter('user',$user)
                     ->setMaxResults($limit)
                     ->setFirstResult($offset)
                     ->getQuery()

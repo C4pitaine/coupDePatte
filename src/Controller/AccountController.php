@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Favori;
 use App\Form\SearchFiltreType;
-use App\Service\PaginationFiltreService;
+use App\Service\PaginationForOneUser;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -13,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AccountController extends AbstractController
 {
     #[Route('/account/{page<\d+>?1}/recherche/{recherche}/filtre/{filtre}', name: 'account_index')]
-    public function index(Request $request,PaginationFiltreService $pagination,int $page,string $recherche="vide",string $filtre="vide"): Response
+    public function index(Request $request,PaginationForOneUser $pagination,int $page,string $recherche="vide",string $filtre="vide"): Response
     {
         $user = $this->getUser();
 
@@ -27,8 +27,9 @@ class AccountController extends AbstractController
         $pagination->setEntityClass(Favori::class)
                     ->setSearch($recherche)
                     ->setFiltre($filtre)
+                    ->setUserId($user->getId())
                     ->setPage($page)
-                    ->setLimit(10)
+                    ->setLimit(4)
                     ->setTemplatePath('/partials/_paginationFront.html.twig');
 
         $form = $this->createForm(SearchFiltreType::class,null,[
