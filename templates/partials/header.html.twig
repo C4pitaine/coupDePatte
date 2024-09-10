@@ -30,7 +30,7 @@
                     <i class="fa-solid fa-user"></i>
                     <ul>
                         {% if app.user %}
-                            <li><a href="#">Profil</a></li>
+                            <li><a href="{{path('account_index')}}">Profil</a></li>
                             <li><a href="{{path('donation_one')}}">Faire un don</a></li>
                             <li><a href="{{path('account_logout')}}">Déconnexion</a></li>
                         {% else %}
@@ -70,9 +70,9 @@
                 <i class="fa-solid fa-chevron-right chevronMenu"></i>
             </div>
             <div class="link">
-                <a href="#">Chien</a>
-                <a href="#">Chat</a>
-                <a href="#">Lapin</a>
+                <a href="{{path('animal_index',{'type':'chien'})}}">Chien</a>
+                <a href="{{path('animal_index',{'type':'chat'})}}">Chat</a>
+                <a href="{{path('animal_index',{'type':'lapin'})}}">Lapin</a>
             </div>
         </div>
         <div class="menuLink">
@@ -93,7 +93,7 @@
             <div class="link">
                 {% if app.user %}
                     <a href="{{path('donation_one')}}">Faire un don</a>
-                    <a href="#">Profil</a>
+                    <a href="{{path('account_index')}}">Profil</a>
                     <a href="{{path('account_logout')}}">Déconnexion</a>
                 {% else %}
                     <a href="{{path('account_register')}}">Inscription</a>

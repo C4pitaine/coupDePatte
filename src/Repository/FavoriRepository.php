@@ -27,6 +27,29 @@ class FavoriRepository extends ServiceEntityRepository
                     ->getResult();
     }
 
+    /**
+     * Permet de faire une recherche les favoris d'un user
+     *
+     * @param string $search
+     * @param string $filtre
+     * @return array|null
+     */
+    public function search(string $search,string $filtre,?int $limit = null,?int $offset = 0): ?array
+    {
+        $search = htmlspecialchars($search);
+
+        return $this->createQueryBuilder('f')
+                    ->innerJoin('f.user', 'u')
+                    ->innerJoin('f.animal', 'a')
+                    ->where('a.name = :search AND a.type LIKE :filtre')
+                    ->setParameter('search','%'.$search.'%')
+                    ->setParameter('filtre','%'.$filtre.'%')
+                    ->setMaxResults($limit)
+                    ->setFirstResult($offset)
+                    ->getQuery()
+                    ->getResult();
+    }
+
     //    /**
     //     * @return Favori[] Returns an array of Favori objects
     //     */

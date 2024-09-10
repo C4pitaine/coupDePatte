@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AccountController!{% endblock %}
+
+{% block body %}
+    <div class="slide" id="profil">
+        <div class="wrapper">
+            <div class="headerAccount">
+                <i class="fa-solid fa-user"></i>
+                <h6>{{user.lastName}} {{user.firstName}}</h6>
+                <div class="buttons">
+                    <a href="" class='backButton'>Modifier votre mot de passe</a>
+                    <a href="" class='backButton'>Modifier vos informations</a>
+                </div>
+                <a href="" class="backButton">Faire un suivi</a>
+            </div>
+            {% include "partials/_searchFiltre.html.twig" %}
+            <h5>Vos favoris : </h5>
+            {# <div class="favoris">
+                {% for favori in pagination.data %}
+                    <div class="favori">
+                        {% for animal in favori.animal %}
+                            <img src="/uploads/animal/{{animal.coverImage}}" alt="Image de {{animal.name}}">
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div> #}
+            {{pagination.display}}
+        </div>
+    </div>
+{% endblock %}
