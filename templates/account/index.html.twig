@@ -12,29 +12,36 @@
                     <a href="" class='backButton'>Modifier votre mot de passe</a>
                     <a href="" class='backButton'>Modifier vos informations</a>
                 </div>
-                <a href="" class="backButton">Faire un suivi</a>
+                {% if user.familleAccueil %}
+                    <a href="" class="backButton">Faire un suivi</a>
+                {% endif %}
             </div>
             {% include "partials/_searchFiltre.html.twig" %}
             <h5>Vos favoris : </h5>
             <div class="favoris">
-                {% for favori in pagination.data %}
-                    <div class="favori">
-                        {% for animal in favori.animal %}
-                            <img src="/uploads/animal/{{animal.coverImage}}" alt="Image de {{animal.name}}">
-                            <div class="show">
-                                <a href="" class="deleteFav">X</a>
-                                <h4>{{animal.name}}</h4>
-                                {% if animal.genre == "male" %}
-                                    <p>mâle</p>
-                                {% else %}
-                                    <p>femelle</p>
-                                {% endif %}
-                                <p>{{animal.age}} ans</p>
-                                <a href="{{path('animal_show',{'id':animal.id})}}" class="backButton">Voir plus</a>
-                            </div>
-                        {% endfor %}
-                    </div>
-                {% endfor %}
+                {% if pagination.data %}
+                    {% for favori in pagination.data %}
+                        <div class="favori">
+                            {% for animal in favori.animal %}
+                                <img src="/uploads/animal/{{animal.coverImage}}" alt="Image de {{animal.name}}">
+                                <div class="show">
+                                    <a href="" class="deleteFav">X</a>
+                                    <h4>{{animal.name}}</h4>
+                                    {% if animal.genre == "male" %}
+                                        <p>mâle</p>
+                                    {% else %}
+                                        <p>femelle</p>
+                                    {% endif %}
+                                    <p>{{animal.age}} ans</p>
+                                    <a href="{{path('animal_show',{'id':animal.id})}}" class="backButton">Voir plus</a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <h3>Vous n'avez pas encore de favoris</h3>
+                {% endif %}
+                
             </div>
             {{pagination.display}}
         </div>
