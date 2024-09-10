@@ -41,7 +41,7 @@ class FavoriRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('f')
                     ->innerJoin('f.user', 'u')
                     ->innerJoin('f.animal', 'a')
-                    ->where('a.name = :search AND a.type LIKE :filtre')
+                    ->where('a.name LIKE :search AND a.type LIKE :filtre')
                     ->setParameter('search','%'.$search.'%')
                     ->setParameter('filtre','%'.$filtre.'%')
                     ->setMaxResults($limit)

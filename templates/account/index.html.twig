@@ -16,16 +16,46 @@
             </div>
             {% include "partials/_searchFiltre.html.twig" %}
             <h5>Vos favoris : </h5>
-            {# <div class="favoris">
+            <div class="favoris">
                 {% for favori in pagination.data %}
                     <div class="favori">
                         {% for animal in favori.animal %}
                             <img src="/uploads/animal/{{animal.coverImage}}" alt="Image de {{animal.name}}">
+                            <div class="show">
+                                <a href="" class="deleteFav">X</a>
+                                <h4>{{animal.name}}</h4>
+                                {% if animal.genre == "male" %}
+                                    <p>mâle</p>
+                                {% else %}
+                                    <p>femelle</p>
+                                {% endif %}
+                                <p>{{animal.age}} ans</p>
+                                <a href="{{path('animal_show',{'id':animal.id})}}" class="backButton">Voir plus</a>
+                            </div>
                         {% endfor %}
                     </div>
                 {% endfor %}
-            </div> #}
+            </div>
             {{pagination.display}}
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        let favoris = document.querySelectorAll('.favori')
+        let show = document.querySelectorAll('.show')
+
+        favoris.forEach((favori,index)=>{
+            favori.addEventListener('click',()=>{
+                show[index].classList.toggle('active');
+            })
+            favori.addEventListener('mouseover',()=>{
+                show[index].classList.add('active')
+            })
+            favori.addEventListener('mouseout',()=>{
+                show[index].classList.remove('active')
+            })
+        })
+    </script>
 {% endblock %}
