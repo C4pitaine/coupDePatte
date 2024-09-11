@@ -19,7 +19,7 @@
                 {% endfor %}
                 <div class="buttons">
                     <a href="{{path('account_passwordUpdate')}}" class='backButton'>Modifier votre mot de passe</a>
-                    <a href="" class='backButton'>Modifier vos informations</a>
+                    <a href="{{path('account_userUpdate')}}" class='backButton'>Modifier vos informations</a>
                 </div>
                 {% if user.familleAccueil %}
                     <a href="" class="backButton">Faire un suivi</a>

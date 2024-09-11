@@ -6,6 +6,7 @@ use App\Entity\Favori;
 use App\Entity\PasswordUpdate;
 use App\Form\SearchFiltreType;
 use App\Form\PasswordUpdateType;
+use App\Form\UserUpdateType;
 use App\Service\PaginationForOneUser;
 use Symfony\Component\Form\FormError;
 use Doctrine\ORM\EntityManagerInterface;
@@ -115,6 +116,35 @@ class AccountController extends AbstractController
         }
 
         return $this->render('account/passwordUpdate.html.twig',[
+            'myForm' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * Permet à l'utilisateur de modifier ses informations
+     *
+     * @param EntityManagerInterface $manager
+     * @param Request $request
+     * @return Response
+     */
+    #[Route('/account/userUpdate',name:'account_userUpdate')]
+    #[IsGranted("ROLE_USER")]
+    public function updateUser(EntityManagerInterface $manager,Request $request): Response
+    {
+        $user = $this->getUser();
+        $form = $this->createForm(UserUpdateType::class,$user);
+        $form->handleRequest($request);
+        
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $manager->persist($user);
+            $manager->flush();
+
+            $this->addFlash('success','Vos informations ont bien été modifiées');
+            return $this->redirectToRoute('account_index');
+        }
+
+        return $this->render('account/userUpdate.html.twig',[
             'myForm' => $form->createView(),
         ]);
     }

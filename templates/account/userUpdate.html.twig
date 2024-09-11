@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification de vos informations{% endblock %}
+
+{% block body %}
+    <div class="slide">
+        <div class="wrapper">
+            <div class="slideFormulaire">
+                <img src="/logo/Union.png" alt="Logo de coup de patte">
+                <div class="formulaire">
+                    <a href="{{path('account_index')}}" class='backButton'>Retour</a>
+                    <h6>Modifier vos informations</h6>
+                    {% for label, messages in app.flashes %}
+                        <div class="container mt-3 p-0">
+                            <div class="alert alert-{{label}}">
+                                {% for message in messages %}
+                                    <p>{{ message | raw }}</p>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                    {{form_start(myForm)}}
+                        {{form_widget(myForm)}}
+                        <div class="buttonFormulaire">
+                            <button type="submit">Modifier</button>
+                        </div>
+                    {{form_end(myForm)}}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
