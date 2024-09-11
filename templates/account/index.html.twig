@@ -8,8 +8,17 @@
             <div class="headerAccount">
                 <i class="fa-solid fa-user"></i>
                 <h6>{{user.lastName}} {{user.firstName}}</h6>
+                {% for label, messages in app.flashes %}
+                    <div class="container mt-3 p-0">
+                        <div class="alert alert-{{label}}">
+                            {% for message in messages %}
+                                <p>{{ message | raw }}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
                 <div class="buttons">
-                    <a href="" class='backButton'>Modifier votre mot de passe</a>
+                    <a href="{{path('account_passwordUpdate')}}" class='backButton'>Modifier votre mot de passe</a>
                     <a href="" class='backButton'>Modifier vos informations</a>
                 </div>
                 {% if user.familleAccueil %}
@@ -25,7 +34,7 @@
                             {% for animal in favori.animal %}
                                 <img src="/uploads/animal/{{animal.coverImage}}" alt="Image de {{animal.name}}">
                                 <div class="show">
-                                    <div href="" class="deleteFav deleteButton">X</div>
+                                    <div class="deleteFav deleteButton">X</div>
                                     <h4>{{animal.name}}</h4>
                                     {% if animal.genre == "male" %}
                                         <p>mâle</p>
