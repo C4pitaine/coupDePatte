@@ -18,33 +18,44 @@
                         <th>Prénoms</th>
                         <th>Slug</th>
                         <th>Checké</th>
+                        <th>Famille d'accueil</th>
                         <th class="text-center">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for user in pagination.data %}
-                        <tr>
-                            <td>{{user.id}}</td>
-                            <td>{{user.email}}</td>
-                            <td>
-                                {% for role in user.roles %}
-                                    {{role}} |
-                                {% endfor %}
-                            </td>
-                            <td>{{user.lastName}}</td>
-                            <td>{{user.firstName}}</td>
-                            <td>{{user.slug}}</td>
-                            {% if user.checked %}
-                                <td>Adresse Email confirmée</td>
-                            {% else %}
-                                <td>Adresse Email non confirmée</td>
-                            {% endif %}
-                            
-                            <td class="text-center"> 
-                                <div class="btn btn-danger deleteButton mb-2"><i class="fas fa-trash"></i></div>
-                            </td>
-                        </tr>
-                        {% include "admin/partials/deleteAlert.html.twig" with {'type':'des users','title':user.firstName ~ " " ~ user.lastName, 'id':user.id, 'route':'admin_user_delete'} %}
+                        {% if user.email != "alex@admin.be" %}
+                            <tr>
+                                <td>{{user.id}}</td>
+                                <td>{{user.email}}</td>
+                                <td>
+                                    {% for role in user.roles %}
+                                        {{role}} |
+                                    {% endfor %}
+                                </td>
+                                <td>{{user.lastName}}</td>
+                                <td>{{user.firstName}}</td>
+                                <td>{{user.slug}}</td>
+                                {% if user.checked %}
+                                    <td>Adresse Email confirmée</td>
+                                {% else %}
+                                    <td>Adresse Email non confirmée</td>
+                                {% endif %}
+                                <td>
+                                    {% if user.familleAccueil %}
+                                        Oui
+                                    {% else %}
+                                        Non
+                                    {% endif %}
+                                    
+                                </td>
+                                <td class="text-center"> 
+                                    <a href="{{path('admin_user_update',{'id':user.id})}}" class="btn btn-warning mb-2"><i class="fas fa-edit"></i></a>
+                                    <div class="btn btn-danger deleteButton mb-2"><i class="fas fa-trash"></i></div>
+                                </td>
+                            </tr>
+                            {% include "admin/partials/deleteAlert.html.twig" with {'type':'des users','title':user.firstName ~ " " ~ user.lastName, 'id':user.id, 'route':'admin_user_delete'} %}
+                        {% endif %}
                     {% endfor %}
                 </tbody>
             </table>

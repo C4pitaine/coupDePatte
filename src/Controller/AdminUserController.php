@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\AddFamilleAccueilType;
 use App\Form\SearchType;
 use App\Service\PaginationService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -29,6 +30,34 @@ class AdminUserController extends AbstractController
         $manager->flush();
 
         return $this->redirectToRoute('admin_user_index');
+    }
+
+    /**
+     * Permet d'ajouter un utilisateur comme famille d'accueil
+     *
+     * @param EntityManagerInterface $manager
+     * @param Request $request
+     * @param User $user
+     * @return Response
+     */
+    #[Route('admin/user/{id}/update',name:'admin_user_update')]
+    public function update(EntityManagerInterface $manager,Request $request,User $user): Response
+    {
+        $form = $this->createForm(AddFamilleAccueilType::class,$user);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {   
+            $manager->persist($user);
+            $manager->flush();
+
+            $this->addFlash('success',"La modification pour ".$user->getLastName()." ".$user->getFirstName()." a bien été effectuée");
+            return $this->redirectToRoute('admin_user_index');
+        }
+
+        return $this->render('admin/user/update.html.twig',[
+            'myForm' => $form->createView(),
+        ]);
     }
 
      /**
