@@ -16,6 +16,26 @@ class SuiviRepository extends ServiceEntityRepository
         parent::__construct($registry, Suivi::class);
     }
 
+     /**
+     * Permet de faire une recherche sur le nom des animaux
+     *
+     * @param string $search
+     * @return array|null
+     */
+    public function search(string $search,?int $limit = null,?int $offset = 0): ?array
+    {
+        $search = htmlspecialchars($search);
+
+        return $this->createQueryBuilder('s')
+                    ->select('s as suivi','s.id,s.description,s.animal')
+                    ->where('s.animal LIKE :search')
+                    ->setParameter('search','%'.$search.'%')
+                    ->setMaxResults($limit)
+                    ->setFirstResult($offset)
+                    ->getQuery()
+                    ->getResult();
+    }
+
     //    /**
     //     * @return Suivi[] Returns an array of Suivi objects
     //     */

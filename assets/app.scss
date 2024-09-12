@@ -740,6 +740,11 @@ footer{
     }
 }
 
+.imageSuivi{
+    height:50vh;
+    object-fit: contain;
+}
+
 /* Media queries */ 
 
 @media all and (max-width:1200px){
