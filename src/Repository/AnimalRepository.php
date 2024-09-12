@@ -79,6 +79,15 @@ class AnimalRepository extends ServiceEntityRepository
                     ->getScalarResult();
     }
 
+    public function findAdopted(): ?array
+    {
+        return $this->createQueryBuilder('a')
+                    ->select('a.name')
+                    ->where('a.adopted = true')
+                    ->getQuery()
+                    ->getScalarResult();
+    }
+
     //    /**
     //     * @return Animal[] Returns an array of Animal objects
     //     */
