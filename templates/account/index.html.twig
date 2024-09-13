@@ -30,23 +30,35 @@
             <div class="favoris">
                 {% if pagination.data %}
                     {% for favori in pagination.data %}
-                        <div class="favori">
                             {% for animal in favori.animal %}
-                                <img src="/uploads/animal/{{animal.coverImage}}" alt="Image de {{animal.name}}">
-                                <div class="show">
-                                    <div class="deleteFav deleteButton">X</div>
-                                    <h4>{{animal.name}}</h4>
-                                    {% if animal.genre == "male" %}
-                                        <p>mâle</p>
-                                    {% else %}
-                                        <p>femelle</p>
-                                    {% endif %}
-                                    <p>{{animal.age}} ans</p>
-                                    <a href="{{path('animal_show',{'id':animal.id})}}" class="backButton">Voir plus</a>
-                                </div>
-                                {% include "partials/deleteAlert.html.twig" with {'type':'de vos favoris','title':animal.name, 'id':favori.id, 'route':'favori_delete'} %}
+                                {% if animal.adopted %}
+                                    <div class="favoriAdopted">
+                                        <img src="/uploads/animal/{{animal.coverImage}}" alt="Image de {{animal.name}}">
+                                        <div class="showAdopted">
+                                            <div class="deleteFav deleteButton">X</div>
+                                            <h4>{{animal.name}}</h4>
+                                            <p>A trouvé une famille</p>
+                                        </div>
+                                        {% include "partials/deleteAlert.html.twig" with {'type':'de vos favoris','title':animal.name, 'id':favori.id, 'route':'favori_delete'} %}
+                                    </div>
+                                {% else %}
+                                    <div class="favori">
+                                        <img src="/uploads/animal/{{animal.coverImage}}" alt="Image de {{animal.name}}">
+                                        <div class="show">
+                                            <div class="deleteFav deleteButton">X</div>
+                                            <h4>{{animal.name}}</h4>
+                                            {% if animal.genre == "male" %}
+                                                <p>mâle</p>
+                                            {% else %}
+                                                <p>femelle</p>
+                                            {% endif %}
+                                            <p>{{animal.age}} ans</p>
+                                            <a href="{{path('animal_show',{'id':animal.id})}}" class="backButton">Voir plus</a>
+                                        </div>
+                                        {% include "partials/deleteAlert.html.twig" with {'type':'de vos favoris','title':animal.name, 'id':favori.id, 'route':'favori_delete'} %}
+                                    </div>
+                                {% endif %}
                             {% endfor %}
-                        </div>
                     {% endfor %}
                 {% else %}
                     <h3>Vous n'avez pas encore de favoris ou aucun favoris ne correspond à votre recherche</h3>
