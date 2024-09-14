@@ -3,5 +3,26 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block body %}
-    <h2>Ceci est le Dashboard</h2>
+    <div class="container-fluid full slideAdmin">
+        <div class="wrapper">
+            <h1 class="mt-5 mb-5">Dashboard</h1>
+            <h2 class="mt-5 mb-2">Notifications :</h2>
+            <div class="d-flex justify-content-between w-50 alert alert-danger">
+                <h4>Vous avez {{messageNotSeen}} messages non vus</h2>
+                <div>
+                    <a href="{{path('admin_contact_index')}}" class="btn btn-info block">Voir</a>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between w-50 alert alert-success">
+                <h4>Vous avez {{adoption}} demandes d'adoption</h2>
+                <div>
+                    <a href="{{path('admin_adoption_index')}}" class="btn btn-warning block">Voir</a>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between w-50 alert alert-warning">
+                <h4>Vous avez {{user}} utilisateurs inscrits</h2>
+            </div>
+            <h2 class="mt-5 mb-2">Argent récolté :</h2>
+        </div>  
+    </div>
 {% endblock %}
