@@ -31,6 +31,7 @@ class Cart
     private ?string $email = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\Length(min:5,max:500,minMessage:"Votre panier ne doit pas être vide",maxMessage:"Votre panier est trop rempli")]
     private ?string $cart = null;
 
     #[ORM\Column]

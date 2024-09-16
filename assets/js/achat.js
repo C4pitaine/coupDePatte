@@ -12,8 +12,7 @@ function numberCart() {
 
 /* Affichage des éléments présents dans le panier */
 function panierRefresh() {
-    if(localStorage.getItem('listCart')){
-
+    if(localStorage.getItem('listCart') && localStorage.getItem('listCart').length != 2){
         var panier = JSON.parse(localStorage.getItem('listCart'))
         var total = 0
         var ticket =  document.querySelector('#cart_cart')
@@ -51,6 +50,7 @@ function panierRefresh() {
         divEmpty = document.createElement("p")
         divEmpty.innerText = "Votre panier est vide"
         document.querySelector('.cart').appendChild(divEmpty)
+        document.querySelector('#cart_cart').value = "Vide"
     }
     deleteItem()
 }
@@ -76,3 +76,4 @@ function deleteItem(){
         })
     })
 }
+
