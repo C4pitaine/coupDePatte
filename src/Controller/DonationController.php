@@ -153,8 +153,8 @@ class DonationController extends AbstractController
                     'quantity'=>'1'
                 ]],
                 'mode'=>'payment',
-                'success_url' => "http://127.0.0.1:8000/donation/success/".$id."/token/".$token,
-                'cancel_url'=>"http://127.0.0.1:8000/donation/cancel/".$id
+                'success_url' => "https://coupdepatte.alexandresacre.com/donation/success/".$id."/token/".$token,
+                'cancel_url'=>"https://coupdepatte.alexandresacre.com/donation/cancel/".$id
             ]);
 
             return $this->redirect($checkout->url);
@@ -182,8 +182,9 @@ class DonationController extends AbstractController
                 ->from("noreply@coupdepatte.alexandresacre.com")
                 ->to(new Address($donation->getEmail()))
                 ->subject('Facture de votre don')
-                ->htmlTemplate('emails/facture.html.twig',[
-                    'donateur' => $donation->getLastName()." ".$donation->getFirstName(),
+                ->htmlTemplate('emails/facture.html.twig')
+                ->context([
+                    'donateur' => $donation->getLastName()." ".$donation->getLastName(),
                     'montant' => $donation->getMontant(),
                 ]);
                 $mailer->send($email);
