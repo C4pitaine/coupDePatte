@@ -5,12 +5,15 @@ namespace App\Controller;
 use App\Entity\Cart;
 use App\Form\CartType;
 use Stripe\StripeClient;
+use Symfony\Component\Mime\Address;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
+use Symfony\Component\Mailer\MailerInterface;
 
 class CartController extends AbstractController
 {   
@@ -72,8 +75,8 @@ class CartController extends AbstractController
                     'quantity'=>'1'
                 ]],
                 'mode'=>'payment',
-                'success_url' => "http://127.0.0.1:8000/cart/success/".$id."/token/".$token,
-                'cancel_url'=>"http://127.0.0.1:8000/cart/cancel/".$id
+                'success_url' => "https://coupdepatte.alexandresacre.com/cart/success/".$id."/token/".$token,
+                'cancel_url'=>"https://coupdepatte.alexandresacre.com/cart/cancel/".$id
             ]);
 
             return $this->redirect($checkout->url);
@@ -91,13 +94,24 @@ class CartController extends AbstractController
      * @return Response
      */
     #[Route('/cart/success/{id}/token/{token}',name:'cart_checkout_success')]
-    public function checkoutSuccess(EntityManagerInterface $manager,Cart $cart,string $token,int $id):Response
+    public function checkoutSuccess(EntityManagerInterface $manager,Cart $cart,string $token,MailerInterface $mailer):Response
     {
         if($cart){
             if($token == $cart->getToken()){
                 $cart->setStatus('payé');
                 $manager->persist($cart);
                 $manager->flush();
+
+                $email = (new TemplatedEmail())
+                ->from("noreply@coupdepatte.alexandresacre.com")
+                ->to(new Address($cart->getEmail()))
+                ->subject('Facture de votre don')
+                ->htmlTemplate('emails/facture.html.twig')
+                ->context([
+                    'donateur' => $cart->getName()." ".$cart->getFirstName(),
+                    'montant' => $cart->getTotal(),
+                ]);
+                $mailer->send($email);
             }else{
                 throw new BadRequestException('Token invalide');
             }
