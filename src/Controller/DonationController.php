@@ -184,7 +184,7 @@ class DonationController extends AbstractController
                 ->subject('Facture de votre don')
                 ->htmlTemplate('emails/facture.html.twig')
                 ->context([
-                    'donateur' => $donation->getLastName()." ".$donation->getLastName(),
+                    'donateur' => $donation->getLastName()." ".$donation->getFirstName(),
                     'montant' => $donation->getMontant(),
                 ]);
                 $mailer->send($email);
