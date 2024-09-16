@@ -6,12 +6,15 @@ use App\Entity\Donation;
 use Stripe\StripeClient;
 use App\Form\DonationOneType;
 use App\Form\DonationTwoType;
+use Symfony\Component\Mime\Address;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
+use Symfony\Component\Mailer\MailerInterface;
 
 class DonationController extends AbstractController
 {
@@ -167,13 +170,23 @@ class DonationController extends AbstractController
      * @return Response
      */
     #[Route('/donation/success/{id}/token/{token}',name:'donation_checkout_success')]
-    public function checkoutSuccess(EntityManagerInterface $manager,Donation $donation,string $token):Response
+    public function checkoutSuccess(EntityManagerInterface $manager,Donation $donation,string $token,MailerInterface $mailer):Response
     {
         if($donation){
             if($token == $donation->getToken()){
                 $donation->setStatus('payé');
                 $manager->persist($donation);
                 $manager->flush();
+
+                $email = (new TemplatedEmail())
+                ->from("noreply@coupdepatte.alexandresacre.com")
+                ->to(new Address($donation->getEmail()))
+                ->subject('Facture de votre don')
+                ->htmlTemplate('emails/facture.html.twig',[
+                    'donateur' => $donation->getLastName()." ".$donation->getFirstName(),
+                    'montant' => $donation->getMontant(),
+                ]);
+                $mailer->send($email);
             }else{
                 throw new BadRequestException('Token invalide');
             }
