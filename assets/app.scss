@@ -745,6 +745,11 @@ footer{
     object-fit: contain;
 }
 
+/* Panier vide */
+.emptyCart{
+    color:red;
+}
+
 /* Media queries */ 
 
 @media all and (max-width:1200px){

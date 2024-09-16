@@ -49,8 +49,11 @@ function panierRefresh() {
     }else{
         divEmpty = document.createElement("p")
         divEmpty.innerText = "Votre panier est vide"
+        divEmpty.classList.add('emptyCart')
         document.querySelector('.cart').appendChild(divEmpty)
         document.querySelector('#cart_cart').value = "Vide"
+        document.querySelector('#cart_total').value = 0
+          document.querySelector('.total').innerHTML = "Montant total : 0€"
     }
     deleteItem()
 }
