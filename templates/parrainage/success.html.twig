@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Checkout Success{% endblock %}
+
+{% block body %}
+    <div class="slide checkout">
+        <div class="wrapper">
+            <div class="slideFormulaire">
+                <img src="/logo/Union.png" alt="Logo de coup de patte">
+                <div class="formulaire afterStripe">
+                    {% for animal in parrainage.animal %}
+                        <h4>{{animal.name}} vous remercie pour votre parrainage !</h4>
+                    {% endfor %}
+                    <h5>{{parrainage.montant}}€ seront débités tous les mois</h5>
+                    <a href="/" class="backButton">Retour à l'accueil</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
