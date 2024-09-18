@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Cocur\Slugify\Slugify;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -64,6 +66,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     private ?bool $familleAccueil = null;
+
+    /**
+     * @var Collection<int, Parrainage>
+     */
+    #[ORM\ManyToMany(targetEntity: Parrainage::class, mappedBy: 'user')]
+    private Collection $parrainages;
+
+    public function __construct()
+    {
+        $this->parrainages = new ArrayCollection();
+    }
 
     /**
      * Permet d'initialiser le slug automatiquement
@@ -224,6 +237,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setFamilleAccueil(bool $familleAccueil): static
     {
         $this->familleAccueil = $familleAccueil;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Parrainage>
+     */
+    public function getParrainages(): Collection
+    {
+        return $this->parrainages;
+    }
+
+    public function addParrainage(Parrainage $parrainage): static
+    {
+        if (!$this->parrainages->contains($parrainage)) {
+            $this->parrainages->add($parrainage);
+            $parrainage->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParrainage(Parrainage $parrainage): static
+    {
+        if ($this->parrainages->removeElement($parrainage)) {
+            $parrainage->removeUser($this);
+        }
 
         return $this;
     }

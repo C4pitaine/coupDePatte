@@ -85,6 +85,12 @@ class Animal
     #[ORM\ManyToMany(targetEntity: Favori::class, mappedBy: 'animal')]
     private Collection $favoris;
 
+    /**
+     * @var Collection<int, Parrainage>
+     */
+    #[ORM\ManyToMany(targetEntity: Parrainage::class, mappedBy: 'animal')]
+    private Collection $parrainages;
+
     public function __construct()
     {
         $this->suivis = new ArrayCollection();
@@ -92,6 +98,7 @@ class Animal
         $this->images = new ArrayCollection();
         $this->indispensables = new ArrayCollection();
         $this->favoris = new ArrayCollection();
+        $this->parrainages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -337,6 +344,33 @@ class Animal
     {
         if ($this->favoris->removeElement($favori)) {
             $favori->removeAnimal($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Parrainage>
+     */
+    public function getParrainages(): Collection
+    {
+        return $this->parrainages;
+    }
+
+    public function addParrainage(Parrainage $parrainage): static
+    {
+        if (!$this->parrainages->contains($parrainage)) {
+            $this->parrainages->add($parrainage);
+            $parrainage->addAnimal($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParrainage(Parrainage $parrainage): static
+    {
+        if ($this->parrainages->removeElement($parrainage)) {
+            $parrainage->removeAnimal($this);
         }
 
         return $this;
