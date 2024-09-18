@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Animal;
 use App\Form\SearchFiltreAnimalType;
 use App\Repository\FavoriRepository;
+use App\Repository\ParrainageRepository;
 use App\Service\PaginationTypeService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,11 +21,12 @@ class AnimalController extends AbstractController
      * @return Response
      */
     #[Route('/animal/{id}/show',name:'animal_show')]
-    public function show(Animal $animal,FavoriRepository $repo): Response
+    public function show(Animal $animal,FavoriRepository $repo,ParrainageRepository $parrainageRepo): Response
     {
         $user = $this->getUser();
         $isFavori = false;
         $favoriId = null;
+        $isParrain = false;
         
         if($user){
             $favoris = $repo->getUser($user->getId());
@@ -39,12 +41,25 @@ class AnimalController extends AbstractController
                     }
                 }
             }
+
+            $parrainages = $parrainageRepo->getUser($user->getId());
+            foreach($parrainages as $parrainage)
+            {
+                $animaux = $parrainage->getAnimal();
+                foreach($animaux as $itemParrainage){
+                    if($itemParrainage->getName() == $animal->getName())
+                    {
+                        $isParrain = true;
+                    }
+                }
+            }
         }
 
         return $this->render('animal/show.html.twig', [
             'animal' => $animal,
             'isFavori' => $isFavori,
             'favoriId' => $favoriId,
+            'isParrain' => $isParrain,
         ]);
     }
 

@@ -13,6 +13,9 @@
                     {% else %}
                         <a href="{{path('favori_create',{'id':animal.id})}}" class="buttonNotFavoris"><i class="fa-solid fa-heart"></i></a>
                     {% endif %}
+                    {% if isParrain == false %}
+                        <a href="{{path('parrainage_create',{'id':animal.id})}}" class='backButton ms-2'>Parrainer</a>
+                    {% endif %}
                     
                 {% endif %}
                 

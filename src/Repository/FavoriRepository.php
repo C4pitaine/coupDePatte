@@ -26,8 +26,8 @@ class FavoriRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('f')
                     ->innerJoin('f.user', 'u')
-                    ->innerJoin('f.animal', 'a') // Effectuer une jointure avec les utilisateurs
-                    ->where('u.id = :userId') // Filtrer par l'ID de l'utilisateur
+                    ->innerJoin('f.animal', 'a')
+                    ->where('u.id = :userId')
                     ->setParameter('userId', $userId)
                     ->getQuery()
                     ->getResult();
