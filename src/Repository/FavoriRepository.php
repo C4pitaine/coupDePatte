@@ -16,6 +16,12 @@ class FavoriRepository extends ServiceEntityRepository
         parent::__construct($registry, Favori::class);
     }
 
+    /**
+     * Permet de trouver tout les favoris d'un User
+     *
+     * @param integer $userId
+     * @return array|null
+     */
     public function getUser(int $userId): ?array
     {
         return $this->createQueryBuilder('f')
