@@ -24,6 +24,7 @@ Encore
     .addEntry('animal', './assets/js/animal.js')
     .addEntry('achat', './assets/js/achat.js')
     .addEntry('donation', './assets/js/donation.js')
+    .addEntry('favoris', './assets/js/favoris.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
