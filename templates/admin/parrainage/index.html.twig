@@ -1,0 +1,47 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Parrainages{% endblock %}
+
+
+{% block body %}
+    <div class="container-fluid full slideAdmin">
+        <div class="wrapper">
+            <h1 class="mt-5 mb-3">Gestion des parrainages</h1>
+            {% include "admin/partials/_searchFiltre.html.twig" %}
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Animal</th>
+                        <th>Montant</th>
+                        <th>Statut</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for parrainage in pagination.data %}
+                        <tr>
+                            <td>{{parrainage.id}}</td>
+                            {% for user in parrainage.user %}
+                                <td>{{user.lastName}}</td>
+                                <td>{{user.firstName}}</td>
+                                {% for animal in parrainage.animal %}
+                                    <td>{{animal.name}}</td>
+                                    {% include "admin/partials/deleteAlert.html.twig" with {'type':'des parrainages','title':"Le parrainage de " ~ animal.name ~ " par "  ~  user.lastName ~ " " ~ user.firstName, 'id':parrainage.id, 'route':'admin_parrainage_delete'} %}
+                                {% endfor %}
+                            {% endfor %}
+                            <td>{{parrainage.montant}}€</td>
+                            <td>{{parrainage.status}}</td>
+                            <td class="text-center"> 
+                                <div class="btn btn-danger deleteButton mb-2"><i class="fas fa-trash"></i></div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {{pagination.display}}
+        </div>
+    </div>
+{% endblock %}

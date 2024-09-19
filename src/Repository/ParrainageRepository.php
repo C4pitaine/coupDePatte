@@ -42,7 +42,30 @@ class ParrainageRepository extends ServiceEntityRepository
      * @param string $filtre
      * @return array|null
      */
-    public function search(string $search,string $filtre,string $user,?int $limit = null,?int $offset = 0): ?array
+    public function search(string $search,string $filtre,?int $limit = null,?int $offset = 0): ?array
+    {
+        $search = htmlspecialchars($search);
+
+        return $this->createQueryBuilder('p')
+                    ->innerJoin('p.user', 'u')
+                    ->innerJoin('p.animal', 'a')
+                    ->where('(a.name LIKE :search) AND (a.type LIKE :filtre)')
+                    ->setParameter('search','%'.$search.'%')
+                    ->setParameter('filtre','%'.$filtre.'%')
+                    ->setMaxResults($limit)
+                    ->setFirstResult($offset)
+                    ->getQuery()
+                    ->getResult();
+    }
+
+    /**
+     * Permet de faire une recherche les parrainages d'un user
+     *
+     * @param string $search
+     * @param string $filtre
+     * @return array|null
+     */
+    public function searchUser(string $search,string $filtre,string $user,?int $limit = null,?int $offset = 0): ?array
     {
         $search = htmlspecialchars($search);
 
