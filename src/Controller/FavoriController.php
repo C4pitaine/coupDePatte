@@ -43,7 +43,7 @@ class FavoriController extends AbstractController
      */
     #[Route('/favori/{id}/delete', name: 'favori_delete')]
     public function remove(Favori $favori,EntityManagerInterface $manager):Response
-    {;
+    {
         foreach($favori->getAnimal() as $favoriAnimal){
             $this->addFlash('success',$favoriAnimal->getName().' a bien été retiré des favoris');
 

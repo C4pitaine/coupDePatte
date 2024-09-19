@@ -30,6 +30,7 @@
                     <ul>
                         {% if app.user %}
                             <li><a href="{{path('account_index')}}">Profil</a></li>
+                            <li><a href="{{path('parrainage_index')}}">Parrainage</a></li>
                             <li><a href="{{path('donation_one')}}">Faire un don</a></li>
                             <li><a href="{{path('account_logout')}}">Déconnexion</a></li>
                         {% else %}
@@ -93,6 +94,7 @@
                 {% if app.user %}
                     <a href="{{path('donation_one')}}">Faire un don</a>
                     <a href="{{path('account_index')}}">Profil</a>
+                    <a href="{{path('parrainage_index')}}">Parrainage</a>
                     <a href="{{path('account_logout')}}">Déconnexion</a>
                 {% else %}
                     <a href="{{path('account_register')}}">Inscription</a>

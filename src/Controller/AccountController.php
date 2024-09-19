@@ -19,6 +19,16 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AccountController extends AbstractController
 {
+    /**
+     * Permet d'afficher les favoris d'un User
+     *
+     * @param Request $request
+     * @param PaginationForOneUser $pagination
+     * @param integer $page
+     * @param string $recherche
+     * @param string $filtre
+     * @return Response
+     */
     #[Route('/account/{page<\d+>?1}/recherche/{recherche}/filtre/{filtre}', name: 'account_index')]
     #[IsGranted('ROLE_USER')]
     public function index(Request $request,PaginationForOneUser $pagination,int $page,string $recherche="vide",string $filtre="vide"): Response

@@ -6,7 +6,9 @@ use App\Entity\Animal;
 use Stripe\StripeClient;
 use App\Entity\Parrainage;
 use App\Form\ParrainageType;
+use App\Form\SearchFiltreType;
 use Symfony\Component\Mime\Address;
+use App\Service\PaginationForOneUser;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,14 +21,6 @@ use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 
 class ParrainageController extends AbstractController
 {
-    #[Route('/parrainage', name: 'parrainage')]
-    public function index(): Response
-    {
-        return $this->render('parrainage/index.html.twig', [
-            'controller_name' => 'ParrainageController',
-        ]);
-    }
-
     /**
      * Creation d'un parrainage
      *
@@ -74,6 +68,7 @@ class ParrainageController extends AbstractController
      * @return Response
      */
     #[Route('/parrainage/checkout/{montant}/id/{id}/token/{token}',name:'parrainage_checkout')]
+    #[IsGranted('ROLE_USER')]
     public function checkout(string $montant,int $id,string $token): Response
     {
         $gateway = new StripeClient($_ENV['STRIPE_SECRETKEY']);
@@ -109,6 +104,7 @@ class ParrainageController extends AbstractController
      * @return Response
      */
     #[Route('/parrainage/success/{id}/token/{token}',name:'parrainage_checkout_success')]
+    #[IsGranted('ROLE_USER')]
     public function checkoutSuccess(EntityManagerInterface $manager,Parrainage $parrainage,string $token,MailerInterface $mailer):Response
     {
         if($parrainage){
@@ -146,6 +142,7 @@ class ParrainageController extends AbstractController
      * @return Response
      */
     #[Route('/parrainage/cancel/{id}',name:'parrainage_checkout_cancel')]
+    #[IsGranted('ROLE_USER')]
     public function checkoutCancel(EntityManagerInterface $manager,Parrainage $parrainage):Response
     {
         $parrainage->setStatus('annulé');
@@ -156,4 +153,93 @@ class ParrainageController extends AbstractController
             'parrainage' => $parrainage,
         ]);
     }  
+
+    /**
+     * Permet de suprimer un parrainage
+     *
+     * @param EntityManagerInterface $manager
+     * @param Parrainage $parrainage
+     * @return Response
+     */
+    #[Route('/parrainage/{id}/delete',name:'parrainage_delete')]
+    #[IsGranted('ROLE_USER')]
+    public function delete(EntityManagerInterface $manager,Parrainage $parrainage): Response
+    {
+        foreach($parrainage->getAnimal() as $animal){
+            $this->addFlash('success','Votre parrainage de '.$animal->getName().' a bien été supprimé');
+            $manager->remove($parrainage);
+            $manager->flush();
+            return $this->redirectToRoute('parrainage_index');
+        }
+    }
+
+    /**
+     * Permet d'afficher les parrainages d'un User
+     *
+     * @param Request $request
+     * @param PaginationForOneUser $pagination
+     * @param integer $page
+     * @param string $recherche
+     * @param string $filtre
+     * @return Response
+     */
+    #[Route('/parrainage/{page<\d+>?1}/recherche/{recherche}/filtre/{filtre}', name: 'parrainage_index')]
+    #[IsGranted('ROLE_USER')]
+    public function index(Request $request,PaginationForOneUser $pagination,int $page,string $recherche="vide",string $filtre="vide"): Response
+    {
+        $user = $this->getUser();
+
+        if($recherche == "vide"){
+            $recherche = "";
+        }
+        if($filtre == "vide"){
+            $filtre = "";
+        }
+
+        $pagination->setEntityClass(Parrainage::class)
+                    ->setSearch($recherche)
+                    ->setFiltre($filtre)
+                    ->setUserId($user->getId())
+                    ->setPage($page)
+                    ->setLimit(4)
+                    ->setTemplatePath('/partials/_paginationFront.html.twig');
+
+        $form = $this->createForm(SearchFiltreType::class,null,[
+            'choices' => [
+                "" => "",
+                "Chien" => "chien",
+                "Chat" => "chat",
+                "Lapin" => "lapin",
+            ]
+        ]);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $recherche = $form->get('search')->getData();
+            $filtre = $form->get('filtre')->getData();
+            if($recherche !== null && $filtre !== null){
+                $pagination->setSearch($recherche)
+                    ->setFiltre($filtre)
+                    ->setPage(1);
+            }else if($recherche !== null){
+                $pagination->setSearch($recherche)
+                        ->setFiltre("")
+                        ->setPage(1);
+            }else if($filtre !== null){
+                $pagination->setSearch("")
+                        ->setFiltre($filtre)
+                        ->setPage(1);
+            }else{
+                $pagination->setSearch("")
+                        ->setFiltre("")
+                        ->setPage(1);
+            }
+        }
+
+        return $this->render('parrainage/index.html.twig', [
+            'pagination' => $pagination,
+            'formSearch' => $form->createView(),
+            'user' => $user,
+        ]);
+    }
 }
