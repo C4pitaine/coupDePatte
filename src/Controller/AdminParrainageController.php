@@ -19,6 +19,8 @@ class AdminParrainageController extends AbstractController
         foreach($parrainage->getAnimal() as $animal){
             foreach($parrainage->getUser() as $user){
                 $this->addFlash('danger','Le parrainage de '.$animal->getName().'  par '.$user->getLastName().' '.$user->getFirstName().'a bien été supprimé');
+                $manager->remove($parrainage);
+                $manager->flush();
                 return $this->redirectToRoute('admin_parrainage_index');
             }
         }
