@@ -280,15 +280,15 @@ class PaginationForOneUser{
         if(!$this->search && !$this->filtre){
             return $this->manager
                         ->getRepository($this->entityClass)
-                        ->search("","",$this->user,$this->limit,$offset);
+                        ->searchUser("","",$this->user,$this->limit,$offset);
         }else if($this->filtre && !$this->search){
             return $this->manager
             ->getRepository($this->entityClass)
-            ->search("",$this->filtre,$this->user,$this->limit,$offset);
+            ->searchUser("",$this->filtre,$this->user,$this->limit,$offset);
         }else{
             return $this->manager
                         ->getRepository($this->entityClass)
-                        ->search($this->search,$this->filtre,$this->user,$this->limit,$offset);
+                        ->searchUser($this->search,$this->filtre,$this->user,$this->limit,$offset);
         }
     }
 
@@ -309,9 +309,9 @@ class PaginationForOneUser{
         // $repo = $this->manager->getRepository($this->entityClass);
         // $total = count($repo->findAll());
         if(!$this->search && !$this->filtre){
-            $total = count($this->manager->getRepository($this->entityClass)->search("","",$this->user));
+            $total = count($this->manager->getRepository($this->entityClass)->searchUser("","",$this->user));
         }else{
-            $total = count($this->manager->getRepository($this->entityClass)->search($this->search,$this->filtre,$this->user));
+            $total = count($this->manager->getRepository($this->entityClass)->searchUser($this->search,$this->filtre,$this->user));
         }
         if($total === 0){
             $total = $total+1;

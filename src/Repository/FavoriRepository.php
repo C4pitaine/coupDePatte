@@ -40,7 +40,7 @@ class FavoriRepository extends ServiceEntityRepository
      * @param string $filtre
      * @return array|null
      */
-    public function search(string $search,string $filtre,string $user,?int $limit = null,?int $offset = 0): ?array
+    public function searchUser(string $search,string $filtre,string $user,?int $limit = null,?int $offset = 0): ?array
     {
         $search = htmlspecialchars($search);
 
