@@ -87,8 +87,8 @@ class ParrainageController extends AbstractController
                     'quantity'=>'1'
                 ]],
                 'mode'=>'payment',
-                'success_url' => "http://127.0.0.1:8000/parrainage/success/".$id."/token/".$token,
-                'cancel_url'=>"http://127.0.0.1:8000/parrainage/cancel/".$id
+                'success_url' => "https://coupdepatte.alexandresacre.com/parrainage/success/".$id."/token/".$token,
+                'cancel_url'=>"https://coupdepatte.alexandresacre.com/parrainage/cancel/".$id
             ]);
 
             return $this->redirect($checkout->url);
