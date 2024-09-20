@@ -7,43 +7,43 @@
         <div class="wrapper">
             <h1 class="mt-5 mb-5">Dashboard</h1>
             <h2 class="mt-5 mb-3">Notifications :</h2>
-            <div class="d-flex justify-content-between w-100 alert alert-danger">
-                {% if messageNotSeen %}
+            {% if messageNotSeen %}
+                <div class="d-flex justify-content-between w-100 alert alert-danger">
                     <h4>Vous avez {{messageNotSeen}} messages non vus</h4>
-                {% endif %}
-                <div>
-                    <a href="{{path('admin_contact_index')}}" class="btn btn-info block">Voir</a>
+                    <div>
+                        <a href="{{path('admin_contact_index')}}" class="btn btn-info block">Voir</a>
+                    </div>
                 </div>
-            </div>
-            <div class="d-flex justify-content-between w-100 alert alert-success">
-                {% if adoption %}
+            {% endif %}
+            {% if adoption %}
+                <div class="d-flex justify-content-between w-100 alert alert-success">
                     <h4>Vous avez {{adoption}} demandes d'adoption</h4>
-                {% endif %}
-                <div>
-                    <a href="{{path('admin_adoption_index')}}" class="btn btn-warning block">Voir</a>
+                    <div>
+                        <a href="{{path('admin_adoption_index')}}" class="btn btn-warning block">Voir</a>
+                    </div>
                 </div>
-            </div>
-            <div class="d-flex justify-content-between w-100 alert alert-warning">
-                {% if user %}
+            {% endif %}
+            {% if user %}
+                <div class="d-flex justify-content-between w-100 alert alert-warning">
                     <h4>Vous avez {{user}} utilisateurs inscrits</h4>
-                {% endif %}
-            </div>
+                </div>
+            {% endif %}
             <h2 class="mt-5 mb-3">Argent récolté : {% if totalArgent %}{{totalArgent}}€{% endif %}</h2>
-            <div class="d-flex justify-content-between w-100 alert alert-success">
-                {% if totalDonation %}
+            {% if totalDonation %}
+                <div class="d-flex justify-content-between w-100 alert alert-success">
                     <h4>Vous avez récolté {{totalDonation}}€ de dons</h4>
-                {% endif %}
-            </div>
-            <div class="d-flex justify-content-between w-100 alert alert-warning">
-                {% if totalCart %}
+                </div>
+            {% endif %}
+            {% if totalCart %}
+                <div class="d-flex justify-content-between w-100 alert alert-warning">
                     <h4>Vous avez récolté {{totalCart}}€ avec les commandes de friandises</h4>
-                {% endif %}
-            </div>
-            <div class="d-flex justify-content-between w-100 alert alert-info">
-                {% if countParrainage and totalParrainage %}
+                </div>
+            {% endif %}
+            {% if countParrainage and totalParrainage %}
+                <div class="d-flex justify-content-between w-100 alert alert-info">
                     <h4>Vous avez actuellement {{countParrainage}} parrainage pour un total de {{totalParrainage}}€</h4>
-                {% endif %}  
-            </div>
+                </div>
+            {% endif %}  
         </div>  
     </div>
 {% endblock %}
