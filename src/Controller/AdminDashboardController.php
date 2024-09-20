@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Parrainage;
 use App\Repository\AdoptionRepository;
 use App\Repository\CartRepository;
 use App\Repository\ContactRepository;
 use App\Repository\DonationRepository;
+use App\Repository\ParrainageRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +16,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class AdminDashboardController extends AbstractController
 {
     #[Route('/admin/dashboard', name: 'admin_dashboard_index')]
-    public function index(ContactRepository $contactRepo,AdoptionRepository $adoptionRepo,UserRepository $userRepo,DonationRepository $donationRepo,CartRepository $cartRepo): Response
+    public function index(ContactRepository $contactRepo,AdoptionRepository $adoptionRepo,UserRepository $userRepo,DonationRepository $donationRepo,CartRepository $cartRepo,ParrainageRepository $parrainageRepo): Response
     {
         $messageNotSeen = $contactRepo->findBy(['status'=>'en attente']);
         $adoption = $adoptionRepo->findAll();
@@ -32,6 +34,15 @@ class AdminDashboardController extends AbstractController
             $totalCart+= $cart->getTotal();
         }
 
+        $parrainages = $parrainageRepo->findBy(['status'=>'payé']);
+        $totalParrainage = 0;
+        $countParrainage = 0;
+        foreach($parrainages as $parrainage ){
+            $totalParrainage+= $parrainage->getMontant();
+            $countParrainage++;
+        }
+
+        $totalArgent = $totalDonation + $totalCart + $totalParrainage;
 
         return $this->render('admin/dashboard/index.html.twig', [
             'messageNotSeen' => Count($messageNotSeen),
@@ -39,6 +50,9 @@ class AdminDashboardController extends AbstractController
             'user' => Count($user)-1,
             'totalDonation' => $totalDonation,
             'totalCart' => $totalCart,
+            'totalParrainage' => $totalParrainage,
+            'countParrainage' => $countParrainage,
+            'totalArgent' => $totalArgent,
         ]);
     }
 }
