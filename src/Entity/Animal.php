@@ -216,7 +216,7 @@ class Animal
     {
         if (!$this->suivis->contains($suivi)) {
             $this->suivis->add($suivi);
-            $suivi->setAnimal($this);
+            $suivi->setAnimal($this->name);
         }
 
         return $this;
