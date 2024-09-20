@@ -646,6 +646,7 @@ footer{
     min-height:50px;
     background-color: $greenColor;
     position: fixed;
+    z-index:300;
     bottom: 0;
     left: 0;
     border: solid 1px white;
