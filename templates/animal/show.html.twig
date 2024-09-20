@@ -36,7 +36,13 @@
                     <p>Animal : {{animal.type}}</p>
                     <p>Genre : {{animal.genre}}</p>
                     <p>Âge : {{animal.age}}</p>
-                    <p>Race : {{animal.race}}</p>
+                    <p>
+                        {% if animal.genre == "male" %}
+                            mâle
+                        {% else %}
+                            femelle
+                        {% endif %}
+                    </p>
                     <div class="indispensables">
                         <p>Indispensables :</p>
                         {% for indispensable in animal.indispensables %}
@@ -49,7 +55,7 @@
                     </div>
                 </div>
             </div>
-            <h5>Offrez lui une friandise parmi ses préférées :</h5>
+            <h5>Offrez-lui une de ses friandises favorites :</h5>
             <div class="achatFriandise">
                 <div class="friandises">
                     {% for friandise in animal.friandise %}
