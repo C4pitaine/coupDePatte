@@ -2,14 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\AnimalRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\AnimalRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: AnimalRepository::class)]
+#[UniqueEntity(fields:['name'],message: "Un autre animal possède déjà ce nom, merci de la modifier")]
 class Animal
 {
     #[ORM\Id]
