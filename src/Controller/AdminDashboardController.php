@@ -42,7 +42,7 @@ class AdminDashboardController extends AbstractController
             $countParrainage++;
         }
 
-        $totalArgent = $totalDonation + $totalCart + $totalParrainage;
+        $totalArgent = $totalDonation + $totalCart;
 
         return $this->render('admin/dashboard/index.html.twig', [
             'messageNotSeen' => Count($messageNotSeen),

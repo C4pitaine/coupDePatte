@@ -117,7 +117,7 @@ class ParrainageController extends AbstractController
                 $email = (new TemplatedEmail())
                 ->from("noreply@coupdepatte.alexandresacre.com")
                 ->to(new Address($user->getEmail()))
-                ->subject('Facture de votre don')
+                ->subject('Facture de votre parrainage')
                 ->htmlTemplate('emails/factureParrainage.html.twig')
                 ->context([
                     'donateur' => $user->getLastName()." ".$user->getFirstName(),

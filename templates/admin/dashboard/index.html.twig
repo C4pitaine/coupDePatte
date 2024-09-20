@@ -38,12 +38,13 @@
                 <div class="d-flex justify-content-between w-100 alert alert-warning">
                     <h4>Vous avez récolté {{totalCart}}€ avec les commandes de friandises</h4>
                 </div>
-            {% endif %}
+            {% endif %} 
+            <h2>Parrainages :</h2>
             {% if countParrainage and totalParrainage %}
                 <div class="d-flex justify-content-between w-100 alert alert-info">
-                    <h4>Vous avez actuellement {{countParrainage}} parrainage pour un total de {{totalParrainage}}€</h4>
+                    <h4>Vous avez actuellement {{countParrainage}} parrainage pour un total de {{totalParrainage}}€ par mois</h4>
                 </div>
-            {% endif %}  
+            {% endif %} 
         </div>  
     </div>
 {% endblock %}
