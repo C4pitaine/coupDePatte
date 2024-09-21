@@ -34,8 +34,6 @@
                 <div class="informationsAdoption">
                     <p>Nom : <span class="animalName">{{animal.name}}</span></p>
                     <p>Animal : {{animal.type}}</p>
-                    <p>Genre : {{animal.genre}}</p>
-                    <p>Âge : {{animal.age}}</p>
                     <p>
                         {% if animal.genre == "male" %}
                             mâle
@@ -43,6 +41,8 @@
                             femelle
                         {% endif %}
                     </p>
+                    <p>Âge : {{animal.age}}</p>
+                    <p>Race : {{animal.race}}</p>
                     <div class="indispensables">
                         <p>Indispensables :</p>
                         {% for indispensable in animal.indispensables %}
