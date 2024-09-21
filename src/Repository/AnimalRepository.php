@@ -51,9 +51,9 @@ class AnimalRepository extends ServiceEntityRepository
 
         return $this->createQueryBuilder('a')
                     ->select('a as animal','a.id,a.name,a.type,a.genre,a.age,a.race,a.adoptionDate,a.adopted,a.coverImage')
-                    ->where('a.name LIKE :search AND a.race = :filtre AND a.type = :type')
+                    ->where('a.name LIKE :search AND a.race LIKE :filtre AND a.type = :type')
                     ->setParameter('search','%'.$search.'%')
-                    ->setParameter('filtre',$filtre)
+                    ->setParameter('filtre','%'.$filtre.'%')
                     ->setParameter('type',$type)
                     ->setMaxResults($limit)
                     ->setFirstResult($offset)
