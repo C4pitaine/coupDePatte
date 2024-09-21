@@ -113,13 +113,6 @@
             pensionnaire.addEventListener('mouseout',()=>{
                 container[index].classList.remove('active')
             })
-
-            pensionnaire.addEventListener('touchstart', () => {
-                container[index].classList.add('active');
-            });
-            pensionnaire.addEventListener('touchend', () => {
-                container[index].classList.remove('active');
-            });
         })
     </script>
 {% endblock %}
