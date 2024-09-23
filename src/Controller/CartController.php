@@ -81,9 +81,7 @@ class CartController extends AbstractController
 
             return $this->redirect($checkout->url);
 
-        return $this->render('cart/checkout.html.twig',[
-
-        ]);
+        return $this->render('cart/checkout.html.twig');
     }
 
     /**

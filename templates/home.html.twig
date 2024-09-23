@@ -104,8 +104,8 @@
         let container = document.querySelectorAll('.container')
 
         pensionnaires.forEach((pensionnaire,index)=>{
+            let open = false
             pensionnaire.addEventListener('click',()=>{
-                let open = false
                 if(open == false){
                     container[index].classList.add('active');
                     open = true

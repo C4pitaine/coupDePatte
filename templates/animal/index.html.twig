@@ -53,8 +53,15 @@
             animal.addEventListener('mouseout',()=>{
                 infos[key].classList.remove('active')
             })
+            let open = false
             animal.addEventListener('click',()=>{
-                infos[key].classList.toggle('active')
+                if(open == false){
+                    infos[key].classList.add('active')
+                    open = true
+                }else{
+                    infos[key].classList.remove('active')
+                    open = false
+                }
             })
         })
     </script>
