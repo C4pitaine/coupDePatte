@@ -6,10 +6,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class PasswordUpdate
 {
-    #[Assert\NotBlank(message:"Vous devez renseigner le mot de passe envoyé par mail")]
+    #[Assert\NotBlank(message:"Vous devez renseigner votre ancien mot de passe")]
     private ?string $oldPassword = null;
 
     #[Assert\Length(min:6,max:255,minMessage:"Votre mot de passe doit faire plus de 6 caractères",maxMessage:"Votre mot de passe ne doit pas faire plus de 255 caractères")]
+    #[Assert\Regex(pattern:'/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[\W_]).+$/',message:"Votre mot de passe doit contenir au minimum une majuscule, un chiffre et un caractère spécial")]
     private ?string $newPassword = null;
 
     #[Assert\EqualTo(propertyPath:"newPassword", message: "Vous n'avez pas correctement confirmé votre mot de passe")]
