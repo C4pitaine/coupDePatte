@@ -53,7 +53,7 @@ function panierRefresh() {
         document.querySelector('.cart').appendChild(divEmpty)
         document.querySelector('#cart_cart').value = "Vide"
         document.querySelector('#cart_total').value = 0
-          document.querySelector('.total').innerHTML = "Montant total : 0€"
+        document.querySelector('.total').innerHTML = "Montant total : 0€"
     }
     deleteItem()
 }

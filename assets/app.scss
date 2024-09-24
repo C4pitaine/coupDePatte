@@ -154,14 +154,14 @@ header.menuOpened .bar {
     transform: translateX(0);
 
     .left{
-        width: 70%;
+        width: 20%;
         min-height: 100vh;
-        background-color: rgba(49, 80, 38,35%);
+        background-color: $greenColor;
     }
 
     .right{
         min-height: 100vh;
-        width: 30%;
+        width: 80%;
         background-color: rgba(49, 80, 38,100%);
         display: flex;
         justify-content: center;
@@ -293,6 +293,8 @@ footer{
                 flex-direction: column;
                 color: $white;
                 margin-right: 20px;
+                margin-top: 20px;
+                margin-bottom: 20px;
     
                 h5{
                     margin-bottom: 20px;
@@ -338,6 +340,7 @@ footer{
                 display: flex;
                 flex-direction: column;
                 margin-right: 20px;
+                margin-top: 20px;
                 color: $white;
 
                 h5{
@@ -753,7 +756,7 @@ footer{
 
 /* Media queries */ 
 
-@media all and (max-width:1200px){
+@media all and (max-width:1320px){
     #burger {
         display: flex;
         flex-direction: column;
@@ -788,10 +791,10 @@ footer{
 
     #menu.menuOpened{
         .right{
-            width: 50%;
+            width: 90%;
         }
         .left{
-            width:50%;
+            width:10%;
         }
     }
 }
