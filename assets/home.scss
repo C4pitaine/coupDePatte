@@ -306,8 +306,11 @@
     #pensionnaires{
         .wrapper{
             .pensionnaires{
-                .pensionnaire,#paw{
+                .pensionnaire{
                     width: 100%;
+                }
+                #paw{
+                    display: none;
                 }
             }
         }
