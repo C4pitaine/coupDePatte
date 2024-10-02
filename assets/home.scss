@@ -7,7 +7,7 @@
 
 #home{
     display: flex;
-    background-image: url("/public/images/Vector2.png");
+    background-image: url("/public/images/Vector2.svg");
     background-position: bottom center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -170,7 +170,7 @@
 /* Pensionnaires */
 
 #pensionnaires{
-    background-image: url("/public/images/Vector.png");
+    background-image: url("/public/images/Vector.svg");
     background-position: bottom center;
     background-size: cover;
     display: flex;
@@ -326,6 +326,7 @@
             .containerSlide{
                 .containerPensionnaire{
                     width:80% !important;
+                    margin-right: 0 !important;
                 }
             }
         }
@@ -361,7 +362,6 @@
                 .containerSlide{
                     width: 70%;
                     .containerPensionnaire{
-                        margin-right: 0;
                         img{
                             height:40vh;
                         }
