@@ -43,4 +43,11 @@
 
 {% block javascripts %}
     {{encore_entry_script_tags('donation')}}
+    {% if app.user %}
+        <script>
+            document.querySelector('#donation_one_email').value = "{{app.user.email}}"
+            document.querySelector('#donation_one_lastName').value = "{{app.user.lastName}}"
+            document.querySelector('#donation_one_firstName').value = "{{app.user.firstName}}"
+        </script>
+    {% endif %}
 {% endblock %}

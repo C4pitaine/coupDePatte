@@ -30,4 +30,11 @@
 
 {% block javascripts %}
     {{encore_entry_script_tags('achat')}}
+    {% if app.user %}
+        <script>
+            document.querySelector('#cart_name').value = "{{app.user.lastName}}"
+            document.querySelector('#cart_firstName').value = "{{app.user.firstName}}"
+            document.querySelector('#cart_email').value = "{{app.user.email}}"
+        </script>
+    {% endif %}
 {% endblock %}
