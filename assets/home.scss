@@ -201,7 +201,11 @@
     }
     .right{
         width: 60%;
+        display: flex;
         .wrapper{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             h4{
                 @include roboto-regular;
                 margin: 50px 0;
