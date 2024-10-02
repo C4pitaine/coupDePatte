@@ -13,7 +13,36 @@
                 <a href="#slideContact" class="backButton">Nous contacter</a>
             </div>
         </div>
-        <div class="right"></div>
+        <div class="right">
+            <div class="containerSlider">
+                <div class="arrowLeft">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </div>
+                <div class="containerSlide">
+                    {% for animal  in lastPensionnaires %}
+                        <div class="containerPensionnaire">
+                            <img src="/uploads/animal/{{animal.coverImage}}" alt="">
+                            <div class="animalTypeHome">
+                                <h5>{{animal.type}}</h5>
+                                <p>
+                                    {% if animal.genre == "male" %}
+                                        <i class="fa-solid fa-mars"></i>
+                                    {% else %}
+                                        <i class="fa-solid fa-venus"></i>
+                                    {% endif %}
+                                </p>
+                            </div>
+                            <h6>{{animal.name}} - {{animal.age}}ans
+                            </h6>
+                            <a href="{{path('animal_show',{'id':animal.id})}}" class="backButton">Voir plus</a>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="arrowRight">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="slide" id="pres">
         <div class="left"></div>
@@ -122,4 +151,5 @@
             })
         })
     </script>
+    {{encore_entry_script_tags('slider')}}
 {% endblock %}

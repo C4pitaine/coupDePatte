@@ -7,6 +7,10 @@
 
 #home{
     display: flex;
+    background-image: url("/public/images/Vector2.png");
+    background-position: bottom center;
+    background-size: cover;
+    background-repeat: no-repeat;
     .left{
         width: 50%;
        .wrapper{
@@ -33,9 +37,91 @@
     }
     .right{
         width:50%;
-        background-image: url("/public/images/home.png");
-        background-position: center center;
-        background-size: cover;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+
+        /* Slider */
+        .containerSlider{
+            width: 90%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .containerSlide{
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .containerPensionnaire{
+                    width: 60%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-direction: column;
+                    background-color: #F3F3F3;
+                    border: solid 1px $greenColor;
+                    img{
+                        width: 90%;
+                        height: 50vh;
+                        object-fit: cover;
+                        margin: 20px;
+                    }
+                    .animalTypeHome{
+                        width: 100%;
+                        display: flex;
+                        justify-content: space-between;
+
+                        h5{
+                            align-self: self-start;
+                            margin-left: 20px;
+                            @include roboto-bold;
+                            font-size: 24px;
+                        }
+
+                        p{
+                            margin-right: 20px;
+                            font-size: 24px;
+                        }
+                    }
+                    h6{
+                        align-self: self-start;
+                        margin-left: 20px;
+                        @include roboto-bold;
+                        font-size: 24px;
+                    }
+    
+                    &.notShow{
+                        display: none;
+                    }
+                    &:nth-child(1),&:nth-child(3),&:nth-child(5),&:nth-child(7){
+                        margin-right: 20px;
+                    }
+
+                    a{
+                        align-self: flex-end;
+                        margin-right: 20px;
+                    }
+                }
+            }
+
+            .arrowLeft{
+                font-size: 2rem;
+                cursor: pointer;
+                margin-right: 10px;
+                &.disabled{
+                    display: none;
+                }
+            }
+            .arrowRight{
+                font-size: 2rem;
+                cursor: pointer;
+                margin-left: 10px;
+                &.disabled{
+                    display: none;
+                }
+            }
+        }
     }
 }
 
@@ -85,7 +171,7 @@
 
 #pensionnaires{
     background-image: url("/public/images/Vector.png");
-    background-position: center center;
+    background-position: bottom center;
     background-size: cover;
     display: flex;
     flex-direction: column;
@@ -234,6 +320,18 @@
     }
 }
 
+@media all and (max-width:1500px){
+    .right{
+        .containerSlider{
+            .containerSlide{
+                .containerPensionnaire{
+                    width:80% !important;
+                }
+            }
+        }
+    }
+}
+
 @media all and (max-width:1400px){
     #pensionnaires{
         .wrapper{
@@ -251,27 +349,25 @@
         flex-direction: column;
         .left{
             width: 100%;
-            min-height: 100vh;
-            background-image: url("/public/images/home.png");
-            background-position: center center;
-            background-size: cover;
+        }
+        .right{
+            width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            .wrapper{
-                h3{
-                    margin-top: 20px;
-                    color: white;
-                    text-shadow: 1px 1px 2px black;
-                }
-                p{
-                    color: white;
-                    text-shadow: 1px 1px 2px black;
+
+            .containerSlider{
+                margin: 30px 0;
+                .containerSlide{
+                    width: 70%;
+                    .containerPensionnaire{
+                        margin-right: 0;
+                        img{
+                            height:40vh;
+                        }
+                    }
                 }
             }
-        }
-        .right{
-            display: none;
         }
     }
 
@@ -307,6 +403,22 @@
 
 @media all and (max-width:600px)
 {
+    #home{
+        .right{
+            .containerSlider{
+                .containerSlide{
+                    width: 90%;
+                    .containerPensionnaire{
+                        width: 100% !important;
+                        img{
+                            height:35vh;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     #pensionnaires{
         .wrapper{
             .pensionnaires{
