@@ -9,9 +9,11 @@
                 <a href="{{path('animal_index',{'type':animal.type})}}" class="backButton">Retour</a>
                 {% if app.user %}
                     {% if isFavori %}
-                        <a href="{{path('favori_delete',{'id':favoriId})}}" class="buttonIsFavoris"><i class="fa-solid fa-heart"></i></a>
+                        {# <a href="{{path('favori_delete',{'id':animal.id})}}" class="buttonIsFavoris"><i class="fa-solid fa-heart"></i></a> #}
+                        <div class="buttonIsFavoris" id="buttonIsFavoris"><i class="fa-solid fa-heart"></i></div>
                     {% else %}
-                        <a href="{{path('favori_create',{'id':animal.id})}}" class="buttonNotFavoris"><i class="fa-solid fa-heart"></i></a>
+                        {# <a href="{{path('favori_create',{'id':animal.id})}}" class="buttonNotFavoris"><i class="fa-solid fa-heart"></i></a> #}
+                        <div class="buttonNotFavoris" id="buttonNotFavoris"><i class="fa-solid fa-heart"></i></div>
                     {% endif %}
                     {% if isParrain == false %}
                         <a href="{{path('parrainage_create',{'id':animal.id})}}" class='backButton ms-2'>Parrainer</a>
@@ -73,6 +75,7 @@
 
 {% block javascripts %}
     <script>
+        /* Notifications pour l'ajout au panier */
         var addToCart = document.querySelectorAll('.addToCart')
         addToCart.forEach(elem=>{
             elem.addEventListener("click", function() {
@@ -86,5 +89,47 @@
                 }).showToast();
             });
         })
+
+        /* Ajout aux favoris */
+        const buttonNotFavoris = document.querySelector('.buttonNotFavoris')
+        async function createFavori() {
+            try{
+                var animalId = {{animal.id}}
+                let response = await fetch(`/favori/${animalId}/create`,{
+                    method: 'GET',
+                });
+            }catch (error){
+                console.error('Une erreur est survenue')
+            }
+        }
+
+        if(buttonNotFavoris){
+            buttonNotFavoris.addEventListener('click',()=>{
+                createFavori();
+                buttonNotFavoris.classList.remove('buttonNotFavoris')
+                buttonNotFavoris.classList.add('buttonIsFavoris')
+            })
+        }
+
+        /* Suppression d'un favori */
+        const buttonIsFavoris = document.querySelector('.buttonIsFavoris')
+        async function deleteFavori() {
+            try{
+                var animalId = {{animal.id}}
+                let response = await fetch(`/favori/${animalId}/delete`,{
+                    method: 'GET',
+                });
+            }catch (error){
+                console.error('Une erreur est survenue')
+            }
+        }
+
+        if(buttonIsFavoris){
+            buttonIsFavoris.addEventListener('click',()=>{
+                deleteFavori();
+                buttonIsFavoris.classList.remove('buttonIsFavoris')
+                buttonIsFavoris.classList.add('buttonNotFavoris')
+            })
+        }
     </script>
 {% endblock %}

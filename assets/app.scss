@@ -719,6 +719,7 @@ footer{
     border-radius: 10px;
     color: white;
     cursor: pointer;
+    z-index: 9999;
 
     &:hover{
         background-color: white;

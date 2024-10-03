@@ -39,7 +39,7 @@
                                             <h4>{{animal.name}}</h4>
                                             <p>A trouvé une famille</p>
                                         </div>
-                                        {% include "partials/deleteAlert.html.twig" with {'type':'de vos favoris','title':animal.name, 'id':favori.id, 'route':'favori_delete'} %}
+                                        {% include "partials/deleteAlert.html.twig" with {'type':'de vos favoris','title':animal.name, 'id':animal.id, 'route':'favori_delete'} %}
                                     </div>
                                 {% else %}
                                     <div class="favori">
@@ -55,7 +55,7 @@
                                             <p>{{animal.age}} ans</p>
                                             <a href="{{path('animal_show',{'id':animal.id})}}" class="backButton">Voir plus</a>
                                         </div>
-                                        {% include "partials/deleteAlert.html.twig" with {'type':'de vos favoris','title':animal.name, 'id':favori.id, 'route':'favori_delete'} %}
+                                        {% include "partials/deleteAlert.html.twig" with {'type':'de vos favoris','title':animal.name, 'id':animal.id, 'route':'favori_delete'} %}
                                     </div>
                                 {% endif %}
                             {% endfor %}

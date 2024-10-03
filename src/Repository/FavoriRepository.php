@@ -33,6 +33,25 @@ class FavoriRepository extends ServiceEntityRepository
                     ->getResult();
     }
 
+    
+    /**
+     * Permet de récupérer un favori en fonction d'un animal et d'un user
+     *
+     * @param integer $userId
+     * @param integer $animalId
+     * @return void
+     */
+    public function findOneFavori(int $userId, int $animalId){
+        return $this->createQueryBuilder('f')
+                    ->innerJoin('f.user', 'u')
+                    ->innerJoin('f.animal', 'a')
+                    ->where('u.id = :userId and a.id = :animalId')
+                    ->setParameter('userId', $userId)
+                    ->setParameter('animalId', $animalId)
+                    ->getQuery()
+                    ->getOneOrNullResult();
+    }
+
     /**
      * Permet de faire une recherche les favoris d'un user
      *
@@ -51,6 +70,7 @@ class FavoriRepository extends ServiceEntityRepository
                     ->setParameter('search','%'.$search.'%')
                     ->setParameter('filtre','%'.$filtre.'%')
                     ->setParameter('user',$user)
+                    ->orderBy('f.id','DESC')
                     ->setMaxResults($limit)
                     ->setFirstResult($offset)
                     ->getQuery()

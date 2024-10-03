@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class FavoriController extends AbstractController
 {
@@ -42,14 +43,19 @@ class FavoriController extends AbstractController
      * @return Response
      */
     #[Route('/favori/{id}/delete', name: 'favori_delete')]
-    public function remove(Favori $favori,EntityManagerInterface $manager):Response
-    {
-        foreach($favori->getAnimal() as $favoriAnimal){
-            $this->addFlash('success',$favoriAnimal->getName().' a bien été retiré des favoris');
+    public function remove(Animal $animal,EntityManagerInterface $manager,FavoriRepository $repo):Response
+    {       
+        $user = $this->getUser();
+        $favori = $repo->findOneFavori($user->getId(),$animal->getId());
 
+        if($favori){
             $manager->remove($favori);
             $manager->flush();
-            return $this->redirectToRoute('animal_show',['id'=>$favoriAnimal->getId()]);
+
+            $this->addFlash('success',$animal->getName().' a bien été retiré des favoris');
+            return $this->redirectToRoute('animal_show',['id'=>$animal->getId()]);
+        }else{
+            throw new NotFoundHttpException("Erreur 404");
         }
     }
 }
