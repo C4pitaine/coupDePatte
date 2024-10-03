@@ -9,9 +9,17 @@
                     <a href="{{path("home")}}">Menu</a>
                     <ul>
                         <li><a href="{{path("home")}}">Accueil</a></li>
-                        <li><a href="#">Présentation</a></li>
-                        <li><a href="#">Animaux</a></li>
+                        <li><a href="#pres">Présentation</a></li>
+                        <li><a href="#pensionnaires">Animaux</a></li>
                         <li><a href="#contact">Contact</a></li>
+                        <li><a href="{{path('donation_one')}}">Faire un don</a></li>
+                        {% if app.user %}
+                            <li><a href="{{path('account_logout')}}">Déconnexion</a></li>
+                        {% else %}
+                            <li><a href="{{path('account_register')}}">Inscription</a></li>
+                            <li><a href="{{path('account_login')}}">Connexion</a></li>
+                        {% endif %}
+                        
                     </ul>
                 </li>
                 <li>
@@ -59,9 +67,16 @@
             </div>
             <div class="link">
                 <a href="{{path("home")}}">Accueil</a>
-                <a href="#">Présentation</a>
-                <a href="#">Animaux</a>
+                <a href="#pres">Présentation</a>
+                <a href="#pensionnaires">Animaux</a>
                 <a href="#contact">Contact</a>
+                <a href="{{path('donation_one')}}">Faire un don</a>
+                {% if app.user %}
+                    <a href="{{path('account_logout')}}">Déconnexion</a>
+                {% else %}
+                    <a href="{{path('account_register')}}">Inscription</a>
+                    <a href="{{path('account_login')}}">Connexion</a>
+                {% endif %}
             </div>
         </div>
         <div class="menuLink">
