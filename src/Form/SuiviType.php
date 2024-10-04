@@ -3,11 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Suivi;
-use App\Entity\Animal;
 use App\Form\ApplicationType;
 use App\Repository\AnimalRepository;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;

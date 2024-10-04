@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Parrainage;
 use App\Repository\AdoptionRepository;
 use App\Repository\CartRepository;
 use App\Repository\ContactRepository;

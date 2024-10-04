@@ -3,6 +3,7 @@
 @import "mixins.scss";
 @import "variables.scss";
 
+/* Formulaires */
 .slideFormulaire{
     display: flex;
     justify-content: center;
@@ -115,6 +116,7 @@
     }
 }
 
+/* Show Hide password */
 .toggle-password-container{
     position: relative;
     top:0;

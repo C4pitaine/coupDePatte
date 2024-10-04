@@ -1,23 +1,27 @@
 @import "variables.scss";
 
+/* Roboto 400 */
 @mixin roboto-regular{
     font-family: "Roboto", "sans-serif";
     font-weight: 400;
     font-style: normal;
 }
 
+/* Roboto Bold */
 @mixin roboto-bold{
     font-family: "Roboto", "sans-serif";
     font-weight: bold;
     font-style: normal;
 }
 
+/* Romanesco 400 */
 @mixin romanesco-regular{
     font-family: "Romanesco", "cursive";
     font-weight: 400;
     font-style: normal;
 }
 
+/* Button */
 @mixin buttonFront{
     background-color: $greenColor;
     height:40px;
@@ -36,6 +40,7 @@
     }
 }
 
+/* a pour les buttons */
 @mixin aFront{
     width: fit-content;
     display: inline-block;
