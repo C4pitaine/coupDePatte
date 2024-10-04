@@ -22,7 +22,7 @@ class ParrainageRepository extends ServiceEntityRepository
      * @param integer $userId
      * @return array|null
      */
-    public function getUser(int $userId): ?array
+    public function getParrainageFromUser(int $userId): ?array
     {
         return $this->createQueryBuilder('p')
                     ->innerJoin('p.user', 'u')

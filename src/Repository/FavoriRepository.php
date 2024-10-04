@@ -22,7 +22,7 @@ class FavoriRepository extends ServiceEntityRepository
      * @param integer $userId
      * @return array|null
      */
-    public function getUser(int $userId): ?array
+    public function getFavoriFromUser(int $userId): ?array
     {
         return $this->createQueryBuilder('f')
                     ->innerJoin('f.user', 'u')

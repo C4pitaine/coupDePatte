@@ -25,11 +25,10 @@ class AnimalController extends AbstractController
     {
         $user = $this->getUser();
         $isFavori = false;
-        $favoriId = null;
         $isParrain = false;
         
         if($user){
-            $favoris = $repo->getUser($user->getId());
+            $favoris = $repo->getFavoriFromUser($user->getId());
             foreach($favoris as $favori)
             {
                 $animaux = $favori->getAnimal();
@@ -42,7 +41,7 @@ class AnimalController extends AbstractController
                 }
             }
 
-            $parrainages = $parrainageRepo->getUser($user->getId());
+            $parrainages = $parrainageRepo->getParrainageFromUser($user->getId());
             foreach($parrainages as $parrainage)
             {
                 $animaux = $parrainage->getAnimal();
@@ -57,7 +56,6 @@ class AnimalController extends AbstractController
         return $this->render('animal/show.html.twig', [
             'animal' => $animal,
             'isFavori' => $isFavori,
-            'favoriId' => $favoriId,
             'isParrain' => $isParrain,
         ]);
     }
