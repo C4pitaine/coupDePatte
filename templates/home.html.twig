@@ -134,20 +134,15 @@
 
         pensionnaires.forEach((pensionnaire,index)=>{
 
-            pensionnaire.setAttribute('open',false)
             pensionnaire.addEventListener('click',()=>{
-                let open = pensionnaire.getAttribute('open')
-                if(open != "true"){
-                    pensionnaire.setAttribute('open',true)
-                    container[index].classList.add('active')
-                }
+                container[index].classList.toggle('active')
             })
 
-            pensionnaire.addEventListener('mouseover',()=>{
-                container[index].classList.add('active')
+            pensionnaire.addEventListener('pointerenter',()=>{
+                container[index].classList.add('activeHover')
             })
-            pensionnaire.addEventListener('mouseout',()=>{
-                container[index].classList.remove('active')
+            pensionnaire.addEventListener('pointerleave',()=>{
+                container[index].classList.remove('activeHover')
             })
         })
     </script>

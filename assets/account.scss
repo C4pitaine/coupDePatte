@@ -99,7 +99,7 @@
                         display: none !important;
                     }
                 }
-                .show.active,.showAdopted{
+                .show.active,.showAdopted,.show.activeHover{
                     opacity: 1;
                     transform: translateY(0);
                     a{

@@ -46,24 +46,18 @@
         /* Permet d'afficher les informations en activant la classe active d'un animal */
         var animaux = document.querySelectorAll('.animal');
         var infos = document.querySelectorAll('.infos');
+
         animaux.forEach((animal,key)=>{
-
-            animal.setAttribute('open',false)
+            
             animal.addEventListener('click',()=>{
-                let open = animal.getAttribute('open')
-                if(open != "true"){
-                    animal.setAttribute('open',true)
-                    infos[key].classList.add('active')
-                }
+                infos[key].classList.toggle('active')
             })
 
-            animal.addEventListener('mouseover',()=>{
-                infos[key].classList.add('active')
-                animal.setAttribute('open',true)
+            animal.addEventListener('pointerenter',()=>{
+                infos[key].classList.add('activeHover')
             })
-            animal.addEventListener('mouseout',()=>{
-                infos[key].classList.remove('active')
-                animal.setAttribute('open',false)
+            animal.addEventListener('pointerleave',()=>{
+                infos[key].classList.remove('activeHover')
             })
         })
     </script>

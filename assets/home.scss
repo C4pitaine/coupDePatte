@@ -225,7 +225,7 @@
                         align-self: flex-end;
                     }
                 }
-                .container.active{
+                .container.active,.container.activeHover{
                     display: flex;
                 }
             }

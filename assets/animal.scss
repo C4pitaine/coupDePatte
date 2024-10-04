@@ -60,7 +60,7 @@
                     }
                 }
 
-                .infos.active{
+                .infos.active,.infos.activeHover{
                     opacity: 1;
                     transform: translateY(0);
                     a{
