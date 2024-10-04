@@ -54,7 +54,6 @@ class AnimalController extends AbstractController
                 }
             }
         }
-
         return $this->render('animal/show.html.twig', [
             'animal' => $animal,
             'isFavori' => $isFavori,

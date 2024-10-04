@@ -87,6 +87,7 @@
                 display: inline-block;
                 line-height: 40px;
                 text-decoration: none;
+                cursor: pointer;
                 @include roboto-regular;
     
                 &:hover{

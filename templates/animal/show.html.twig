@@ -8,13 +8,7 @@
             <div class="buttons">
                 <a href="{{path('animal_index',{'type':animal.type})}}" class="backButton">Retour</a>
                 {% if app.user %}
-                    {% if isFavori %}
-                        {# <a href="{{path('favori_delete',{'id':animal.id})}}" class="buttonIsFavoris"><i class="fa-solid fa-heart"></i></a> #}
-                        <div class="buttonIsFavoris" id="buttonIsFavoris"><i class="fa-solid fa-heart"></i></div>
-                    {% else %}
-                        {# <a href="{{path('favori_create',{'id':animal.id})}}" class="buttonNotFavoris"><i class="fa-solid fa-heart"></i></a> #}
-                        <div class="buttonNotFavoris" id="buttonNotFavoris"><i class="fa-solid fa-heart"></i></div>
-                    {% endif %}
+                    <div id="buttonFavori"><i class="fa-solid fa-heart"></i></div>
                     {% if isParrain == false %}
                         <a href="{{path('parrainage_create',{'id':animal.id})}}" class='backButton ms-2'>Parrainer</a>
                     {% endif %}
@@ -89,47 +83,63 @@
                 }).showToast();
             });
         })
-
-        /* Ajout aux favoris */
-        const buttonNotFavoris = document.querySelector('.buttonNotFavoris')
-        async function createFavori() {
-            try{
-                var animalId = {{animal.id}}
-                let response = await fetch(`/favori/${animalId}/create`,{
-                    method: 'GET',
-                });
-            }catch (error){
-                console.error('Une erreur est survenue')
-            }
-        }
-
-        if(buttonNotFavoris){
-            buttonNotFavoris.addEventListener('click',()=>{
-                createFavori();
-                buttonNotFavoris.classList.remove('buttonNotFavoris')
-                buttonNotFavoris.classList.add('buttonIsFavoris')
-            })
-        }
-
-        /* Suppression d'un favori */
-        const buttonIsFavoris = document.querySelector('.buttonIsFavoris')
-        async function deleteFavori() {
-            try{
-                var animalId = {{animal.id}}
-                let response = await fetch(`/favori/${animalId}/delete`,{
-                    method: 'GET',
-                });
-            }catch (error){
-                console.error('Une erreur est survenue')
-            }
-        }
-
-        if(buttonIsFavoris){
-            buttonIsFavoris.addEventListener('click',()=>{
-                deleteFavori();
-                buttonIsFavoris.classList.remove('buttonIsFavoris')
-                buttonIsFavoris.classList.add('buttonNotFavoris')
-            })
-        }
     </script>
+
+    {% if app.user %}
+        <script>
+            /* Bouton Favori */
+            let isFavori = {{isFavori | json_encode}} // json_encode converti la valeur dans un format compatible avec JavaScript
+            let buttonFavori = document.querySelector('#buttonFavori')
+            if(isFavori){
+                buttonFavori.classList.add('buttonIsFavoris')
+                buttonFavori.setAttribute('data-favori',true)
+            }else{
+                buttonFavori.classList.add('buttonNotFavoris')
+                buttonFavori.setAttribute('data-favori',false)
+            }
+
+            /* Fonction permettant d'ajouter un favori */
+            async function createFavori() {
+                try{
+                    var animalId = {{animal.id}}
+                    let response = await fetch(`/favori/${animalId}/create`,{
+                        method: 'GET',
+                    });
+                }catch (error){
+                    console.error('Une erreur est survenue')
+                }
+            }
+
+            /* Fonction permettant de supprimer un favori */
+            async function deleteFavori() {
+                try{
+                    var animalId = {{animal.id}}
+                    let response = await fetch(`/favori/${animalId}/delete`,{
+                        method: 'GET',
+                    });
+                }catch (error){
+                    console.error('Une erreur est survenue')
+                }
+            }
+
+            /* On ajoute ou supprime le favori en fonction de si l'animal est en favori ou non */
+            buttonFavori.addEventListener('click',()=>{
+                let favori = buttonFavori.getAttribute('data-favori')
+                if(favori == "true"){
+                    deleteFavori();
+
+                    buttonFavori.setAttribute('data-favori',false)
+                    buttonFavori.classList.remove('buttonIsFavoris')
+                    buttonFavori.classList.add('buttonNotFavoris')
+                }else{
+                    createFavori();
+
+                    buttonFavori.setAttribute('data-favori',true)
+                    buttonFavori.classList.remove('buttonNotFavoris')
+                    buttonFavori.classList.add('buttonIsFavoris')
+                }
+            })
+        </script>
+    {% endif %}
+
 {% endblock %}
