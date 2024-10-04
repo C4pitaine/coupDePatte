@@ -50,7 +50,7 @@
         animaux.forEach((animal,key)=>{
 
             animal.setAttribute('open',false)
-            animal.addEventListener('touchstart',()=>{
+            animal.addEventListener('click',()=>{
                 let open = animal.getAttribute('open')
                 if(open == "true"){
                     animal.setAttribute('open',false)
@@ -63,9 +63,11 @@
 
             animal.addEventListener('mouseover',()=>{
                 infos[key].classList.add('active')
+                animal.setAttribute('open',true)
             })
             animal.addEventListener('mouseout',()=>{
                 infos[key].classList.remove('active')
+                animal.setAttribute('open',false)
             })
         })
     </script>
