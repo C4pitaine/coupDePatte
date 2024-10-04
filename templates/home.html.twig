@@ -135,12 +135,9 @@
         pensionnaires.forEach((pensionnaire,index)=>{
 
             pensionnaire.setAttribute('open',false)
-            pensionnaire.addEventListener('touchstart',()=>{
+            pensionnaire.addEventListener('click',()=>{
                 let open = pensionnaire.getAttribute('open')
-                if(open == "true"){
-                    pensionnaire.setAttribute('open',false)
-                    container[index].classList.remove('active')
-                }else{
+                if(open != "true"){
                     pensionnaire.setAttribute('open',true)
                     container[index].classList.add('active')
                 }

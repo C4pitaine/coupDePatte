@@ -93,10 +93,17 @@
                         font-size: 22px;
                         color: white;
                     }
+                    a{
+                        border: solid 1px white;
+                        display: none !important;
+                    }
                 }
                 .show.active,.showAdopted{
                     opacity: 1;
                     transform: translateY(0);
+                    a{
+                        display: block !important;
+                    }
                 }
             }
         }

@@ -5,12 +5,9 @@ let show = document.querySelectorAll('.show')
 favoris.forEach((favori,index)=>{
 
     favori.setAttribute('open',false)
-    favori.addEventListener('touchstart',()=>{
+    favori.addEventListener('click',()=>{
         let open = favori.getAttribute('open')
-        if(open == "true"){
-            favori.setAttribute('open',false)
-            show[index].classList.remove('active')
-        }else{
+        if(open != "true"){
             favori.setAttribute('open',true)
             show[index].classList.add('active')
         }
