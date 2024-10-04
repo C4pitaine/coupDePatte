@@ -52,8 +52,8 @@ class FavoriController extends AbstractController
             $manager->remove($favori);
             $manager->flush();
 
-            $this->addFlash('success',$animal->getName().' a bien été retiré des favoris');
-            return $this->redirectToRoute('animal_show',['id'=>$animal->getId()]);
+            $this->addFlash('success',$animal->getName().' a bien été retiré de vos favoris');
+            return $this->redirectToRoute('account_index');
         }else{
             throw new NotFoundHttpException("Erreur 404");
         }

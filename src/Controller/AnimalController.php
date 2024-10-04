@@ -36,7 +36,6 @@ class AnimalController extends AbstractController
                 foreach($animaux as $item){
                     if($item->getName() == $animal->getName()){
                         $isFavori = true;
-                        $favoriId = $favori->getId();
                     }
                 }
             }
