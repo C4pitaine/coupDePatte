@@ -46,7 +46,6 @@
         /* Permet d'afficher les informations en activant la classe active d'un animal */
         var animaux = document.querySelectorAll('.animal');
         var infos = document.querySelectorAll('.infos');
-
         animaux.forEach((animal,key)=>{
 
             animal.setAttribute('open',false)
@@ -54,7 +53,7 @@
                 let open = animal.getAttribute('open')
                 if(open == "true"){
                     animal.setAttribute('open',false)
-                    infos[key].classList.remove('active')
+                    infos[key].classList.add('active')
                 }else{
                     animal.setAttribute('open',true)
                     infos[key].classList.add('active')
