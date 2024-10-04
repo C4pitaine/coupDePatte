@@ -8,6 +8,7 @@ use App\Repository\FavoriRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -21,6 +22,7 @@ class FavoriController extends AbstractController
      * @return Response
      */
     #[Route('/favori/{id}/create', name: 'favori_create')]
+    #[IsGranted('ROLE_USER')]
     public function add(Animal $animal,EntityManagerInterface $manager): Response
     {
         $favori = new Favori();
@@ -43,6 +45,7 @@ class FavoriController extends AbstractController
      * @return Response
      */
     #[Route('/favori/{id}/delete', name: 'favori_delete')]
+    #[IsGranted('ROLE_USER')]
     public function remove(Animal $animal,EntityManagerInterface $manager,FavoriRepository $repo):Response
     {       
         $user = $this->getUser();
