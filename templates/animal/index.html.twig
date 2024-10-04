@@ -53,7 +53,7 @@
                 let open = animal.getAttribute('open')
                 if(open == "true"){
                     animal.setAttribute('open',false)
-                    infos[key].classList.add('active')
+                    infos[key].classList.remove('active')
                 }else{
                     animal.setAttribute('open',true)
                     infos[key].classList.add('active')
