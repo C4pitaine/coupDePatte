@@ -50,7 +50,7 @@
         animaux.forEach((animal,key)=>{
 
             animal.setAttribute('open',false)
-            animal.addEventListener('click',()=>{
+            animal.addEventListener('touchstart',()=>{
                 let open = animal.getAttribute('open')
                 if(open == "true"){
                     animal.setAttribute('open',false)
