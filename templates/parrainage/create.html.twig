@@ -8,7 +8,7 @@
             <div class="slideFormulaire">
                 <img src="/uploads/animal/{{animal.coverImage}}" alt="Image de {{animal.name}}" class="imageParrainage">
                 <div class="formulaire">
-                    <a href="{{path('animal_index',{'type':animal.type})}}" class='backButton'>Retour</a>
+                    <a href="{{path('animal_show',{'id':animal.id})}}" class='backButton'>Retour</a>
                     <h6>Vous êtes sur le point de parrainer : {{animal.name}}</h6>
                     {{form_start(formParrainage)}}
                         {{form_widget(formParrainage)}}
