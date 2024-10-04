@@ -54,13 +54,17 @@
             <h5>Offrez-lui une de ses friandises favorites :</h5>
             <div class="achatFriandise">
                 <div class="friandises">
-                    {% for friandise in animal.friandise %}
-                        <div class="friandise">
-                            <h6><span class="friandiseName">{{friandise.name}}</span> - <span class="friandisePrice">{{friandise.price}}</span>€</h6>
-                            <img src="/uploads/friandises/{{friandise.image}}" alt="Image de la friandise {{friandise.name}}">
-                            <div class="addToCart backButton">Ajouter</div>
-                        </div>
-                    {% endfor %}
+                    {% if animal.friandise|length > 0 %}
+                        {% for friandise in animal.friandise %}
+                            <div class="friandise">
+                                <h6><span class="friandiseName">{{friandise.name}}</span> - <span class="friandisePrice">{{friandise.price}}</span>€</h6>
+                                <img src="/uploads/friandises/{{friandise.image}}" alt="Image de la friandise {{friandise.name}}">
+                                <div class="addToCart backButton">Ajouter</div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <h6>{{ animal.name }} n'a pas encore de friandise préférée</h6>
+                    {% endif %}
                 </div>
             </div>
         </div>
