@@ -51,10 +51,7 @@
             animal.setAttribute('open',false)
             animal.addEventListener('click',()=>{
                 let open = animal.getAttribute('open')
-                if(open == "true"){
-                    animal.setAttribute('open',false)
-                    infos[key].classList.remove('active')
-                }else{
+                if(open != "true"){
                     animal.setAttribute('open',true)
                     infos[key].classList.add('active')
                 }
