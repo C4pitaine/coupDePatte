@@ -51,6 +51,24 @@ chevronMenu.forEach((chevron,key)=>{
     })
 })
 
+/* Affiche du sous menu */
+let menuUpperHeader = document.querySelector('.menuUpperHeader')
+let underHeader = document.querySelector('.underHeader')
+
+menuUpperHeader.addEventListener('mouseover',()=>{
+    underHeader.classList.add('active')
+})
+menuUpperHeader.addEventListener('mouseout',()=>{
+    underHeader.classList.remove('active')
+})
+
+underHeader.addEventListener('mouseover',()=>{
+    underHeader.classList.add('active')
+})
+underHeader.addEventListener('mouseout',()=>{
+    underHeader.classList.remove('active')
+})
+
 // Gestion Alerte de suppresion admin
 const deleteButtons = document.querySelectorAll('.deleteButton')
 const alertDelete = document.querySelectorAll('.alertDelete')
