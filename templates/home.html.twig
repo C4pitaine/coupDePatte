@@ -133,16 +133,19 @@
         let container = document.querySelectorAll('.container')
 
         pensionnaires.forEach((pensionnaire,index)=>{
-            let open = false
+
+            pensionnaire.setAttribute('open',false)
             pensionnaire.addEventListener('click',()=>{
-                if(open == false){
-                    container[index].classList.add('active');
-                    open = true
+                let open = pensionnaire.getAttribute('open')
+                if(open == "true"){
+                    pensionnaire.setAttribute('open',false)
+                    container[index].classList.remove('active')
                 }else{
-                    container[index].classList.remove('active');
-                    open = false
+                    pensionnaire.setAttribute('open',true)
+                    container[index].classList.add('active')
                 }
             })
+
             pensionnaire.addEventListener('mouseover',()=>{
                 container[index].classList.add('active')
             })

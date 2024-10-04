@@ -43,25 +43,29 @@
 
 {% block javascripts %}
     <script>
+        /* Permet d'afficher les informations en activant la classe active d'un animal */
         var animaux = document.querySelectorAll('.animal');
         var infos = document.querySelectorAll('.infos');
 
         animaux.forEach((animal,key)=>{
+
+            animal.setAttribute('open',false)
+            animal.addEventListener('click',()=>{
+                let open = animal.getAttribute('open')
+                if(open == "true"){
+                    animal.setAttribute('open',false)
+                    infos[key].classList.remove('active')
+                }else{
+                    animal.setAttribute('open',true)
+                    infos[key].classList.add('active')
+                }
+            })
+
             animal.addEventListener('mouseover',()=>{
                 infos[key].classList.add('active')
             })
             animal.addEventListener('mouseout',()=>{
                 infos[key].classList.remove('active')
-            })
-            let open = false
-            animal.addEventListener('click',()=>{
-                if(open == false){
-                    infos[key].classList.add('active')
-                    open = true
-                }else{
-                    infos[key].classList.remove('active')
-                    open = false
-                }
             })
         })
     </script>

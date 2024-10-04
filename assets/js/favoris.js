@@ -1,17 +1,21 @@
+/* Permet d'afficher les informations en activant la classe active d'un favori */
 let favoris = document.querySelectorAll('.favori')
 let show = document.querySelectorAll('.show')
 
 favoris.forEach((favori,index)=>{
-    let open = false
+
+    favori.setAttribute('open',false)
     favori.addEventListener('click',()=>{
-        if(open == false){
-            show[index].classList.add('active');
-            open = true;
+        let open = favori.getAttribute('open')
+        if(open == "true"){
+            favori.setAttribute('open',false)
+            show[index].classList.remove('active')
         }else{
-            show[index].classList.remove('active');
-            open = false;
+            favori.setAttribute('open',true)
+            show[index].classList.add('active')
         }
     })
+
     favori.addEventListener('mouseover',()=>{
         show[index].classList.add('active')
     })
