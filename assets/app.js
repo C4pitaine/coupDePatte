@@ -6,14 +6,16 @@ import './bootstrap.js';
  * which should already be in your base.html.twig.
  */
 import './styles/app.css';
-import './app.scss';
-import './home.scss';
-import './adoption.scss';
-import './formulaire.scss';
-import './blog.scss';
-import './animal.scss';
-import './donation.scss';
-import './account.scss';
+import './styles/app.scss';
+import './styles/home.scss';
+import './styles/adoption.scss';
+import './styles/formulaire.scss';
+import './styles/blog.scss';
+import './styles/animal.scss';
+import './styles/donation.scss';
+import './styles/account.scss';
+import './styles/header.scss';
+import './styles/footer.scss';
 import './styles/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle';
 
