@@ -583,12 +583,19 @@ footer{
     
     #mentions_title{
         margin-top: 25px;
+        @include roboto-bold;
         a{
             @include aFront;
         }
     }
     #mentions_text{
         margin-bottom: 25px;
+        h3{
+            @include roboto-bold;
+        }
+        p{
+            @include roboto-regular;
+        }
     }
 }
 
