@@ -263,3 +263,47 @@ header.menuOpened .bar {
         }
     }
 }
+
+/* Media queries */
+
+@media all and (max-width:1320px){
+    #burger {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    nav {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+
+        ul {
+            display: none !important;
+        }
+    }
+}
+
+@media all and (max-width:730px){
+
+    #menu.menuOpened{
+        .right{
+            width: 90%;
+        }
+        .left{
+            width:10%;
+        }
+    }
+}
+
+@media all and (max-width:450px){
+
+    #menu.menuOpened{
+        .right{
+            width: 100%;
+        }
+        .left{
+            width:0%;
+        }
+    }
+}

@@ -151,3 +151,42 @@ footer{
         }
     }
 }
+
+/* Media queries */ 
+
+@media all and (max-width:850px){
+    .green{
+        flex-direction: column;
+
+        img{
+            margin: 20px 0;
+            display: flex;
+            align-self: center;
+        }
+    }
+}
+
+@media all and (max-width:570px){
+
+    .infos{
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        .socials{
+            .social{
+                justify-content: space-evenly;
+                flex-direction: row !important;
+            }
+        }
+    }
+
+    .horaires{
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    .socials{
+        h5{
+            margin-top: 20px;
+        }
+    }
+}
