@@ -22,7 +22,11 @@ class HomeController extends AbstractController
         $form->handleRequest($request);
 
         $numberPensionnaire = Count($repo->findBy(['adopted'=>false]));
-        $lastPensionnaires = $repo->findBy(['adopted'=>false],null,8,$numberPensionnaire-8);
+        if($numberPensionnaire < 8){
+            $lastPensionnaires = $repo->findBy(['adopted'=>false],null,8);
+        }else{
+            $lastPensionnaires = $repo->findBy(['adopted'=>false],null,8,$numberPensionnaire-8);
+        }
 
         $contact->setStatus("en attente");
 

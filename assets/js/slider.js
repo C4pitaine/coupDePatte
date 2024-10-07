@@ -13,7 +13,7 @@ const sliderSize = () => {
     arrowLeft = document.querySelector('.arrowLeft');
     arrowRight = document.querySelector('.arrowRight');
 
-    if(screenSize > 1500){
+    if(screenSize > 1500 && lastPensionnaires.length %2 == 0){
         lastPensionnaires.forEach(pensionnaire=>{
             pensionnaire.classList.add('notShow')
         })
