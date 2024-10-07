@@ -53,7 +53,7 @@
                                                 <p>femelle</p>
                                             {% endif %}
                                             <p>{{animal.age}} ans</p>
-                                            <a href="{{path('animal_show',{'id':animal.id})}}" class="backButton">Voir plus</a>
+                                            <a href="{{path('animal_show',{'id':animal.id,'back':'account'})}}" class="backButton">Voir plus</a>
                                         </div>
                                         {% include "partials/deleteAlert.html.twig" with {'type':'de vos favoris','title':animal.name, 'id':animal.id, 'route':'favori_delete'} %}
                                     </div>

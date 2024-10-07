@@ -6,7 +6,16 @@
     <div class="slide showAnimal">
         <div class="wrapper">
             <div class="buttons">
-                <a href="{{path('animal_index',{'type':animal.type})}}" class="backButton">Retour</a>
+                {% if retour == 'index' %}
+                    <a href="{{path('animal_index',{'type':animal.type})}}" class="backButton">Retour</a>
+                {% elseif retour == 'home' %}
+                    <a href="{{path('home')}}" class="backButton">Retour</a>
+                {% elseif retour == 'account' %}
+                    <a href="{{path('account_index')}}" class="backButton">Retour</a>
+                {% else %}
+                    <a href="{{path('parrainage_index')}}" class="backButton">Retour</a>
+                {% endif %}
+                
                 {% if app.user %}
                     <div id="buttonFavori"><i class="fa-solid fa-heart"></i></div>
                     {% if isParrain == false %}

@@ -47,7 +47,7 @@
                                             {% endif %}
                                             <p>{{animal.age}} ans</p>
                                             <p>Parrainage : {{parrainage.montant}}€</p>
-                                            <a href="{{path('animal_show',{'id':animal.id})}}" class="backButton">Voir plus</a>
+                                            <a href="{{path('animal_show',{'id':animal.id,'back':'parrainage'})}}" class="backButton">Voir plus</a>
                                         </div>
                                         {% include "partials/deleteAlert.html.twig" with {'type':'de vos parrainages','title':animal.name, 'id':parrainage.id, 'route':'parrainage_delete'} %}
                                     </div>

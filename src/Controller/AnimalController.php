@@ -21,8 +21,8 @@ class AnimalController extends AbstractController
      * @param Animal $animal
      * @return Response
      */
-    #[Route('/animal/{id}/show',name:'animal_show')]
-    public function show(Animal $animal,FavoriRepository $repo,ParrainageRepository $parrainageRepo): Response
+    #[Route('/animal/{id}/show/{back}/retour',name:'animal_show')]
+    public function show(Animal $animal,FavoriRepository $repo,ParrainageRepository $parrainageRepo,string $back): Response
     {
         $user = $this->getUser();
         $isFavori = false;
@@ -57,6 +57,7 @@ class AnimalController extends AbstractController
             'animal' => $animal,
             'isFavori' => $isFavori,
             'isParrain' => $isParrain,
+            'retour' => $back,
         ]);
     }
 
