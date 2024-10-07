@@ -15,10 +15,14 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AnimalController extends AbstractController
 {
+   
     /**
      * Permet d'afficher un animal et de vérifier si l'animal est dans les favoris du user
      *
      * @param Animal $animal
+     * @param FavoriRepository $repo
+     * @param ParrainageRepository $parrainageRepo
+     * @param string $back
      * @return Response
      */
     #[Route('/animal/{id}/show/{back}/retour',name:'animal_show')]
