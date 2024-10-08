@@ -17,21 +17,21 @@
                     </ul>
                 </li>
                 <li><a href="{{path('blog')}}"><i class="fa-regular fa-newspaper iconHeader" style="color: #ffffff;"></i>Blog</a></li>
-                <li><a href="{{path('legals_adoption')}}">Comment adopter</a></li>
-                <li><a href="{{path('adoption_one')}}">Faire adopter</a></li>
+                <li><a href="{{path('legals_adoption')}}"><i class="fa-solid fa-question iconHeader" style="color: #ffffff;"></i>Comment adopter</a></li>
+                <li><a href="{{path('adoption_one')}}"><i class="fa-regular fa-heart iconHeader" style="color: #ffffff;"></i>Faire adopter</a></li>
                 <li><a href="{{path('cart')}}"><i class="fa-solid fa-bag-shopping"></i><span class="numberAchatHeader ms-2">0</span></a></li>
                 <li>
                     <i class="fa-solid fa-user"></i>
                     <ul>
                         {% if app.user %}
-                            <li><a href="{{path('account_index')}}">Profil</a></li>
-                            <li><a href="{{path('parrainage_index')}}">Parrainage</a></li>
-                            <li><a href="{{path('donation_one')}}">Faire un don</a></li>
-                            <li><a href="{{path('account_logout')}}">Déconnexion</a></li>
+                            <li><a href="{{path('account_index')}}"><i class="fa-solid fa-circle-user iconHeader" style="color: #ffffff;"></i>Profil</a></li>
+                            <li><a href="{{path('parrainage_index')}}"><i class="fa-solid fa-heart-circle-plus iconHeader" style="color: #ffffff;"></i>Parrainage</a></li>
+                            <li><a href="{{path('donation_one')}}"><i class="fa-solid fa-sack-dollar iconHeader" style="color: #ffffff;"></i>Faire un don</a></li>
+                            <li><a href="{{path('account_logout')}}"><i class="fa-solid fa-user-slash iconHeader" style="color: #ffffff;"></i>Déconnexion</a></li>
                         {% else %}
-                            <li><a href="{{path('account_register')}}">Inscription</a></li>
-                            <li><a href="{{path('account_login')}}">Connexion</a></li>
-                            <li><a href="{{path('donation_one')}}">Faire un don</a></li>
+                            <li><a href="{{path('account_register')}}"><i class="fa-solid fa-user-plus iconHeader" style="color: #ffffff;"></i>Inscription</a></li>
+                            <li><a href="{{path('account_login')}}"><i class="fa-solid fa-user-check iconHeader" style="color: #ffffff;"></i>Connexion</a></li>
+                            <li><a href="{{path('donation_one')}}"><i class="fa-solid fa-sack-dollar iconHeader" style="color: #ffffff;"></i>Faire un don</a></li>
                         {% endif %}
                     </ul>
                 </li>
@@ -47,10 +47,10 @@
 <div class="underHeader">
     <div class="wrapper">
         <div class="linkUnderHeader">
-            <a href="{{path("home")}}">Accueil</a>
-            <a href="{{path("home")}}#pres">Présentation</a>
-            <a href="{{path("home")}}#pensionnaires">Pensionnaires</a>
-            <a href="{{path("home")}}#contact">Contact</a>
+            <div><i class="fa-solid fa-house iconHeader" style="color: #ffffff;"></i><a href="{{path("home")}}">Accueil</a></div>
+            <div><i class="fa-solid fa-circle-info iconHeader" style="color: #ffffff;"></i><a href="{{path("home")}}#pres">Présentation</a></div>
+            <div><i class="fa-solid fa-paw iconHeader" style="color: #ffffff;"></i><a href="{{path("home")}}#pensionnaires">Pensionnaires</a></div>
+            <div><i class="fa-solid fa-envelope iconHeader" style="color: #ffffff;"></i><a href="{{path("home")}}#contact">Contact</a></div>  
         </div>
         <div class="linkUnderHeader">
             <div><i class="fa-solid fa-dog iconHeader" style="color: #ffffff;"></i><a href="{{path('animal_index',{'type':'chien'})}}">Chien</a></div>
@@ -59,14 +59,14 @@
         </div>
         <div class="linkUnderHeader">
             {% if app.user %}
-                <a href="{{path('account_index')}}">Profil</a></li>
-                <a href="{{path('parrainage_index')}}">Parrainage</a>
-                <a href="{{path('donation_one')}}">Faire un don</a>
-                <a href="{{path('account_logout')}}">Déconnexion</a>
+                <div><i class="fa-solid fa-circle-user iconHeader" style="color: #ffffff;"></i><a href="{{path('account_index')}}">Profil</a></li></div>
+                <div><i class="fa-solid fa-heart-circle-plus iconHeader" style="color: #ffffff;"></i><a href="{{path('parrainage_index')}}">Parrainage</a></div>
+                <div><i class="fa-solid fa-sack-dollar iconHeader" style="color: #ffffff;"></i><a href="{{path('donation_one')}}">Faire un don</a></div>
+                <div><i class="fa-solid fa-user-slash iconHeader" style="color: #ffffff;"></i><a href="{{path('account_logout')}}">Déconnexion</a></div>
             {% else %}
-                <a href="{{path('account_register')}}">Inscription</a>
-                <a href="{{path('account_login')}}">Connexion</a>
-                <a href="{{path('donation_one')}}">Faire un don</a>
+                <div><i class="fa-solid fa-user-plus iconHeader" style="color: #ffffff;"></i><a href="{{path('account_register')}}">Inscription</a></div>
+                <div><i class="fa-solid fa-user-check iconHeader" style="color: #ffffff;"></i><a href="{{path('account_login')}}">Connexion</a></div>
+                <div><i class="fa-solid fa-sack-dollar iconHeader" style="color: #ffffff;"></i><a href="{{path('donation_one')}}">Faire un don</a></div>  
             {% endif %}
         </div>
     </div>
@@ -81,16 +81,40 @@
                 <i class="fa-solid fa-chevron-right chevronMenu"></i>
             </div>
             <div class="link">
-                <a href="{{path("home")}}">Accueil</a>
-                <a href="#pres">Présentation</a>
-                <a href="#pensionnaires">Animaux</a>
-                <a href="#contact">Contact</a>
-                <a href="{{path('donation_one')}}">Faire un don</a>
+                <div class="iconLink">
+                    <i class="fa-solid fa-house iconHeader" style="color: #ffffff;"></i>
+                    <a href="{{path("home")}}">Accueil</a>
+                </div>
+                <div class="iconLink">
+                    <i class="fa-solid fa-circle-info iconHeader" style="color: #ffffff;"></i>
+                    <a href="#pres">Présentation</a>
+                </div>
+                <div class="iconLink">
+                    <i class="fa-solid fa-paw iconHeader pawIconHeader" style="color: #ffffff;"></i>
+                    <a href="#pensionnaires">Pensionnaires</a>
+                </div>
+                <div class="iconLink">
+                    <i class="fa-solid fa-envelope iconHeader" style="color: #ffffff;"></i>
+                    <a href="#contact">Contact</a>
+                </div>
+                <div class="iconLink">
+                    <i class="fa-solid fa-sack-dollar iconHeader" style="color: #ffffff;"></i>
+                    <a href="{{path('donation_one')}}">Faire un don</a>
+                </div>
                 {% if app.user %}
-                    <a href="{{path('account_logout')}}">Déconnexion</a>
+                    <div class="iconLink">
+                        <i class="fa-solid fa-user-slash iconHeader" style="color: #ffffff;"></i>
+                        <a href="{{path('account_logout')}}">Déconnexion</a>
+                    </div>
                 {% else %}
-                    <a href="{{path('account_register')}}">Inscription</a>
-                    <a href="{{path('account_login')}}">Connexion</a>
+                    <div class="iconLink">
+                        <i class="fa-solid fa-user-plus iconHeader" style="color: #ffffff;"></i>
+                        <a href="{{path('account_register')}}">Inscription</a>
+                    </div>
+                    <div class="iconLink">
+                        <i class="fa-solid fa-user-check iconHeader" style="color: #ffffff;"></i>
+                        <a href="{{path('account_login')}}">Connexion</a>
+                    </div>
                 {% endif %}
             </div>
         </div>
@@ -101,15 +125,15 @@
                 <i class="fa-solid fa-chevron-right chevronMenu"></i>
             </div>
             <div class="link">
-                <div class="animalLink">
+                <div class="iconLink">
                     <i class="fa-solid fa-dog iconHeader" style="color: #ffffff;"></i>
                     <a href="{{path('animal_index',{'type':'chien'})}}">Chien</a>
                 </div>
-                <div class="animalLink">
+                <div class="iconLink">
                     <i class="fa-solid fa-cat iconHeader" style="color: #ffffff;"></i>
                     <a href="{{path('animal_index',{'type':'chat'})}}">Chat</a>
                 </div>
-                <div class="animalLink">
+                <div class="iconLink">
                     <i class="fa-solid fa-carrot iconHeader" style="color: #ffffff;"></i>
                     <a href="{{path('animal_index',{'type':'lapin'})}}">Lapin</a>
                 </div>
@@ -120,9 +144,11 @@
             <a href="{{path('blog')}}">Blog</a>
         </div>
         <div class="menuLink">
+            <i class="fa-solid fa-question iconHeader" style="color: #ffffff;"></i>
             <a href="{{path('legals_adoption')}}">Comment adopter</a>
         </div>
         <div class="menuLink">
+            <i class="fa-regular fa-heart iconHeader" style="color: #ffffff;"></i>
             <a href="{{path('adoption_one')}}">Faire adopter</a>
         </div>
         <div class="menuLink">
@@ -136,14 +162,35 @@
             </div>
             <div class="link">
                 {% if app.user %}
-                    <a href="{{path('donation_one')}}">Faire un don</a>
-                    <a href="{{path('account_index')}}">Profil</a>
-                    <a href="{{path('parrainage_index')}}">Parrainage</a>
-                    <a href="{{path('account_logout')}}">Déconnexion</a>
+                    <div class="iconLink">
+                        <i class="fa-solid fa-circle-user iconHeader" style="color: #ffffff;"></i>
+                        <a href="{{path('account_index')}}">Profil</a>
+                    </div>
+                    <div class="iconLink">
+                        <i class="fa-solid fa-heart-circle-plus iconHeader" style="color: #ffffff;"></i>
+                        <a href="{{path('parrainage_index')}}">Parrainage</a>
+                    </div>
+                    <div class="iconLink">
+                        <i class="fa-solid fa-sack-dollar iconHeader" style="color: #ffffff;"></i>
+                        <a href="{{path('donation_one')}}">Faire un don</a>
+                    </div>
+                    <div class="iconLink">
+                        <i class="fa-solid fa-user-slash iconHeader" style="color: #ffffff;"></i>
+                        <a href="{{path('account_logout')}}">Déconnexion</a>
+                    </div>
                 {% else %}
-                    <a href="{{path('account_register')}}">Inscription</a>
-                    <a href="{{path('account_login')}}">Connexion</a>
-                    <a href="{{path('donation_one')}}">Faire un don</a>
+                    <div class="iconLink">
+                        <i class="fa-solid fa-user-plus iconHeader" style="color: #ffffff;"></i>
+                        <a href="{{path('account_register')}}">Inscription</a>
+                    </div>
+                    <div class="iconLink">
+                        <i class="fa-solid fa-user-check iconHeader" style="color: #ffffff;"></i>
+                        <a href="{{path('account_login')}}">Connexion</a>
+                    </div>
+                    <div class="iconLink">
+                        <i class="fa-solid fa-sack-dollar iconHeader" style="color: #ffffff;"></i>
+                        <a href="{{path('donation_one')}}">Faire un don</a>
+                    </div>  
                 {% endif %}
             </div>
         </div>
