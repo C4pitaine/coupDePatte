@@ -31,6 +31,13 @@ header{
             display: flex;
             justify-content: end;
             z-index: 198;
+
+            .iconHeader{
+                margin-right: 5px;
+            }
+            .pawIconHeader{
+                font-size: 1.2rem;
+            }
             ul{
                 display: flex;
                 list-style: none;
@@ -40,7 +47,7 @@ header{
                 li{
                     width: 150px;
                     text-align: center;
-
+                    
                     a{
                         display: block;
                         width: 100%;
@@ -51,7 +58,7 @@ header{
                         text-decoration: none;
 
                         &:hover{
-                            font-size: 20px;
+                            font-size: 18px;
                         }
                     }
                     i{
@@ -119,8 +126,11 @@ header{
                 text-decoration: none;
                 margin: 5px 0 5px;
                 &:hover{
-                    font-size: 20px;
+                    font-size: 18px;
                 }
+            }
+            .iconHeader{
+                margin-right: 5px;
             }
         }
     }
@@ -174,6 +184,9 @@ header.menuOpened .bar {
     .right{
         display: none;
     }
+    .iconHeader{
+        margin-right: 5px;
+    }
 }
 
 #menu.menuOpened{
@@ -213,7 +226,7 @@ header.menuOpened .bar {
                 @include roboto-regular;
 
                 &:hover{
-                    font-size: 22px;
+                    font-size: 18px;
                 }
             }
             span{
@@ -249,6 +262,17 @@ header.menuOpened .bar {
 
             .link{
                 display: none;
+
+                .animalLink{
+                    display: flex;
+                    align-items: center;
+                    a{
+                        margin-left: 5px;
+                    }
+                    i{
+                        margin-left: 20px;
+                    }
+                }
             }
 
             .linkOpen{

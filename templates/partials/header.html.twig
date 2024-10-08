@@ -6,31 +6,18 @@
         <nav>
             <ul>
                 <li>
-                    <a href="{{path("home")}}" class="menuUpperHeader">Menu</a>
-                    {# <ul>
-                        <li><a href="{{path("home")}}">Accueil</a></li>
-                        <li><a href="#pres">Présentation</a></li>
-                        <li><a href="#pensionnaires">Animaux</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                        <li><a href="{{path('donation_one')}}">Faire un don</a></li>
-                        {% if app.user %}
-                            <li><a href="{{path('account_logout')}}">Déconnexion</a></li>
-                        {% else %}
-                            <li><a href="{{path('account_register')}}">Inscription</a></li>
-                            <li><a href="{{path('account_login')}}">Connexion</a></li>
-                        {% endif %}
-                        
-                    </ul> #}
+                    <a href="{{path("home")}}" class="menuUpperHeader"><i class="fa-solid fa-bars iconHeader" style="color: #ffffff;"></i>Menu</a>
                 </li>
                 <li>
-                    <h6>Animaux</h6>
+                    <h6><i class="fa-solid fa-paw iconHeader pawIconHeader" style="color: #ffffff;"></i>Animaux</h6>
                     <ul>
-                        <li><a href="{{path('animal_index',{'type':'chien'})}}">Chien</a></li>
-                        <li><a href="{{path('animal_index',{'type':'chat'})}}">Chat</a></li>
-                        <li><a href="{{path('animal_index',{'type':'lapin'})}}">Lapin</a></li>
+                        <li><a href="{{path('animal_index',{'type':'chien'})}}"><i class="fa-solid fa-dog iconHeader" style="color: #ffffff;"></i>Chien</a></li>
+                        <li><a href="{{path('animal_index',{'type':'chat'})}}"><i class="fa-solid fa-cat iconHeader" style="color: #ffffff;"></i>Chat</a></li>
+                        <li><a href="{{path('animal_index',{'type':'lapin'})}}"><i class="fa-solid fa-carrot iconHeader" style="color: #ffffff;"></i>Lapin</a></li>
                     </ul>
                 </li>
-                <li><a href="{{path('blog')}}">Blog</a></li>
+                <li><a href="{{path('blog')}}"><i class="fa-regular fa-newspaper iconHeader" style="color: #ffffff;"></i>Blog</a></li>
+                <li><a href="">Comment adopter</a></li>
                 <li><a href="{{path('adoption_one')}}">Faire adopter</a></li>
                 <li><a href="{{path('cart')}}"><i class="fa-solid fa-bag-shopping"></i><span class="numberAchatHeader ms-2">0</span></a></li>
                 <li>
@@ -66,9 +53,9 @@
             <a href="{{path("home")}}#contact">Contact</a>
         </div>
         <div class="linkUnderHeader">
-            <a href="{{path('animal_index',{'type':'chien'})}}">Chien</a>
-            <a href="{{path('animal_index',{'type':'chat'})}}">Chat</a>
-            <a href="{{path('animal_index',{'type':'lapin'})}}">Lapin</a>
+            <div><i class="fa-solid fa-dog iconHeader" style="color: #ffffff;"></i><a href="{{path('animal_index',{'type':'chien'})}}">Chien</a></div>
+            <div><i class="fa-solid fa-cat iconHeader" style="color: #ffffff;"></i><a href="{{path('animal_index',{'type':'chat'})}}">Chat</a></div>
+            <div><i class="fa-solid fa-carrot iconHeader" style="color: #ffffff;"></i><a href="{{path('animal_index',{'type':'lapin'})}}">Lapin</a></div>
         </div>
         <div class="linkUnderHeader">
             {% if app.user %}
@@ -89,6 +76,7 @@
     <div class="right">
         <div class="menuLink">
             <div class="menuContainer">
+                <i class="fa-solid fa-bars iconHeader" style="color: #ffffff;"></i>
                 <a href="{{path("home")}}">Menu</a>
                 <i class="fa-solid fa-chevron-right chevronMenu"></i>
             </div>
@@ -108,17 +96,31 @@
         </div>
         <div class="menuLink">
             <div class="menuContainer">
+                <i class="fa-solid fa-paw iconHeader pawIconHeader" style="color: #ffffff;"></i>
                 <h6>Animaux</h6>
                 <i class="fa-solid fa-chevron-right chevronMenu"></i>
             </div>
             <div class="link">
-                <a href="{{path('animal_index',{'type':'chien'})}}">Chien</a>
-                <a href="{{path('animal_index',{'type':'chat'})}}">Chat</a>
-                <a href="{{path('animal_index',{'type':'lapin'})}}">Lapin</a>
+                <div class="animalLink">
+                    <i class="fa-solid fa-dog iconHeader" style="color: #ffffff;"></i>
+                    <a href="{{path('animal_index',{'type':'chien'})}}">Chien</a>
+                </div>
+                <div class="animalLink">
+                    <i class="fa-solid fa-cat iconHeader" style="color: #ffffff;"></i>
+                    <a href="{{path('animal_index',{'type':'chat'})}}">Chat</a>
+                </div>
+                <div class="animalLink">
+                    <i class="fa-solid fa-carrot iconHeader" style="color: #ffffff;"></i>
+                    <a href="{{path('animal_index',{'type':'lapin'})}}">Lapin</a>
+                </div>
             </div>
         </div>
         <div class="menuLink">
+            <i class="fa-regular fa-newspaper iconHeader" style="color: #ffffff;"></i>
             <a href="{{path('blog')}}">Blog</a>
+        </div>
+        <div class="menuLink">
+            <a href="{{path('adoption_one')}}">Comment adopter</a>
         </div>
         <div class="menuLink">
             <a href="{{path('adoption_one')}}">Faire adopter</a>
