@@ -121,10 +121,13 @@
         
                 p{
                     @include roboto-regular;
+                    font-size: 20px;
                 }
                 .informationsName{
                     display: flex;
-                    font-size: 28px;
+                    p{
+                        font-size: 28px !important;
+                    }
                     .age{
                         margin-left: 20px;
                     }
@@ -134,9 +137,10 @@
                     flex-wrap: wrap;
                     align-items: center;
                     margin-bottom: 20px;
-                    font-size: 24px;
+                    
                     p{
                         margin-bottom: 0;
+                        font-size: 24px !important;
                     }
                     i{
                         margin:0 20px 0 10px;
