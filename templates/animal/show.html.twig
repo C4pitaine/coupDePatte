@@ -37,17 +37,19 @@
             <div class="showAnimalInfo">
                 <img src="/uploads/animal/{{animal.CoverImage}}" alt="Image de {{animal.name}}">
                 <div class="informationsAdoption">
-                    <p>Nom : <span class="animalName">{{animal.name}}</span></p>
-                    <p>Animal : {{animal.type}}</p>
-                    <p>Genre :
+                    <div class="informationsName">
+                        <p>Nom : <span class="animalName">{{animal.name}}</span></p>
+                        <p class="age">Âge : {{animal.age}}</p>
+                    </div>
+                    <div class="informationsAnimal">
+                        <p>Animal : {{animal.type}}</p>
                         {% if animal.genre == "male" %}
-                            mâle
+                            <i class="fa-solid fa-mars" style="color: #74C0FC;"></i>
                         {% else %}
-                            femelle
+                            <i class="fa-solid fa-venus" style="color: #ff0080;"></i>
                         {% endif %}
-                    </p>
-                    <p>Âge : {{animal.age}}</p>
-                    <p>Race : {{animal.race}}</p>
+                        <p class="race">{{animal.race}}</p>
+                    </div>
                     <div class="indispensables">
                         <p>Indispensables :</p>
                         {% for indispensable in animal.indispensables %}
