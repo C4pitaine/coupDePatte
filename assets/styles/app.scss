@@ -56,6 +56,49 @@ tbody{
         }
     }
 }
+
+/* Slide Comment adopter */
+.howToAddopt{
+    background-image: url("/public/images/Vector2.svg");
+    background-position: bottom center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    .wrapper{
+        .logo{
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .content{
+            margin: 40px 0;
+            h2,h4,h5{
+                @include roboto-bold;
+            }
+            p{
+                @include roboto-regular;
+            }
+
+            h2{
+                margin-bottom: 30px;
+            }
+
+            .step{
+                margin: 30px 0;
+
+                p{
+                    margin-left: 25px;
+                }
+            }
+            .contactButton{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+    }
+}
   
 
 /* Alerte de suppression */
