@@ -37,24 +37,28 @@
             <div class="showAnimalInfo">
                 <img src="/uploads/animal/{{animal.CoverImage}}" alt="Image de {{animal.name}}">
                 <div class="informationsAdoption">
-                    <div class="informationsName">
-                        <p>Nom : <span class="animalName">{{animal.name}}</span></p>
-                        <p class="age">Âge : {{animal.age}}</p>
-                    </div>
                     <div class="informationsAnimal">
-                        <p>Animal : {{animal.type}}</p>
-                        {% if animal.genre == "male" %}
-                            <i class="fa-solid fa-mars" style="color: #74C0FC;"></i>
-                        {% else %}
-                            <i class="fa-solid fa-venus" style="color: #ff0080;"></i>
-                        {% endif %}
-                        <p class="race">{{animal.race}}</p>
+                        <div class="informationsName">
+                            <p>{{animal.name}}</p>
+                            <p class="age">{{animal.age}} an(s)</p>
+                        </div>
+                        <div class="informations">
+                            <p>{{animal.type}}</p>
+                            {% if animal.genre == "male" %}
+                                <i class="fa-solid fa-mars" style="color: #74C0FC;"></i>
+                            {% else %}
+                                <i class="fa-solid fa-venus" style="color: #ff0080;"></i>
+                            {% endif %}
+                            <p class="race">{{animal.race}}</p>
+                        </div>
                     </div>
                     <div class="indispensables">
                         <p>Indispensables :</p>
-                        {% for indispensable in animal.indispensables %}
-                            <p>- {{indispensable.title}}</p>
-                        {% endfor %}
+                        <ul>
+                            {% for indispensable in animal.indispensables %}
+                                <li>{{indispensable.title}}</li>
+                            {% endfor %}
+                        </ul>
                     </div>
                     <div class="description">
                         <p>Description : </p>

@@ -111,39 +111,64 @@
             margin-bottom: 50px;
             display: flex;
             img{
-                height:80vh;
+                height:60vh;
                 max-width: 40%;
                 object-fit: contain !important;
             }
         
             .informationsAdoption{
                 margin-left: 20px;
-        
-                p{
-                    @include roboto-regular;
-                    font-size: 20px;
-                }
-                .informationsName{
-                    display: flex;
-                    p{
-                        font-size: 28px !important;
-                    }
-                    .age{
-                        margin-left: 20px;
-                    }
-                }
                 .informationsAnimal{
-                    display: flex;
-                    flex-wrap: wrap;
-                    align-items: center;
+                    background-color: $greenColor;
+                    border-radius: 10px;
+                    width: fit-content;
+                    padding: 5px 20px;
                     margin-bottom: 20px;
-                    
-                    p{
-                        margin-bottom: 0;
-                        font-size: 24px !important;
+                    .informationsName{
+                        display: flex;
+                        color: white;
+                        p{
+                            @include roboto-regular;
+                            font-size: 30px;
+                        }
+                        .age{
+                            margin-left: 20px;
+                        }
                     }
-                    i{
-                        margin:0 20px 0 10px;
+                    .informations{
+                        display: flex;
+                        color:white;
+                        p{
+                            @include roboto-regular;
+                            font-size: 22px;
+                        }
+                        i{
+                            font-size: 1.6rem;
+                            margin: 0 10px;
+                        }
+                    }
+                }
+                .indispensables{
+                    background-color: $greenColor;
+                    width: fit-content;
+                    padding: 30px 100px 10px 10px;
+                    border-radius: 10px;
+                    margin-bottom: 20px;
+                    p{
+                        color: white;
+                        @include roboto-regular;
+                        font-size: 20px;
+                    }
+                    li{
+                        color: white;
+                        @include roboto-regular;
+                        font-size: 18px;
+                    }
+                }
+                .description{
+                    p{
+                        @include roboto-regular;
+                        font-size: 16px;
                     }
                 }
             }
@@ -289,6 +314,13 @@
 
                 a{
                     margin-left: 0 !important;
+                }
+            }
+            .showAnimalInfo{
+                .informationsAdoption{
+                    .indispensables{
+                        padding-right: 30px;
+                    }
                 }
             }
         }
