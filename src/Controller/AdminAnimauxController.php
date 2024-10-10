@@ -3,12 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Animal;
-use App\Form\AnimalModifyType;
 use App\Form\AnimalType;
+use App\Form\AnimalModifyType;
 use App\Form\SearchFiltreType;
+use Symfony\Component\Mime\Email;
+use App\Repository\ParrainageRepository;
 use App\Service\PaginationFiltreService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -71,7 +74,7 @@ class AdminAnimauxController extends AbstractController
      * @return Response
      */
     #[Route('/admin/animal/{id}/update',name:"admin_animal_update")]
-    public function update(EntityManagerInterface $manager,Request $request,Animal $animal):Response
+    public function update(EntityManagerInterface $manager,Request $request,Animal $animal,ParrainageRepository $repo,MailerInterface $mailer):Response
     {
         $animalImage = $animal->getCoverImage();
         $animal->setCoverImage("");
@@ -104,6 +107,40 @@ class AdminAnimauxController extends AbstractController
             }else{
                 if(!empty($animalImage)){
                     $animal->setCoverImage($animalImage);
+                }
+            }
+
+            $adopted = $form['adopted']->getData();
+            if($adopted){
+                $parrainages = $repo->getParrainageFromAnimal($animal->getId());
+                foreach($parrainages as $parrainage){
+                    $parrainage->setMontant(0)
+                                ->setStatus("annulé car adopté");
+                    $users = $parrainage->getUser();
+                    foreach($users as $user){
+                        $email = (new Email())
+                                ->from("noreply@coupdepatte.alexandresacre.com")
+                                ->to($user->getEmail())
+                                ->subject("Parrainage de ".$animal->getName())
+                                ->text("
+                                    Coup de patte - Refuge animalier
+                                    Bonjour ".$user->getLastName()." ".$user->getFirstName()."
+                                    Nous vous envoyons ce courriel pour vous informer que ".$animal->getName()."sssss a été adopté par une famille.
+                                    Le montant de votre parrainage est donc réduit à 0 €, et vous ne serez plus débité pour ce parrainage.
+                                    L’équipe Coup de Patte
+                                    Bien à vous,
+                                ")
+                                ->html('
+                                    <h1>Coup de patte - Refuge animalier</h1>
+                                    <p>Bonjour '.$user->getLastName().' '.$user->getFirstName().'</p>
+                                    <p>Nous vous envoyons ce courriel pour vous informer que '.$animal->getName().' a été adopté par une famille.</p>
+                                    <p>Le montant de votre parrainage est donc réduit à 0 €, et vous ne serez plus débité pour ce parrainage.</p>
+                                    <p>Bien à vous,</p>
+                                    <p>L\'équipe Coup de Patte</p>
+                                ');
+                         $mailer->send($email);
+                    }
+                    $manager->persist($parrainage);
                 }
             }
 
