@@ -1,0 +1,72 @@
+{% extends "base.html.twig" %}
+
+{% block title %}SiteMap{% endblock %}
+
+{% block body %}
+    <div class="slide sitemap">
+        <div class="wrapper">
+            <h1>Plan du site</h1>
+            <div class="siteMapLinks">
+                <div class="siteMapLink">
+                    <h2>Accueil</h2>
+                    <li>
+                        <a href="{{path('home')}}">Accueil</a>
+                    </li>
+                </div>
+                <div class="siteMapLink">
+                    <h2>Animaux</h2>
+                    <li>
+                        <a href="{{path('animal_index',{'type':'chien'})}}">Chien</a>
+                        <a href="{{path('animal_index',{'type':'chat'})}}">Chat</a>
+                        <a href="{{path('animal_index',{'type':'lapin'})}}">Lapin</a>
+                    </li>
+                </div>
+                <div class="siteMapLink">
+                    <h2>Blog</h2>
+                    <li>
+                        <a href="{{path('blog')}}">Blog</a>
+                    </li>
+                </div>
+                <div class="siteMapLink">
+                    <h2>Adoption</h2>
+                    <li>
+                        <a href="{{path('legals_adoption')}}">Comment adopter</a>
+                        <a href="{{path('adoption_one')}}">Faire adopter</a>
+                    </li>
+                </div>
+                <div class="siteMapLink">
+                    <h2>Panier</h2>
+                    <li>
+                        <a href="{{path('cart')}}">Panier</a>
+                    </li>
+                </div>
+                <div class="siteMapLink">
+                    <h2>Utilisateurs</h2>
+                    <li>
+                        {% if app.user %}
+                            <a href="{{path('account_index')}}">Profil</a>
+                            <a href="{{path('parrainage_index')}}">Parrainage</a>
+                            <a href="{{path('account_logout')}}">Déconnexion</a>
+                        {% else %}
+                            <a href="{{path('account_login')}}">Connexion</a>
+                            <a href="{{path('account_register')}}">Inscription</a>
+                        {% endif %}
+                        
+                    </li>
+                </div>
+                <div class="siteMapLink">
+                    <h2>Donation</h2>
+                    <li>
+                        <a href="{{path('donation_one')}}">Faire un don</a>
+                    </li>
+                </div>
+                <div class="siteMapLink">
+                    <h2>Mentions légales</h2>
+                    <li>
+                        <a href="{{path('legals')}}">Mentions légales</a>
+                    </li>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

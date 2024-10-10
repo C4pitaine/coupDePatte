@@ -65,4 +65,15 @@ class HomeController extends AbstractController
     {
         return $this->render('legals/adoption.html.twig');
     }
+
+    /**
+     * Permet d'afficher la page avec les informations pour pouvoir adopter
+     *
+     * @return Response
+     */
+    #[Route('/legals/sitemap',name:'legals_sitemap')]
+    public function siteMap(): Response
+    {
+        return $this->render('legals/sitemap.html.twig');
+    }
 }
