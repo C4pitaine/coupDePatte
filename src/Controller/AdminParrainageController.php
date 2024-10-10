@@ -56,9 +56,9 @@ class AdminParrainageController extends AbstractController
         $form = $this->createForm(SearchFiltreType::class,null,[
             'choices' => [
                 "" => "",
-                "Chat" => "chat",
-                "Chien" => "chien",
-                "Lapin" => "lapin"
+                "Payé" => "payé",
+                "Annulé" => "annulé",
+                "En attente" => "en attente",
             ]
         ]);
         $form->handleRequest($request);

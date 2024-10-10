@@ -68,7 +68,7 @@ class ParrainageRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('p')
                     ->innerJoin('p.user', 'u')
                     ->innerJoin('p.animal', 'a')
-                    ->where('(a.name LIKE :search) AND (a.type LIKE :filtre)')
+                    ->where('(a.name LIKE :search) AND (a.type LIKE :filtre OR p.status LIKE :filtre)')
                     ->setParameter('search','%'.$search.'%')
                     ->setParameter('filtre','%'.$filtre.'%')
                     ->setMaxResults($limit)
