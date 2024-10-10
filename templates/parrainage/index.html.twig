@@ -32,7 +32,7 @@
                                             <h4>{{animal.name}}</h4>
                                             <p>A trouvé une famille</p>
                                         </div>
-                                        {% include "partials/deleteAlert.html.twig" with {'type':'de vos favoris','title':animal.name, 'id':favori.id, 'route':'favori_delete'} %}
+                                        {% include "partials/deleteAlert.html.twig" with {'type':'de vos parrainages','title':animal.name, 'id':parrainage.id, 'route':'parrainage_delete'} %}
                                     </div>
                                 {% else %}
                                     <div class="favori">

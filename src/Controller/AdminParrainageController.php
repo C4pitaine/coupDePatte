@@ -57,6 +57,7 @@ class AdminParrainageController extends AbstractController
             'choices' => [
                 "" => "",
                 "Payé" => "payé",
+                "Stoppé" => "stoppé car adopté",
                 "Annulé" => "annulé",
                 "En attente" => "en attente",
             ]

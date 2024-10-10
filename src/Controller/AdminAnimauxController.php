@@ -115,7 +115,7 @@ class AdminAnimauxController extends AbstractController
                 $parrainages = $repo->getParrainageFromAnimal($animal->getId());
                 foreach($parrainages as $parrainage){
                     $parrainage->setMontant(0)
-                                ->setStatus("annulé car adopté");
+                                ->setStatus("stoppé car adopté");
                     $users = $parrainage->getUser();
                     foreach($users as $user){
                         $email = (new Email())
