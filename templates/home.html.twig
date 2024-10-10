@@ -60,7 +60,8 @@
                 <p>En tant que <strong>parrain</strong>, vous <strong>contribuerez chaque mois à son bien-être</strong> et aurez <strong>accès à des privilèges uniques</strong>, comme la possibilité de <strong>venir le voir</strong> et même de le <strong>promener</strong>. <strong>Inscrivez-vous</strong> et explorez les profils de nos pensionnaires pour choisir celui avec qui vous souhaitez créer ce lien spécial.</p></p>
                 <div class="buttons">
                     <a href="#pensionnaires" class="backButton">Nos animaux</a>
-                    <a href="{{path('account_register')}}" class="backButton">Vous inscrire</a>
+                    {% if not app.user %}<a href="{{path('account_register')}}" class="backButton">Vous inscrire</a>{% endif %}
+                    
                 </div>
             </div>
         </div>
