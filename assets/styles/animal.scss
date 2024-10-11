@@ -58,6 +58,10 @@
                         display: none !important;
                         @include aFront;
                     }
+                    i{
+                        margin-bottom: 20px;
+                        font-size: 1.6rem;
+                    }
                 }
 
                 .infos.active,.infos.activeHover{

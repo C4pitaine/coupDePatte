@@ -15,16 +15,14 @@
                             <div class="animal">
                                 <img src="/uploads/animal/{{animal.coverImage}}" alt="Image de {{animal.name}}">
                                 <div class="infos">
-                                    <h5>{{animal.name}}</h4>
+                                    <h5>{{animal.name}}</h5>
                                     <h6>{{animal.race}}</h6>
-                                    <h6>{{animal.type}} 
-                                    {% if animal.genre == "male" %}
-                                        mâle
+                                     {% if animal.genre == "male" %}
+                                        <i class="fa-solid fa-mars" style="color: #74C0FC;"></i>
                                     {% else %}
-                                        femelle
+                                        <i class="fa-solid fa-venus" style="color: #ff0080;"></i>
                                     {% endif %}
-                                    </h4>
-                                    <h6>{{animal.age}} ans</h4>
+                                    <h6>{{animal.age}} ans</h6>
                                     <a href="{{path('animal_show',{'id':animal.id,'back':'index'})}}">Voir plus</a>
                                 </div>
                             </div>
