@@ -60,6 +60,7 @@
         align-items: center;
     }
     .leftOne{
+        min-height: 100vh;
         width: 50%;
         background-image: url('/public/images/leftOne.webp');
         background-position: center center;
@@ -67,6 +68,7 @@
         background-repeat: no-repeat;
     }
     .rightOne{
+        min-height: 100vh;
         width: 50%;
         .wrapper{
             .content{
@@ -98,6 +100,7 @@
         }
     }
     .leftTwo{
+        min-height: 100vh;
         width: 50%;
         .wrapper{
             .content{
@@ -129,6 +132,7 @@
         }
     }
     .rightTwo{
+        min-height: 100vh;
         width: 50%;
         background-image: url('/public/images/rightTwo.webp');
         background-position: center center;
