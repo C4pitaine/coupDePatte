@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Dompdf\Dompdf;
+use Dompdf\Options;
 use App\Entity\Donation;
 use Stripe\StripeClient;
 use App\Form\DonationOneType;
@@ -186,13 +187,18 @@ class DonationController extends AbstractController
                     'montant' => $donation->getMontant(),
                 ]);
 
-                $dompdf = new Dompdf();
+                $pdfOptions = new Options();
+                $pdfOptions->set('defaultFont', 'Arial');
+                $dompdf = new Dompdf($pdfOptions);
+                $dompdf->setPaper('A4', 'portrait');
+                $dompdf->render();
+                $pdfOutput = $dompdf->output();
 
                 $email = (new TemplatedEmail())
                 ->from("noreply@coupdepatte.alexandresacre.com")
                 ->to(new Address($donation->getEmail()))
                 ->subject('Facture de votre don')
-                ->attach($dompdf->loadHtml($html))
+                ->attach($pdfOutput,'facture de don')
                 ->htmlTemplate('emails/facture.html.twig')
                 ->context([
                     'donateur' => $donation->getLastName()." ".$donation->getFirstName(),
