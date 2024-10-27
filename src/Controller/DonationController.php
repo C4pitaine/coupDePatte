@@ -3,8 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Donation;
-use Dompdf\Dompdf;
-use Dompdf\Options;
 use Stripe\StripeClient;
 use App\Form\DonationOneType;
 use App\Form\DonationTwoType;
@@ -12,11 +10,11 @@ use Symfony\Component\Mime\Address;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
+use Symfony\Component\Mailer\MailerInterface;
 
 class DonationController extends AbstractController
 {
@@ -180,26 +178,10 @@ class DonationController extends AbstractController
                 $manager->persist($donation);
                 $manager->flush();
 
-                $html = $this->renderView('emails/facture.html.twig', [
-                    'donateur' => $donation->getLastName()." ".$donation->getFirstName(),
-                    'montant' => $donation->getMontant(),
-                ]);
-
-                $options = new Options();
-                $options->set('defaultFont', 'Arial');
-                $dompdf = new Dompdf($options);
-
-                $dompdf->loadHtml($html);
-                $dompdf->setPaper('A4', 'portrait');
-                $dompdf->render();
-
-                $pdfOutput = $dompdf->output();
-
                 $email = (new TemplatedEmail())
                 ->from("noreply@coupdepatte.alexandresacre.com")
                 ->to(new Address($donation->getEmail()))
                 ->subject('Facture de votre don')
-                ->attach($pdfOutput,'facture_de_don.pdf', 'application/pdf')
                 ->htmlTemplate('emails/facture.html.twig')
                 ->context([
                     'donateur' => $donation->getLastName()." ".$donation->getFirstName(),
