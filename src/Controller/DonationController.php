@@ -9,9 +9,7 @@ use Stripe\StripeClient;
 use App\Form\DonationOneType;
 use App\Form\DonationTwoType;
 use Symfony\Component\Mime\Address;
-use Symfony\Component\Mime\Part\File;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Mime\Part\DataPart;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
@@ -190,16 +188,18 @@ class DonationController extends AbstractController
                 $pdfOptions = new Options();
                 $pdfOptions->set('defaultFont', 'Arial');
                 $dompdf = new Dompdf($pdfOptions);
+
                 $dompdf->loadHtml($html);
                 $dompdf->setPaper('A4', 'portrait');
                 $dompdf->render();
+
                 $pdfOutput = $dompdf->output();
 
                 $email = (new TemplatedEmail())
                 ->from("noreply@coupdepatte.alexandresacre.com")
                 ->to(new Address($donation->getEmail()))
                 ->subject('Facture de votre don')
-                ->attach($pdfOutput,'facture de don')
+                ->attach($pdfOutput,'facture_de_don.pdf', 'application/pdf')
                 ->htmlTemplate('emails/facture.html.twig')
                 ->context([
                     'donateur' => $donation->getLastName()." ".$donation->getFirstName(),
