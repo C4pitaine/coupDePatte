@@ -190,6 +190,7 @@ class DonationController extends AbstractController
                 $pdfOptions = new Options();
                 $pdfOptions->set('defaultFont', 'Arial');
                 $dompdf = new Dompdf($pdfOptions);
+                $dompdf->loadHtml($html);
                 $dompdf->setPaper('A4', 'portrait');
                 $dompdf->render();
                 $pdfOutput = $dompdf->output();
