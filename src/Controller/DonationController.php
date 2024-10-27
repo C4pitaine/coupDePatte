@@ -185,9 +185,9 @@ class DonationController extends AbstractController
                     'montant' => $donation->getMontant(),
                 ]);
 
-                $pdfOptions = new Options();
-                $pdfOptions->set('defaultFont', 'Arial');
-                $dompdf = new Dompdf($pdfOptions);
+                $options = new Options();
+                $options->set('defaultFont', 'Arial');
+                $dompdf = new Dompdf($options);
 
                 $dompdf->loadHtml($html);
                 $dompdf->setPaper('A4', 'portrait');
