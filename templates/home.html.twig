@@ -10,7 +10,7 @@
                 <img src="logo/Union.png" alt="Logo de Coup de Patte">
                 <p>Chez Coup de Patte, chaque chien, chat et lapin trouve une nouvelle chance et beaucoup d'amour.</p>
                 <p>Offrez-leur un foyer, ils vous offriront un ami pour la vie !</p>
-                <a href="#slideContact" class="backButton">Nous contacter</a>
+                <a href="#myContact" class="backButton">Nous contacter</a>
             </div>
         </div>
         <div class="right">
@@ -107,7 +107,9 @@
         </div>
         <div class="right">
             <div class="wrapper">
-                <h4>Contact</h4>
+                <div id="myContact">
+                    <h4>Contact</h4>
+                </div>
                 {% for label, messages in app.flashes %}
                     <div class="container mt-3">
                         <div class="alert alert-{{label}}">
