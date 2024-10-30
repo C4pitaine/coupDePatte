@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-use Dompdf\Dompdf;
-use Dompdf\Options;
 use App\Entity\Cart;
 use App\Form\CartType;
 use Stripe\StripeClient;
@@ -11,11 +9,11 @@ use Symfony\Component\Mime\Address;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
+use Symfony\Component\Mailer\MailerInterface;
 
 class CartController extends AbstractController
 {   
@@ -102,21 +100,6 @@ class CartController extends AbstractController
                 $manager->persist($cart);
                 $manager->flush();
 
-                $options = new Options();
-                $options->set('defaultFont', 'Arial');
-                $dompdf = new Dompdf($options);
-
-                $htmlContent = $this->renderView('emails/facture.html.twig', [
-                    'donateur' => $cart->getName()." ".$cart->getFirstName(),
-                    'montant' => $cart->getTotal(),
-                ]);
-
-                $dompdf->loadHtml($htmlContent);
-                $dompdf->setPaper('A4', 'portrait');
-                $dompdf->render();
-
-                $pdfContent = $dompdf->output();
-
                 $email = (new TemplatedEmail())
                 ->from("noreply@coupdepatte.alexandresacre.com")
                 ->to(new Address($cart->getEmail()))
@@ -125,8 +108,7 @@ class CartController extends AbstractController
                 ->context([
                     'donateur' => $cart->getName()." ".$cart->getFirstName(),
                     'montant' => $cart->getTotal(),
-                ])
-                ->attach($pdfContent, 'facture.pdf', 'application/pdf');
+                ]);
                 $mailer->send($email);
             }else{
                 throw new BadRequestException('Token invalide');
