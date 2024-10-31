@@ -287,6 +287,9 @@
         p{
             @include roboto-regular;
         }
+        .longText{
+            word-wrap: break-word;
+        }
     }
 }
 

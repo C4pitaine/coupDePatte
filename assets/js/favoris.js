@@ -9,10 +9,19 @@ favoris.forEach((favori,index)=>{
         show[index].classList.toggle('active')
     })
 
-    favori.addEventListener('pointerenter',()=>{
-        show[index].classList.add('activeHover')
-    })
-    favori.addEventListener('pointerleave',()=>{
-        show[index].classList.remove('activeHover')
-    })
+    if(navigator.userAgent.includes("Safari")){
+        favori.addEventListener('mouseover',()=>{
+            show[index].classList.add('activeHover')
+        })
+        favori.addEventListener('mouseout',()=>{
+            show[index].classList.remove('activeHover')
+        })
+    }else{
+        favori.addEventListener('pointerenter',()=>{
+            show[index].classList.add('activeHover')
+        })
+        favori.addEventListener('pointerleave',()=>{
+            show[index].classList.remove('activeHover')
+        })
+    }
 })
