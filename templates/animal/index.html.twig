@@ -50,24 +50,13 @@
             animal.addEventListener('click',()=>{
                 infos[key].classList.toggle('active')
             })
-            
-            if(navigator.userAgent.includes("Safari")){
-                animal.addEventListener('mouseover',()=>{
-                infos[key].classList.add('activeHover')
-                })
-                animal.addEventListener('mouseout',()=>{
-                    infos[key].classList.remove('activeHover')
-                })
-            }else{
-                animal.addEventListener('pointerenter',()=>{
-                infos[key].classList.add('activeHover')
-                })
-                animal.addEventListener('pointerleave',()=>{
-                    infos[key].classList.remove('activeHover')
-                })
-            }
-        })
 
-        
+            animal.addEventListener('pointerenter',()=>{
+                infos[key].classList.add('activeHover')
+            })
+            animal.addEventListener('pointerleave',()=>{
+                infos[key].classList.remove('activeHover')
+            })
+        })
     </script>
 {% endblock %}

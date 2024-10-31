@@ -143,21 +143,12 @@
                 container[index].classList.toggle('active')
             })
 
-            if(navigator.userAgent.includes("Safari")){
-                pensionnaire.addEventListener('mouseover',()=>{
+            pensionnaire.addEventListener('pointerenter',()=>{
                 container[index].classList.add('activeHover')
-                })
-                pensionnaire.addEventListener('mouseout',()=>{
-                    container[index].classList.remove('activeHover')
-                })
-            }else{
-                pensionnaire.addEventListener('pointerenter',()=>{
-                container[index].classList.add('activeHover')
-                })
-                pensionnaire.addEventListener('pointerleave',()=>{
-                    container[index].classList.remove('activeHover')
-                })
-            }
+            })
+            pensionnaire.addEventListener('pointerleave',()=>{
+                container[index].classList.remove('activeHover')
+            })
         })
     </script>
     {{encore_entry_script_tags('slider')}}
