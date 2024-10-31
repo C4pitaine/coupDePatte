@@ -51,13 +51,6 @@
             animal.addEventListener('click',()=>{
                 infos[key].classList.toggle('active')
             })
-
-            animal.addEventListener('pointerenter',(event)=>{
-                infos[key].classList.add('activeHover')
-            })
-            animal.addEventListener('pointerleave',(event)=>{
-                infos[key].classList.remove('activeHover')
-            })
         })
     </script>
 {% endblock %}
