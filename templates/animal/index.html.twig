@@ -46,9 +46,21 @@
         var infos = document.querySelectorAll('.infos');
 
         animaux.forEach((animal,key)=>{
-            
+            let isHovered = false;
+
             animal.addEventListener('click',()=>{
-                infos[key].classList.toggle('active')
+                if(!isHovered){
+                    infos[key].classList.toggle('active')
+                }
+            })
+
+            animal.addEventListener('pointerenter',(event)=>{
+                isHovered = true
+                infos[key].classList.add('activeHover')
+            })
+            animal.addEventListener('pointerleave',(event)=>{
+                isHovered = false
+                infos[key].classList.remove('activeHover')
             })
         })
     </script>
