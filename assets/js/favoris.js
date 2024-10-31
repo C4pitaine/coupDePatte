@@ -8,11 +8,4 @@ favoris.forEach((favori,index)=>{
     favori.addEventListener('click',()=>{
         show[index].classList.toggle('active')
     })
-
-    favori.addEventListener('pointerenter',()=>{
-        show[index].classList.add('activeHover')
-    })
-    favori.addEventListener('pointerleave',()=>{
-        show[index].classList.remove('activeHover')
-    })
 })
