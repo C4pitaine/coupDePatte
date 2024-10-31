@@ -40,7 +40,9 @@ class AnimalModifyType extends ApplicationType
         ->add('description',TextareaType::class,$this->getConfiguration("Description","La description de l'animal"))
         ->add('friandise', EntityType::class, [
             'class' => Friandise::class,
-            'choice_label' => 'name',
+            'choice_label' => function (Friandise $friandise): string{
+                return $friandise->getName() .' - '. $friandise->getAnimal();
+            },
             'multiple' => true,
             'autocomplete' => true,
         ])
