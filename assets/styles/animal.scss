@@ -26,6 +26,14 @@
                     object-fit: cover;
                 }
 
+                &:hover .infos{
+                    opacity: 1;
+                    transform: translateY(0);
+                    a{
+                        display: block !important;
+                    }
+                }
+
                 .infos{
                     display: flex;
                     position: absolute;
@@ -67,7 +75,7 @@
                     }
                 }
 
-                .infos.active,.infos.activeHover{
+                .infos.active{
                     opacity: 1;
                     transform: translateY(0);
                     a{
