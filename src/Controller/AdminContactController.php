@@ -46,15 +46,15 @@ class AdminContactController extends AbstractController
                             ->subject("Réponse à votre message de contact")
                             ->text("
                                 Bonjour ".$contact->getLastName()." ".$contact->getFirstName()."
-                                Voici notre réponse à votre message :
-                                ".$request->request->get('send')."
+                                Votre message : ".$contact->getMessage()."
+                                Notre réponse : ".$request->request->get('send')."
                                 Bien à vous,
                                 L\'équipe Coup de patte.
                             ")
                             ->html('
                                 <h2>Bonjour '.$contact->getLastName().' '.$contact->getFirstName().'</h2>
-                                <p>Voici notre réponse à votre message :</p>
-                                <p>'.$request->request->get('send').'</p>
+                                <p>Votre message : '.$contact->getMessage().'</p>
+                                <p>Notre réponse : '.$request->request->get('send').'</p>
                                 <p>Bien à vous,</p>
                                 <p>L\'équipe Coup de patte.</p>
                             ');
