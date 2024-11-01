@@ -45,7 +45,7 @@ header{
                 margin: 0;
 
                 li{
-                    width: 170px;
+                    width: 180px;
                     text-align: center;
                     
                     a{
@@ -294,7 +294,7 @@ header.menuOpened .bar {
 
 /* Media queries */
 
-@media all and (max-width:1320px){
+@media all and (max-width:1350px){
     #burger {
         display: flex;
         flex-direction: column;
