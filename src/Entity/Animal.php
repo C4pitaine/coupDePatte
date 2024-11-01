@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: AnimalRepository::class)]
-#[UniqueEntity(fields:['name'],message: "Un autre animal possède déjà ce nom, merci de la modifier")]
+#[UniqueEntity(fields:['name'],message: "Un autre animal possède déjà ce nom, merci de le modifier")]
 class Animal
 {
     #[ORM\Id]
@@ -53,12 +53,6 @@ class Animal
     private ?bool $adopted = null;
 
     /**
-     * @var Collection<int, Suivi>
-     */
-    #[ORM\OneToMany(targetEntity: Suivi::class, mappedBy: 'animal', orphanRemoval: true)]
-    private Collection $suivis;
-
-    /**
      * @var Collection<int, Friandise>
      */
     #[ORM\ManyToMany(targetEntity: Friandise::class, inversedBy: 'animals')]
@@ -95,7 +89,6 @@ class Animal
 
     public function __construct()
     {
-        $this->suivis = new ArrayCollection();
         $this->friandise = new ArrayCollection();
         $this->images = new ArrayCollection();
         $this->indispensables = new ArrayCollection();
@@ -200,36 +193,6 @@ class Animal
     public function setAdopted(bool $adopted): static
     {
         $this->adopted = $adopted;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Suivi>
-     */
-    public function getSuivis(): Collection
-    {
-        return $this->suivis;
-    }
-
-    public function addSuivi(Suivi $suivi): static
-    {
-        if (!$this->suivis->contains($suivi)) {
-            $this->suivis->add($suivi);
-            $suivi->setAnimal($this->name);
-        }
-
-        return $this;
-    }
-
-    public function removeSuivi(Suivi $suivi): static
-    {
-        if ($this->suivis->removeElement($suivi)) {
-            // set the owning side to null (unless already changed)
-            if ($suivi->getAnimal() === $this) {
-                $suivi->setAnimal(null);
-            }
-        }
 
         return $this;
     }
