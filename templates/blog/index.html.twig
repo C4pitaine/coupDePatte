@@ -10,7 +10,7 @@
             {% if pagination.data %}
                 <div class="articles">
                     {% for article in pagination.data %}
-                        <a href="{{path('article_show',{'id':article.id})}}" class="article">
+                        <a href="{{path('article_show',{'slug':article.slug})}}" class="article">
                             <img src="/uploads/article/{{article.image}}" alt="Image de {{article.title}}">
                             <h6>"{{article.title}}"</h6>
                         </a>

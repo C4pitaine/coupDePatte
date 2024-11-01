@@ -18,7 +18,7 @@ class BlogController extends AbstractController
      * @param Article $article
      * @return Response
      */
-    #[Route('/blog/{id}/show',name:'article_show')]
+    #[Route('/blog/{slug}/show',name:'article_show')]
     public function show(Article $article): Response
     {
         return $this->render('blog/show.html.twig',[
