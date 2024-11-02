@@ -36,7 +36,7 @@ class HomeController extends AbstractController
             $manager->flush();
 
             $this->addFlash('success','Votre message a bien été envoyé');
-            return new RedirectResponse($this->generateUrl('home').'#slideContact');
+            return new RedirectResponse($this->generateUrl('home').'#myContact');
         }
         return $this->render('home.html.twig', [
             'formContact' => $form->createView(),
