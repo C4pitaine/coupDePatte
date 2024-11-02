@@ -333,6 +333,9 @@ header.menuOpened .bar {
     #menu.menuOpened{
         .right{
             width: 90%;
+            .menuLink{
+                width: 50%;
+            }
         }
         .left{
             width:10%;
