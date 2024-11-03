@@ -33,6 +33,23 @@ class FavoriRepository extends ServiceEntityRepository
                     ->getResult();
     }
 
+    /**
+     * Permet de trouver toutes les mises en favoris d'un Animal
+     *
+     * @param integer $userId
+     * @return array|null
+     */
+    public function getFavoriFromAnimal(int $animalId): ?array
+    {
+        return $this->createQueryBuilder('f')
+                    ->innerJoin('f.user', 'u')
+                    ->innerJoin('f.animal', 'a')
+                    ->where('a.id = :animalId')
+                    ->setParameter('animalId', $animalId)
+                    ->getQuery()
+                    ->getResult();
+    }
+
     
     /**
      * Permet de récupérer un favori en fonction d'un animal et d'un user

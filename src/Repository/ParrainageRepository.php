@@ -33,6 +33,23 @@ class ParrainageRepository extends ServiceEntityRepository
                     ->getResult();
     }
 
+     /**
+     * Permet de trouver tout les parrainages d'un User
+     *
+     * @param integer $userId
+     * @return array|null
+     */
+    public function getAllParrainageFromAnimal(int $animalId): ?array
+    {
+        return $this->createQueryBuilder('p')
+                    ->innerJoin('p.user', 'u')
+                    ->innerJoin('p.animal', 'a')
+                    ->where('a.id = :animalId')
+                    ->setParameter('animalId', $animalId)
+                    ->getQuery()
+                    ->getResult();
+    }
+
     /**
      * Permet de trouver tout les parrainages payé d'un User
      *

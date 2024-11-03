@@ -6,6 +6,7 @@ use App\Entity\Animal;
 use App\Form\AnimalType;
 use App\Form\AnimalModifyType;
 use App\Form\SearchFiltreType;
+use App\Repository\FavoriRepository;
 use Symfony\Component\Mime\Email;
 use App\Repository\ParrainageRepository;
 use App\Service\PaginationFiltreService;
@@ -166,7 +167,7 @@ class AdminAnimauxController extends AbstractController
      * @return Response
      */
     #[Route('/admin/animal/{id}/delete',name:"admin_animal_delete")]
-    public function delete(EntityManagerInterface $manager,Animal $animal):Response
+    public function delete(EntityManagerInterface $manager,Animal $animal,ParrainageRepository $parrainageRepository,FavoriRepository $favoriRepository):Response
     {
         $this->addFlash('danger','Le profil de '.$animal->getName().' a bien été supprimé');
 
@@ -175,6 +176,16 @@ class AdminAnimauxController extends AbstractController
             unlink($this->getParameter('uploads_directory_animal').'/'.$animal->getCoverImage());
             $animal->setCoverImage('');
             $manager->persist($animal);
+        }
+
+        $parrainages = $parrainageRepository->getAllParrainageFromAnimal($animal->getId());
+        foreach($parrainages as $parrainage){
+            $manager->remove($parrainage);
+        }
+
+        $favoris = $favoriRepository->getFavoriFromAnimal($animal->getId());
+        foreach($favoris as $favori){
+            $manager->remove($favori);
         }
 
         $manager->remove($animal);
