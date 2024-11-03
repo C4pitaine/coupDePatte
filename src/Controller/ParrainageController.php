@@ -18,6 +18,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class ParrainageController extends AbstractController
 {
@@ -165,11 +166,18 @@ class ParrainageController extends AbstractController
     #[IsGranted('ROLE_USER')]
     public function delete(EntityManagerInterface $manager,Parrainage $parrainage): Response
     {
-        foreach($parrainage->getAnimal() as $animal){
-            $this->addFlash('success','Votre parrainage de '.$animal->getName().' a bien été supprimé');
-            $manager->remove($parrainage);
-            $manager->flush();
-            return $this->redirectToRoute('parrainage_index');
+        $user = $this->getUser();
+        foreach($parrainage->getUser() as $userParrainage){
+            if($user == $userParrainage){
+                foreach($parrainage->getAnimal() as $animal){
+                    $this->addFlash('success','Votre parrainage de '.$animal->getName().' a bien été supprimé');
+                    $manager->remove($parrainage);
+                    $manager->flush();
+                    return $this->redirectToRoute('parrainage_index');
+                }
+            }else{
+                throw new AccessDeniedException("Erreur 403");
+            }
         }
     }
 
