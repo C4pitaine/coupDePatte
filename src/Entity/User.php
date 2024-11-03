@@ -71,7 +71,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, Parrainage>
      */
-    #[ORM\ManyToMany(targetEntity: Parrainage::class, mappedBy: 'user', orphanRemoval: true)]
+    #[ORM\ManyToMany(targetEntity: Parrainage::class, mappedBy: 'user')]
     private Collection $parrainages;
 
     public function __construct()

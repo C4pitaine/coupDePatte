@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\AddFamilleAccueilType;
 use App\Form\SearchType;
+use App\Repository\FavoriRepository;
+use App\Repository\ParrainageRepository;
 use App\Service\PaginationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,9 +24,19 @@ class AdminUserController extends AbstractController
      * @return Response
      */
     #[Route('admin/user/{id}/delete',name:'admin_user_delete')]
-    public function delete(EntityManagerInterface $manager,User $user):Response
+    public function delete(EntityManagerInterface $manager,User $user,ParrainageRepository $parrainageRepo,FavoriRepository $favoriRepository):Response
     {
         $this->addFlash('danger',"L'user : ".$user->getLastName()." ".$user->getFirstName()." a bien été supprimé");
+
+        $parrainages = $parrainageRepo->getAllParrainageFromUser($user->getId());
+        foreach($parrainages as $parrainage){
+            $manager->remove($parrainage);
+        }
+
+        $favoris = $favoriRepository->getFavoriFromUser($user->getId());
+        foreach($favoris as $favori){
+            $manager->remove($favori);
+        }
 
         $manager->remove($user);
         $manager->flush();

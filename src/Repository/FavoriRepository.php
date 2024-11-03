@@ -53,7 +53,7 @@ class FavoriRepository extends ServiceEntityRepository
     }
 
     /**
-     * Permet de faire une recherche les favoris d'un user
+     * Permet de faire une recherche sur les favoris d'un user
      *
      * @param string $search
      * @param string $filtre

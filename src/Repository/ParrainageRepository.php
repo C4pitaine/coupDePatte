@@ -22,6 +22,23 @@ class ParrainageRepository extends ServiceEntityRepository
      * @param integer $userId
      * @return array|null
      */
+    public function getAllParrainageFromUser(int $userId): ?array
+    {
+        return $this->createQueryBuilder('p')
+                    ->innerJoin('p.user', 'u')
+                    ->innerJoin('p.animal', 'a')
+                    ->where('u.id = :userId')
+                    ->setParameter('userId', $userId)
+                    ->getQuery()
+                    ->getResult();
+    }
+
+    /**
+     * Permet de trouver tout les parrainages payé d'un User
+     *
+     * @param integer $userId
+     * @return array|null
+     */
     public function getParrainageFromUser(int $userId): ?array
     {
         return $this->createQueryBuilder('p')
@@ -36,9 +53,9 @@ class ParrainageRepository extends ServiceEntityRepository
     }
 
     /**
-     * Permet de trouver tout les parrainages d'un User
+     * Permet de trouver tout les parrainages payé d'un Animal
      *
-     * @param integer $userId
+     * @param integer $animalId
      * @return array|null
      */
     public function getParrainageFromAnimal(int $animalId): ?array
