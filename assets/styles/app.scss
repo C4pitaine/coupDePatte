@@ -554,6 +554,11 @@
             grid-template-columns: repeat(2,1fr);
         }
     }
+    .alertDelete{
+        .containerDelete{
+            width: 90%;
+        }
+    }
 }
 
 @media all and (max-width:650px)
